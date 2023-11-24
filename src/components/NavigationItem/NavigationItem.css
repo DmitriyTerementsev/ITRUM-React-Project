@@ -1,0 +1,30 @@
+.navigation-item {
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navigation-item__text {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.navigation-item__icon {
+  margin-left: 16px;
+}
+
+.navigation-item_active {
+  background-color: #c06ecc;
+}
+
+.navigation-item_active .navigation-item__text {
+  color: #ffffff;
+}
+
+.navigation-item:hover {
+  cursor: pointer;
+}

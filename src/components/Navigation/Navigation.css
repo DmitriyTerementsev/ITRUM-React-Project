@@ -1,0 +1,8 @@
+.navigation {
+  display: flex;
+  width: 217px;
+  padding-top: 131px;
+  padding-bottom: 131px;
+  flex-direction: column;
+  gap: 8px;
+}
