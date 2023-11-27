@@ -1,9 +1,11 @@
 import Navigation from '../Navigation/Navigation';
+import Table from '../Table/Table';
 
 function App() {
   return (
-    <div className='App'>
-      <Navigation />{' '}
+    <div className='app'>
+      <Navigation />
+      <Table />
     </div>
   );
 }

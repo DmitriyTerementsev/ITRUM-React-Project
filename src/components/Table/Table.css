@@ -1,0 +1,9 @@
+.table {
+  width: 1007px;
+  height: 872px;
+  background-color: #ffffff;
+  box-shadow: -5px 1px 15px 0px #0000000D;
+  border-top-right-radius: 24px;
+  border-top-left-radius: 24px;
+  margin: 24px 0 0 24px;
+}
