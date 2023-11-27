@@ -2,13 +2,12 @@
   margin: 0;
   padding: 0;
   color: #000000;
-  border: 1px solid red;
+
 }
 
 #root {
-  background-color: #ffffff;
+  background-color: #F8F8FA;
   min-width: 320px;
-  max-width: 1660px;
   margin: 0 auto;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,10 +1,9 @@
-import Navigation from "../Navigation/Navigation";
+import Navigation from '../Navigation/Navigation';
 
 function App() {
   return (
-    <div className="App">
-      <Navigation />
-
+    <div className='App'>
+      <Navigation />{' '}
     </div>
   );
 }

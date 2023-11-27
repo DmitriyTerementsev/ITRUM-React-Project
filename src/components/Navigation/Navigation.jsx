@@ -1,29 +1,42 @@
 import NavigationItem from '../NavigationItem/NavigationItem';
-import products from '../../images/products.svg';
-import users from '../../images/users.svg'
-import categories from '../../images/categories.svg'
-import towns from '../../images/towns.svg'
-import brands from '../../images/brands.svg'
-import protocols from '../../images/protocols.svg'
-import orders from '../../images/orders.svg'
-import banners from '../../images/banners.svg'
-import seminares from '../../images/seminares.svg'
-import promocodes from '../../images/promocodes.svg'
+import { NavLink } from 'react-router-dom';
+import navigationItems from '../../utils/constants'
+
 
 function Navigation() {
   return (
-    <section className='navigation'>
-      <NavigationItem link={products} name={'Продукты'} />
-      <NavigationItem link={users} name={'Пользователи'} />
-      <NavigationItem link={categories} name={'Категории'} />
-      <NavigationItem link={towns} name={'Города'} />
-      <NavigationItem link={brands} name={'Бренды'} />
-      <NavigationItem link={protocols} name={'Протоколы'} />
-      <NavigationItem link={orders} name={'Заказы'} />
-      <NavigationItem link={banners} name={'Баннеры'} />
-      <NavigationItem link={seminares} name={'Семинары'} />
-      <NavigationItem link={promocodes} name={'Промокоды'} />
-    </section>
+    <nav className='navigation'>
+      <NavLink to='/products' className='nav-link'>
+        <NavigationItem link={navigationItems.products} name={'Продукты'} />
+      </NavLink>
+      <NavLink to='/clients' className='nav-link'>
+        <NavigationItem link={navigationItems.users} name={'Пользователи'} />
+      </NavLink>
+      <NavLink to='/categories' className='nav-link'>
+        <NavigationItem link={navigationItems.categories} name={'Категории'} />
+      </NavLink>
+      <NavLink to='/cities' className='nav-link'>
+        <NavigationItem link={navigationItems.cities} name={'Города'} />
+      </NavLink>
+      <NavLink to='/brands' className='nav-link'>
+        <NavigationItem link={navigationItems.brands} name={'Бренды'} />
+      </NavLink>
+      <NavLink to='/protocols' className='nav-link'>
+        <NavigationItem link={navigationItems.protocols} name={'Протоколы'} />
+      </NavLink>
+      <NavLink to='/orders' className='nav-link'>
+        <NavigationItem link={navigationItems.orders} name={'Заказы'} />
+      </NavLink>
+      <NavLink to='/banners' className='nav-link'>
+        <NavigationItem link={navigationItems.banners} name={'Баннеры'} />
+      </NavLink>
+      <NavLink to='/seminars' className='nav-link'>
+        <NavigationItem link={navigationItems.seminars} name={'Семинары'} />
+      </NavLink>
+      <NavLink to='/promocode' className='nav-link'>
+        <NavigationItem link={navigationItems.promocode} name={'Промокоды'} />
+      </NavLink>
+    </nav>
   );
 }
 
