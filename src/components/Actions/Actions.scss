@@ -1,0 +1,69 @@
+.actions {
+  margin-top: 24px;
+
+  &__description {
+    display: flex;
+    height: 44px;
+    align-items: center;
+    background-color: #f8f8fa;
+    border-bottom: 1px solid #ebecef;
+  }
+
+  &__checkbox {
+    width: 16px;
+    height: 16px;
+    margin: 14px 16px;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #737680;
+    padding-left: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+
+    &_categories {
+      width: 242px;
+    }
+
+    &_subcategories {
+      width: 189px;
+    }
+
+    &_brand {
+      width: 181px;
+    }
+
+    &_product {
+      width: 224px;
+    }
+
+    &_cashback {
+      width: 75px;
+      text-align: center;
+      padding-left: 0;
+    }
+
+    &_item {
+      color: #434652;
+      font-weight: 400;
+      line-height: 20px;
+    }
+  }
+
+  &__items {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    height: 68px;
+    border-bottom: 1px solid #ebecef;
+  }
+}

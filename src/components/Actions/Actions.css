@@ -1,0 +1,58 @@
+.actions {
+  margin-top: 24px;
+}
+.actions__description {
+  display: flex;
+  height: 44px;
+  align-items: center;
+  background-color: #f8f8fa;
+  border-bottom: 1px solid #ebecef;
+}
+.actions__checkbox {
+  width: 16px;
+  height: 16px;
+  margin: 14px 16px;
+}
+.actions__text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #737680;
+  padding-left: 8px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.actions__text_categories {
+  width: 242px;
+}
+.actions__text_subcategories {
+  width: 189px;
+}
+.actions__text_brand {
+  width: 181px;
+}
+.actions__text_product {
+  width: 224px;
+}
+.actions__text_cashback {
+  width: 75px;
+  text-align: center;
+  padding-left: 0;
+}
+.actions__text_item {
+  color: #434652;
+  font-weight: 400;
+  line-height: 20px;
+}
+.actions__items {
+  list-style-type: none;
+  padding-left: 0;
+}
+.actions__item {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  border-bottom: 1px solid #ebecef;
+}/*# sourceMappingURL=Actions.css.map */
