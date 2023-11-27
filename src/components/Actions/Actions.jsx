@@ -1,5 +1,6 @@
 import ActionsDescription from '../ActionsDescription/ActionsDescription';
 import ActionsItem from '../ActionsItem/ActionsItem';
+import ActionsSelected from '../ActionsSelected/ActionsSelected';
 
 function Actions() {
   return (
@@ -35,6 +36,7 @@ function Actions() {
           cashback={'10%'}
         />
       </ul>
+      <ActionsSelected />
     </div>
   );
 }
