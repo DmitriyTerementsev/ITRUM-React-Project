@@ -1,0 +1,59 @@
+.table-navigation {
+  display: flex;
+  width: 400px;
+  height: 32px;
+  margin: 88px 0 0 auto;
+  align-items: center;
+
+  &__text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #434652;
+  }
+
+  &__select {
+    width: 47px;
+    height: 32px;
+    border: 1px solid #d0d3da;
+    border-radius: 4px;
+    margin: 0 16px 0 8px;
+  }
+
+  &__input {
+    width: 47px;
+    height: 32px;
+    outline: 0;
+    border: 1px solid #d0d3da;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  &__input-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #bcbfcc;
+    margin-left: 4px;
+  }
+
+  &__button {
+    width: 32px;
+    height: 32px;
+    background-color: #f8f8fa;
+    appearance: none;
+    border: 1px solid #d0d3da;
+
+    &:first-of-type {
+      margin-left: 16px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &-icon_rotate {
+      rotate: (180deg);
+    }
+  }
+}

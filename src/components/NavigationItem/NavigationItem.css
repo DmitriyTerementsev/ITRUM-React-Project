@@ -4,21 +4,18 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  
-  &:hover {
-    cursor: pointer;
-  }
-
-  &__text {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    text-decoration: none;
-  }
-
-  &__icon {
-    margin-left: 16px;
-  }
+}
+.navigation-item:hover {
+  cursor: pointer;
+}
+.navigation-item__text {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+}
+.navigation-item__icon {
+  margin-left: 16px;
 }
 
 .nav-link {
@@ -37,4 +34,4 @@
 
 .active .icon {
   fill: white;
-}
+}/*# sourceMappingURL=NavigationItem.css.map */
