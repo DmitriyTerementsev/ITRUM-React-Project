@@ -1,4 +1,5 @@
-import Actions from '../Actions/Actions';
+import Products from '../Products/Products';
+import { Routes, Route } from 'react-router-dom';
 import TableNavigation from '../TableNavigation/TableNavigation';
 
 function Table() {
@@ -6,8 +7,9 @@ function Table() {
     <div className='table'>
       <div className='table__container'>
         <TableNavigation />
-        <button className='table__button'>Добавить акцию</button>
-        <Actions />
+        <Routes>
+          <Route path='/products' element={<Products />} />
+        </Routes>
       </div>
     </div>
   );

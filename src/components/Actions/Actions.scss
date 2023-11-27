@@ -68,7 +68,9 @@
   }
 
   &__select-items {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
 
     &_active {
       width: 50%;
@@ -81,6 +83,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.5s ease;
     }
   }
 
@@ -91,6 +96,10 @@
     position: absolute;
     top: 8px;
     right: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__select-text {

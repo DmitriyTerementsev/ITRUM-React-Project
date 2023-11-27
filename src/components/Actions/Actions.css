@@ -57,7 +57,9 @@
   border-bottom: 1px solid #ebecef;
 }
 .actions__select-items {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
 }
 .actions__select-items_active {
   width: 50%;
@@ -70,6 +72,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.5s ease;
 }
 .actions__close-button {
   -webkit-appearance: none;
@@ -80,6 +85,9 @@
   position: absolute;
   top: 8px;
   right: 8px;
+}
+.actions__close-button:hover {
+  cursor: pointer;
 }
 .actions__select-text {
   font-size: 16px;

@@ -9,7 +9,7 @@ function TableNavigation() {
           <option value='20'>20</option>
         </select>
         <p className='table-navigation__text'>Страница</p>
-        <input className='table-navigation__input' type='text' value='1' />
+        <input className='table-navigation__input' type='text'/>
         <p className='table-navigation__input-text'>из 1</p>
         <button className='table-navigation__button table-navigation__button_prev'>
           <img

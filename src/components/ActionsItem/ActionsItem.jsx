@@ -1,7 +1,8 @@
-function ActionsItem({ categories, subcategories, brand, product, cashback }) {
+function ActionsItem({ categories, subcategories, brand, product, cashback, clickHandler }) {
+  
   return (
     <li className='actions__item'>
-      <input type='checkbox' className='actions__checkbox' />
+      <input type='checkbox' className='actions__checkbox' onClick={clickHandler} />
       <p className='actions__text actions__text_item actions__text_categories'>
         {categories}
       </p>
