@@ -13,6 +13,7 @@ function TableNavigation({
       <select className='table-navigation__select' onChange={showPages}>
         <option value='10'>10</option>
         <option value='20'>20</option>
+        <option value='30'>30</option>
       </select>
       <p className='table-navigation__text'>Страница</p>
       <input

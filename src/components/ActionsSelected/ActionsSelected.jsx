@@ -2,7 +2,7 @@ import trashIcon from '../../images/trash.svg';
 import closeIcon from '../../images/en-close.svg';
 import { useEffect, useState } from 'react';
 
-function ActionsSelected({ counter, onClick }) {
+function ActionsSelected({ counter, handleDeleteItem }) {
   const [isActive, setActive] = useState(false);
   const closePopup = () => {
     if (isActive === true) {
@@ -34,7 +34,7 @@ function ActionsSelected({ counter, onClick }) {
       <p className='actions__select-text'>
         Количество выбранных позиций: {counter}
       </p>
-      <button className='actions__delete-button' onClick={onClick}>
+      <button className='actions__delete-button' onClick={handleDeleteItem}>
         <img
           src={trashIcon}
           alt='icon'

@@ -3,7 +3,7 @@ import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
 import { useState } from 'react';
 
-function Actions({ currentPage, products, onClick, showPages }) {
+function Actions({ currentPage, products, showPages, list, handleDeleteItem }) {
   const [counter, setCounter] = useState(0);
 
   function clickHandler(e) {
@@ -16,9 +16,15 @@ function Actions({ currentPage, products, onClick, showPages }) {
 
   function clickHandlerAll(e) {
     if (e.target.checked === true) {
-      setCounter(products.length);
+      setCounter(showPages);
+      list.current.childNodes.forEach((item) => {
+        item.querySelector('.actions__checkbox').checked = true;
+      });
     } else {
       setCounter(0);
+      list.current.childNodes.forEach((item) => {
+        item.querySelector('.actions__checkbox').checked = false;
+      });
     }
   }
 
@@ -27,27 +33,26 @@ function Actions({ currentPage, products, onClick, showPages }) {
     .map((item) => item);
 
   return (
-    <>
-      <div className='actions'>
-        <ActionsDescription clickHandlerAll={clickHandlerAll} />
-        <ul className='actions__items'>
-          {showProducts?.map(
-            ({ id, categories, subcategories, brand, product, cashback }) => (
-              <ActionsItem
-                key={id}
-                categories={categories}
-                subcategories={subcategories}
-                brand={brand}
-                product={product}
-                cashback={cashback}
-                clickHandler={clickHandler}
-              />
-            )
-          )}
-        </ul>
-        <ActionsSelected counter={counter} onClick={onClick} />
-      </div>
-    </>
+    <div className='actions'>
+      <ActionsDescription clickHandlerAll={clickHandlerAll} />
+      <ul className='actions__items' ref={list}>
+        {showProducts?.map(
+          ({ id, categories, subcategories, brand, product, cashback }) => (
+            <ActionsItem
+              key={id}
+              categories={categories}
+              subcategories={subcategories}
+              brand={brand}
+              product={product}
+              cashback={cashback}
+              clickHandler={clickHandler}
+              id={id}
+            />
+          )
+        )}
+      </ul>
+      <ActionsSelected counter={counter} handleDeleteItem={handleDeleteItem}/>
+    </div>
   );
 }
 
