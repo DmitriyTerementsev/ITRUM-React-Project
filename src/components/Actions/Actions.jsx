@@ -3,9 +3,8 @@ import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
 import { useState } from 'react';
 
-function Actions({ currentPage, products, onClick }) {
+function Actions({ currentPage, products, onClick, showPages }) {
   const [counter, setCounter] = useState(0);
-  const [showItems, setShowItems] = useState(10);
 
   function clickHandler(e) {
     if (e.target.checked === true) {
@@ -24,7 +23,7 @@ function Actions({ currentPage, products, onClick }) {
   }
 
   let showProducts = products
-    .slice(currentPage * showItems, currentPage * showItems + showItems)
+    .slice(currentPage * showPages, currentPage * showPages + showPages)
     .map((item) => item);
 
   return (

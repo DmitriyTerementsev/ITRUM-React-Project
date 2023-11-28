@@ -3,6 +3,7 @@ import Popup from '../Popup/Popup';
 import { useEffect, useState } from 'react';
 import TableNavigation from '../TableNavigation/TableNavigation';
 import products from '../../utils/products';
+import { ShowItemsValue } from '../../contexts/ShowItemsValue';
 
 function Products() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -42,30 +43,36 @@ function Products() {
   }
 
   useEffect(() => {
-    setAllPages(Math.ceil(products.length / 10));
-  }, [products]);
+    setAllPages(Math.ceil(products.length / showPages));
+  }, [showPages]);
 
   return (
     <>
-      <TableNavigation
-        currentPage={currentPage}
-        allPages={allPages}
-        handlerNextClick={() =>
-          currentPage === allPages - 1 ? null : setCurrentPage(currentPage + 1)
-        }
-        handlerPrevClick={() =>
-          currentPage > 0 ? setCurrentPage(currentPage - 1) : null
-        }
-      />
-      <button onClick={openPopup} className='table__button'>
-        Добавить акцию
-      </button>
-      <Actions
-        currentPage={currentPage}
-        products={products}
-        onClick={onClick}
-      />
-      <Popup isOpen={isOpen} onClose={onClose} />
+      <ShowItemsValue.Provider value={showPages}>
+        <TableNavigation
+          currentPage={currentPage}
+          allPages={allPages}
+          handlerNextClick={() =>
+            currentPage === allPages - 1
+              ? null
+              : setCurrentPage(currentPage + 1)
+          }
+          handlerPrevClick={() =>
+            currentPage > 0 ? setCurrentPage(currentPage - 1) : null
+          }
+          showPages={(e) => setShowPages(e.target.value)}
+        />
+        <button onClick={openPopup} className='table__button'>
+          Добавить акцию
+        </button>
+        <Actions
+          currentPage={currentPage}
+          products={products}
+          onClick={onClick}
+          showPages={showPages}
+        />
+        <Popup isOpen={isOpen} onClose={onClose} />
+      </ShowItemsValue.Provider>
     </>
   );
 }

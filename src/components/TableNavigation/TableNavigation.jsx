@@ -6,16 +6,12 @@ function TableNavigation({
   handlerNextClick,
   handlerPrevClick,
   showPages,
-  onChange
 }) {
   return (
     <div className='table-navigation'>
       <p className='table-navigation__text'>Показывать</p>
-      <select
-        className='table-navigation__select'
-        value={showPages}
-      >
-        <option value='10' onChange={onChange}>10</option>
+      <select className='table-navigation__select' onChange={showPages}>
+        <option value='10'>10</option>
         <option value='20'>20</option>
       </select>
       <p className='table-navigation__text'>Страница</p>
