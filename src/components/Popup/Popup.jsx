@@ -1,4 +1,7 @@
-function Popup({ isOpen }) {
+import { useRef, useEffect } from 'react';
+
+function Popup({ isOpen, onClose }) {
+
   return (
     <div className={isOpen ? 'popup_active' : 'popup'}>
       <div className='popup__container'>

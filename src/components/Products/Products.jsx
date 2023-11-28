@@ -7,6 +7,7 @@ import products from '../../utils/products';
 function Products() {
   const [currentPage, setCurrentPage] = useState(0);
   const [allPages, setAllPages] = useState(1);
+  const [showPages, setShowPages] = useState(10);
 
   const [isOpen, setOpen] = useState(false);
   const openPopup = () => {
@@ -16,6 +17,29 @@ function Products() {
       setOpen(false);
     }
   };
+
+  useEffect(() => {
+    function keyHandler(evt) {
+      if (evt.key === 'Escape') {
+        setOpen(false);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', keyHandler);
+    }
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, [isOpen]);
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  function onClick() {
+    console.log(products);
+    //products.slice(0, 1);
+  }
 
   useEffect(() => {
     setAllPages(Math.ceil(products.length / 10));
@@ -36,8 +60,12 @@ function Products() {
       <button onClick={openPopup} className='table__button'>
         Добавить акцию
       </button>
-      <Actions currentPage={currentPage} />
-      <Popup isOpen={isOpen} />
+      <Actions
+        currentPage={currentPage}
+        products={products}
+        onClick={onClick}
+      />
+      <Popup isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

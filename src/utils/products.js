@@ -1,5 +1,4 @@
-
-const productItems = [
+let productItems = [
   {
     id: 1,
     categories: 'Эстетический уход',
@@ -96,7 +95,6 @@ const productItems = [
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '12%',
   },
-
 ];
 
 export default productItems;

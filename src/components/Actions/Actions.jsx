@@ -2,9 +2,8 @@ import ActionsDescription from '../ActionsDescription/ActionsDescription';
 import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
 import { useState } from 'react';
-import products from '../../utils/products';
 
-function Actions({ currentPage }) {
+function Actions({ currentPage, products, onClick }) {
   const [counter, setCounter] = useState(0);
   const [showItems, setShowItems] = useState(10);
 
@@ -22,10 +21,6 @@ function Actions({ currentPage }) {
     } else {
       setCounter(0);
     }
-  }
-
-  function onClick(e) {
-    console.log('yes');
   }
 
   let showProducts = products

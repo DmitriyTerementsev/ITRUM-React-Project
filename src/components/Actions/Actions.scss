@@ -1,6 +1,6 @@
 .actions {
   margin-top: 24px;
-  max-height: 654px;
+  height: 654px;
   overflow: scroll;
   overflow-x: hidden;
   position: relative;
@@ -86,13 +86,13 @@
       background-color: #ffffff;
       box-shadow: 0px 4px 8px 0px #4c5d704d;
       border-radius: 8px;
-      position: sticky;
       display: flex;
       flex-direction: column;
       justify-content: center;
       opacity: 1;
       visibility: visible;
       transition: all 0.5s ease;
+      position: sticky;
       bottom: 20px;
       left: 220px;
     }
