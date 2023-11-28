@@ -2,7 +2,7 @@ import trashIcon from '../../images/trash.svg';
 import closeIcon from '../../images/en-close.svg';
 import { useEffect, useState } from 'react';
 
-function ActionsSelected({ counter }) {
+function ActionsSelected({ counter, onClick }) {
   const [isActive, setActive] = useState(false);
   const closePopup = () => {
     if (isActive === true) {
@@ -21,7 +21,7 @@ function ActionsSelected({ counter }) {
   return (
     <div
       className={
-        isActive ? 'actions__select-items_active' : 'actions__select-items'
+        isActive ? 'actions__select-items actions__select-items_active' : 'actions__select-items'
       }
     >
       <button className='actions__close-button' onClick={closePopup}>
@@ -34,7 +34,7 @@ function ActionsSelected({ counter }) {
       <p className='actions__select-text'>
         Количество выбранных позиций: {counter}
       </p>
-      <button className='actions__delete-button'>
+      <button className='actions__delete-button' onClick={onClick}>
         <img
           src={trashIcon}
           alt='icon'

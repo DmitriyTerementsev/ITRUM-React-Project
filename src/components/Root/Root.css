@@ -8,6 +8,7 @@
 #root {
   background-color: #F8F8FA;
   min-width: 320px;
+  height: 100vh;
   margin: 0 auto;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

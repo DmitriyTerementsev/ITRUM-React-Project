@@ -3,11 +3,15 @@ function Popup({ isOpen }) {
     <div className={isOpen ? 'popup_active' : 'popup'}>
       <div className='popup__container'>
         <div className='popup__buttons'>
-          <button className='popup__button popup__button_delete'>
+          <button
+            className='popup__button popup__button_delete'
+            onClick={() => console.log('yes')}
+          >
             Удалить
           </button>
           <button
             className='popup__button popup__button_save'
+            onClick={() => console.log('yes')}
           >
             Сохранить
           </button>
@@ -21,21 +25,21 @@ function Popup({ isOpen }) {
           />
           <p className='popup__text'>Категория</p>
           <select className='popup__select'>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value=''>Категория 1</option>
+            <option value=''>Категория 2</option>
+            <option value=''>Категория 3</option>
           </select>
           <p className='popup__text'>Подкатегория</p>
           <select className='popup__select'>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value=''>Подкатегория 1</option>
+            <option value=''>Подкатегория 2</option>
+            <option value=''>Подкатегория 3</option>
           </select>
           <p className='popup__text'>Бренд</p>
           <select className='popup__select'>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value=''>Бренд 1</option>
+            <option value=''>Бренд 2</option>
+            <option value=''>Бренд 3</option>
           </select>
         </div>
       </div>
