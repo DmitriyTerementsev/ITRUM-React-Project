@@ -10,9 +10,6 @@ import {
 } from '../../contexts/ShowItemsValue';
 
 function Products() {
-
-
-
   //----------States
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -22,6 +19,9 @@ function Products() {
   const [isOpen, setOpen] = useState(false);
   const list = useRef(null);
   const description = useRef(null);
+  let showProducts = products
+    .slice(currentPage * showPages, currentPage * showPages + showPages)
+    .map((item) => item);
 
   //----------functions
   //----------Open/Close Popups
@@ -57,7 +57,7 @@ function Products() {
 
   function clickHandlerAll(e) {
     if (e.target.checked === true) {
-      setCounter(showPages);
+      setCounter(showProducts.length);
       list.current.childNodes.forEach((item) => {
         item.querySelector('.actions__checkbox').checked = true;
       });
@@ -152,6 +152,7 @@ function Products() {
             closePopup={closePopup}
             isActive={isActive}
             description={description}
+            showProducts={showProducts}
           />
           <Popup isOpen={isOpen} />
         </ProductList.Provider>

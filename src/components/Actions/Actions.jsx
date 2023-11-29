@@ -14,11 +14,9 @@ function Actions({
   isActive,
   description,
   closePopup,
+  showProducts
 }) {
   //---------render items by showPages icon
-  let showProducts = products
-    .slice(currentPage * showPages, currentPage * showPages + showPages)
-    .map((item) => item);
 
   return (
     <div className='actions'>
