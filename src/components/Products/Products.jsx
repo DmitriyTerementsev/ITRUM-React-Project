@@ -10,21 +10,40 @@ import {
 } from '../../contexts/ShowItemsValue';
 
 function Products() {
+
+
+
+  //----------States
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [allPages, setAllPages] = useState(1);
+  const [showPages, setShowPages] = useState(10);
+  const [isOpen, setOpen] = useState(false);
+  const list = useRef(null);
+  const description = useRef(null);
+
+  //----------functions
+  //----------Open/Close Popups
   const closePopup = () => {
     if (isActive === true) {
       setActive(false);
     }
   };
 
-  useEffect(() => {
-    if (counter > 0) {
-      setActive(true);
+  const openPopup = () => {
+    if (isOpen === false) {
+      setOpen(true);
     } else {
-      setActive(false);
+      setOpen(false);
     }
-  }, [counter]);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  //----------Click On Next/Prev Button
 
   function clickHandler(e) {
     if (e.target.checked === true) {
@@ -33,6 +52,8 @@ function Products() {
       setCounter(counter - 1);
     }
   }
+
+  //----------Click on checkbox - select All
 
   function clickHandlerAll(e) {
     if (e.target.checked === true) {
@@ -48,43 +69,7 @@ function Products() {
     }
   }
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [allPages, setAllPages] = useState(1);
-  const [showPages, setShowPages] = useState(10);
-  const [isOpen, setOpen] = useState(false);
-  const list = useRef(null);
-  const description = useRef(null);
-
-  const openPopup = () => {
-    if (isOpen === false) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    function keyHandler(evt) {
-      if (evt.key === 'Escape') {
-        setOpen(false);
-      }
-    }
-    if (isOpen) {
-      document.addEventListener('keydown', keyHandler);
-    }
-    return () => {
-      document.removeEventListener('keydown', keyHandler);
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    console.log(products.length)
-    setAllPages(Math.ceil(products.length / showPages));
-  }, [products.length]);
+  //----------Click on delete items
 
   function handleDeleteItem() {
     const listItems = list.current.childNodes;
@@ -100,8 +85,40 @@ function Products() {
     }
     setActive(false);
     setCounter(0);
-    description.current.querySelector('.actions__checkbox').checked = false
+    description.current.querySelector('.actions__checkbox').checked = false;
   }
+
+  //----------Effects
+
+  useEffect(() => {
+    if (counter > 0) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [counter]);
+
+  useEffect(() => {
+    function keyHandler(evt) {
+      if (evt.key === 'Escape') {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', keyHandler);
+    }
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    setAllPages(Math.ceil(products.length / showPages));
+  }, [products.length]);
+
+  useEffect(() => {
+    setAllPages(Math.ceil(products.length / showPages));
+  }, [showPages]);
 
   return (
     <ItemsDescription.Provider value={description}>
@@ -136,7 +153,7 @@ function Products() {
             isActive={isActive}
             description={description}
           />
-          <Popup isOpen={isOpen} onClose={onClose} />
+          <Popup isOpen={isOpen} />
         </ProductList.Provider>
       </ShowItemsValue.Provider>
     </ItemsDescription.Provider>

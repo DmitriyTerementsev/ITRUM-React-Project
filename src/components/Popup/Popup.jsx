@@ -1,9 +1,7 @@
-import { useRef, useEffect } from 'react';
-
-function Popup({ isOpen, onClose }) {
+function Popup({ isOpen }) {
 
   return (
-    <div className={isOpen ? 'popup_active' : 'popup'}>
+    <div className={isOpen ? 'popup popup_active' : 'popup'}>
       <div className='popup__container'>
         <div className='popup__buttons'>
           <button

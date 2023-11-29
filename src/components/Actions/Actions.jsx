@@ -12,7 +12,8 @@ function Actions({
   clickHandler,
   counter,
   isActive,
-  description
+  description,
+  closePopup,
 }) {
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
@@ -20,7 +21,10 @@ function Actions({
 
   return (
     <div className='actions'>
-      <ActionsDescription clickHandlerAll={clickHandlerAll} description={description}/>
+      <ActionsDescription
+        clickHandlerAll={clickHandlerAll}
+        description={description}
+      />
       <ul className='actions__items' ref={list}>
         {showProducts?.map(
           ({ id, categories, subcategories, brand, product, cashback }) => (
@@ -37,7 +41,12 @@ function Actions({
           )
         )}
       </ul>
-      <ActionsSelected counter={counter} handleDeleteItem={handleDeleteItem} isActive={isActive}/>
+      <ActionsSelected
+        counter={counter}
+        handleDeleteItem={handleDeleteItem}
+        isActive={isActive}
+        closePopup={closePopup}
+      />
     </div>
   );
 }
