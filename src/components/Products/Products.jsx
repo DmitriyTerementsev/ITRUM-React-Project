@@ -17,6 +17,12 @@ function Products() {
   const [allPages, setAllPages] = useState(1);
   const [showPages, setShowPages] = useState(10);
   const [isOpen, setOpen] = useState(false);
+
+  const [categoriesSelect, setCategories] = useState(null);
+  const [subcategoriesSelect, setSubcategories] = useState(null);
+  const [brandSelect, setBrand] = useState(null);
+  const [cashbackSelect, setCashback] = useState(null);
+
   const list = useRef(null);
   const description = useRef(null);
   let showProducts = products
@@ -41,6 +47,13 @@ function Products() {
 
   const onClose = () => {
     setOpen(false);
+    const newObject = new Object();
+    newObject.categories = categoriesSelect;
+    newObject.subcategories = subcategoriesSelect;
+    newObject.brand = brandSelect;
+    newObject.cashback = cashbackSelect;
+    newObject.id = products.length + 1
+    products.push(newObject)
   };
 
   //----------Click On Next/Prev Button
@@ -154,7 +167,14 @@ function Products() {
             description={description}
             showProducts={showProducts}
           />
-          <Popup isOpen={isOpen} />
+          <Popup
+            isOpen={isOpen}
+            onClose={onClose}
+            categoriesSelect={(e) => setCategories(e.target.value)}
+            subcategoriesSelect={(e) => setSubcategories(e.target.value)}
+            brandSelect={(e) => setBrand(e.target.value)}
+            cashbackSelect={(e) => setCashback(e.target.value)}
+          />
         </ProductList.Provider>
       </ShowItemsValue.Provider>
     </ItemsDescription.Provider>

@@ -16,14 +16,7 @@ function TableNavigation({
         <option value='30'>30</option>
       </select>
       <p className='table-navigation__text'>Страница</p>
-      <input
-        className='table-navigation__input'
-        type='text'
-        min={1}
-        max={allPages}
-        value={currentPage + 1}
-        required
-      />
+      <p className='table-navigation__input'>{currentPage + 1}</p>
       <p className='table-navigation__input-text'>из {allPages}</p>
       <button
         className='table-navigation__button table-navigation__button_prev'
