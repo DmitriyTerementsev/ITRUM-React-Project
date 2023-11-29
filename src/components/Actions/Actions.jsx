@@ -15,6 +15,7 @@ function Actions({
   description,
   closePopup,
 }) {
+  //---------render items by showPages icon
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
     .map((item) => item);
