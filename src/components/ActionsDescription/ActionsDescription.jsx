@@ -1,6 +1,6 @@
-function ActionsDescription({ clickHandlerAll }) {
+function ActionsDescription({ clickHandlerAll, description }) {
   return (
-    <div className='actions__description'>
+    <div className='actions__description' ref={description}>
       <input
         type='checkbox'
         className='actions__checkbox'

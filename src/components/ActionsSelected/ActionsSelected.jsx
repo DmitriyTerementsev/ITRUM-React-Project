@@ -1,27 +1,18 @@
 import trashIcon from '../../images/trash.svg';
 import closeIcon from '../../images/en-close.svg';
-import { useEffect, useState } from 'react';
 
-function ActionsSelected({ counter, handleDeleteItem }) {
-  const [isActive, setActive] = useState(false);
-  const closePopup = () => {
-    if (isActive === true) {
-      setActive(false);
-    }
-  };
-
-  useEffect(() => {
-    if (counter > 0) {
-      setActive(true);
-    } else {
-      setActive(false)
-    }
-  }, [counter]);
-
+function ActionsSelected({
+  counter,
+  handleDeleteItem,
+  isActive,
+  closePopup,
+}) {
   return (
     <div
       className={
-        isActive ? 'actions__select-items actions__select-items_active' : 'actions__select-items'
+        isActive
+          ? 'actions__select-items actions__select-items_active'
+          : 'actions__select-items'
       }
     >
       <button className='actions__close-button' onClick={closePopup}>

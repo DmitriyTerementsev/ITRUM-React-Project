@@ -1,40 +1,26 @@
 import ActionsDescription from '../ActionsDescription/ActionsDescription';
 import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
-import { useState } from 'react';
 
-function Actions({ currentPage, products, showPages, list, handleDeleteItem }) {
-  const [counter, setCounter] = useState(0);
-
-  function clickHandler(e) {
-    if (e.target.checked === true) {
-      setCounter(counter + 1);
-    } else {
-      setCounter(counter - 1);
-    }
-  }
-
-  function clickHandlerAll(e) {
-    if (e.target.checked === true) {
-      setCounter(showPages);
-      list.current.childNodes.forEach((item) => {
-        item.querySelector('.actions__checkbox').checked = true;
-      });
-    } else {
-      setCounter(0);
-      list.current.childNodes.forEach((item) => {
-        item.querySelector('.actions__checkbox').checked = false;
-      });
-    }
-  }
-
+function Actions({
+  showPages,
+  list,
+  handleDeleteItem,
+  products,
+  currentPage,
+  clickHandlerAll,
+  clickHandler,
+  counter,
+  isActive,
+  description
+}) {
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
     .map((item) => item);
 
   return (
     <div className='actions'>
-      <ActionsDescription clickHandlerAll={clickHandlerAll} />
+      <ActionsDescription clickHandlerAll={clickHandlerAll} description={description}/>
       <ul className='actions__items' ref={list}>
         {showProducts?.map(
           ({ id, categories, subcategories, brand, product, cashback }) => (
@@ -51,7 +37,7 @@ function Actions({ currentPage, products, showPages, list, handleDeleteItem }) {
           )
         )}
       </ul>
-      <ActionsSelected counter={counter} handleDeleteItem={handleDeleteItem}/>
+      <ActionsSelected counter={counter} handleDeleteItem={handleDeleteItem} isActive={isActive}/>
     </div>
   );
 }
