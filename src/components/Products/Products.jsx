@@ -22,9 +22,9 @@ function Products() {
   const [subcategoriesSelect, setSubcategories] = useState(null);
   const [brandSelect, setBrand] = useState(null);
   const [cashbackSelect, setCashback] = useState(null);
-
   const list = useRef(null);
   const description = useRef(null);
+
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
     .map((item) => item);

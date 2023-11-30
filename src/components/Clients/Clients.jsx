@@ -11,54 +11,54 @@ import {
 import TableSearch from '../TableSearch/TableSearch';
 
 function Clients() {
-  const [inputValue, setInputValue] = useState(null);
+  const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [allPages, setAllPages] = useState(1);
   const [showPages, setShowPages] = useState(10);
   const list = useRef(null);
   const description = useRef(null);
-  const [showClients, setShowClients] = useState([]);
 
-  useEffect(() => {
-    setShowClients(
-      clients
-        .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item)
-    );
-  }, []);
+  let showBySearch = [];
 
-  let items = [];
+  let showClients = clients
+    .slice(currentPage * showPages, currentPage * showPages + showPages)
+    .map((item) => item);
 
   useEffect(() => {
     setAllPages(Math.ceil(clients.length / showPages));
-  }, [clients.length]);
+  }, [clients]);
 
   useEffect(() => {
     setAllPages(Math.ceil(clients.length / showPages));
   }, [showPages]);
 
   useEffect(() => {
-    for (let i = 0; i < clients.length; i++) {
-      console.log(inputValue);
-      if (
-        clients[i].name.toLowerCase().includes(inputValue) ||
-        clients[i].lastName.toLowerCase().includes(inputValue) ||
-        clients[i].email.toLowerCase().includes(inputValue) ||
-        clients[i].phone.toLowerCase().includes(inputValue)
-      ) {
-        setTimeout(() => {
-          console.log('yes');
-          console.log(clients[i]);
-          items.push(clients[i]);
-          clients.filter((items) => items.name.includes(clients.name));
-          console.log(clients);
-        }, '3000');
-      } else {
-        setTimeout(() => {
-          //clients.splice(i, 1);
+    if (inputValue !== '') {
+      for (let i = 0; i < clients.length; i++) {
+        console.log(inputValue);
+        if (
+          clients[i].name !== null &&
+          !clients[i].name.toLowerCase().includes(inputValue)
+          /*&& 
+          (clients[i].lastName.toLowerCase().includes(inputValue) &&
+            clients[i].lastName !== null) &&
+          clients[i].email.toLowerCase().includes(inputValue) &&
+          clients[i].phone.toLowerCase().includes(inputValue)*/
+        ) {
           console.log('no');
           console.log(clients[i]);
-        }, '3000');
+        } else {
+          console.log('yes');
+          console.log(clients[i]);
+          showBySearch.push(clients[i]);
+          console.log(showBySearch);
+          showClients.splice(i, showClients.length);
+          console.log(showClients);
+          showClients = showBySearch
+            .slice(currentPage * showPages, currentPage * showPages + showPages)
+            .map((item) => item);
+            console.log(showClients);
+        }
       }
     }
   }, [inputValue]);
@@ -86,7 +86,7 @@ function Clients() {
             <ul className='actions__items actions__items_clients' ref={list}>
               {showClients?.map(({ name, lastName, phone, email }) => (
                 <ClientsItem
-                  key={email}
+                  key={name + ' ' + lastName + phone}
                   name={name + ' ' + lastName}
                   phone={phone}
                   email={email}

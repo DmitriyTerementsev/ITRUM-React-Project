@@ -3,11 +3,8 @@ import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
 
 function Actions({
-  showPages,
   list,
   handleDeleteItem,
-  products,
-  currentPage,
   clickHandlerAll,
   clickHandler,
   counter,
