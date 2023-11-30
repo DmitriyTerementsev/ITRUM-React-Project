@@ -1,8 +1,5 @@
 .actions {
   margin-top: 24px;
-  height: 654px;
-  overflow: scroll;
-  overflow-x: hidden;
   position: relative;
 }
 .actions__description {
@@ -11,6 +8,10 @@
   align-items: center;
   background-color: #f8f8fa;
   border-bottom: 1px solid #ebecef;
+  justify-content: space-between;
+}
+.actions__description_clients {
+  margin-top: 24px;
 }
 .actions__checkbox {
   width: 16px;
@@ -30,6 +31,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  width: 320px;
 }
 .actions__text_categories {
   width: 242px;
@@ -56,6 +58,12 @@
 .actions__items {
   list-style-type: none;
   padding-left: 0;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 604px;
+}
+.actions__items_clients {
+  height: 680px;
 }
 .actions__item {
   display: flex;
@@ -81,8 +89,8 @@
   visibility: visible;
   transition: all 0.5s ease;
   position: sticky;
-  bottom: 20px;
-  left: 220px;
+  bottom: 10%;
+  left: 40%;
 }
 .actions__close-button {
   -webkit-appearance: none;

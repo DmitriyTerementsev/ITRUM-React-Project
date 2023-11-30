@@ -5,6 +5,10 @@
   margin: 88px 0 0 auto;
   align-items: center;
 
+  &_clients {
+    margin: 24px 0 0 auto;
+  }
+
   &__text {
     font-size: 14px;
     font-weight: 400;
@@ -34,6 +38,7 @@
   }
 
   &__input-text {
+    width: 50px;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;

@@ -1,8 +1,5 @@
 .actions {
   margin-top: 24px;
-  height: 654px;
-  overflow: scroll;
-  overflow-x: hidden;
   position: relative;
 
   &__description {
@@ -11,6 +8,11 @@
     align-items: center;
     background-color: #f8f8fa;
     border-bottom: 1px solid #ebecef;
+    justify-content: space-between;
+
+    &_clients {
+      margin-top: 24px;
+    }
   }
 
   &__checkbox {
@@ -33,6 +35,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    width: 320px;
 
     &_categories {
       width: 242px;
@@ -66,6 +69,13 @@
   &__items {
     list-style-type: none;
     padding-left: 0;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 604px;
+
+    &_clients {
+      height: 680px;
+    }
   }
 
   &__item {
@@ -93,8 +103,8 @@
       visibility: visible;
       transition: all 0.5s ease;
       position: sticky;
-      bottom: 20px;
-      left: 220px;
+      bottom: 10%;
+      left: 40%;
     }
   }
 

@@ -1,4 +1,5 @@
 import arrowRight from '../../images/en-arrow-right.svg';
+import { useLocation } from "react-router-dom";
 
 function TableNavigation({
   currentPage,
@@ -7,8 +8,10 @@ function TableNavigation({
   handlerPrevClick,
   showPages,
 }) {
+
+  const tableRoute = useLocation().pathname === "/clients";
   return (
-    <div className='table-navigation'>
+    <div className={tableRoute? 'table-navigation table-navigation_clients': 'table-navigation'}>
       <p className='table-navigation__text'>Показывать</p>
       <select className='table-navigation__select' onChange={showPages}>
         <option value='10'>10</option>

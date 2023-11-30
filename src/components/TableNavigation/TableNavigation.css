@@ -5,6 +5,9 @@
   margin: 88px 0 0 auto;
   align-items: center;
 }
+.table-navigation_clients {
+  margin: 24px 0 0 auto;
+}
 .table-navigation__text {
   font-size: 14px;
   font-weight: 400;
@@ -31,6 +34,7 @@
   justify-content: center;
 }
 .table-navigation__input-text {
+  width: 50px;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;

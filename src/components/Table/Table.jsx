@@ -1,4 +1,5 @@
 import Products from '../Products/Products';
+import Clients from '../Clients/Clients'
 import { Routes, Route } from 'react-router-dom';
 
 function Table() {
@@ -7,6 +8,9 @@ function Table() {
       <div className='table__container'>
         <Routes>
           <Route path='/products' element={<Products />} />
+        </Routes>
+        <Routes>
+          <Route path='/clients' element={<Clients />} />
         </Routes>
       </div>
     </div>
