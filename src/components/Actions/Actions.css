@@ -1,5 +1,6 @@
 .actions {
   margin-top: 24px;
+  height: 675px;
   position: relative;
 }
 .actions__description {
@@ -88,9 +89,9 @@
   opacity: 1;
   visibility: visible;
   transition: all 0.5s ease;
-  position: sticky;
-  bottom: 10%;
-  left: 40%;
+  position: absolute;
+  bottom: 40px;
+  left: 220px;
 }
 .actions__close-button {
   -webkit-appearance: none;
