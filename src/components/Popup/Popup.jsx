@@ -1,3 +1,5 @@
+import { useRef, useEffect } from 'react';
+
 function Popup({
   isOpen,
   onClose,
@@ -6,9 +8,19 @@ function Popup({
   brandSelect,
   cashbackSelect,
 }) {
+  const rootEl = useRef(null);
+  const popup = useRef(null);
+
+  useEffect(() => {
+    const onClick = (e) =>
+      e.target.className === 'popup popup_active' ? onClose() : null;
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
   return (
-    <div className={isOpen ? 'popup popup_active' : 'popup'}>
-      <div className='popup__container'>
+    <div className={isOpen ? 'popup popup_active' : 'popup'} ref={popup}>
+      <div className='popup__container' ref={rootEl}>
         <div className='popup__buttons'>
           <button
             className='popup__button popup__button_delete'

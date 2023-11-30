@@ -47,14 +47,18 @@ function Products() {
 
   const onClose = () => {
     setOpen(false);
+    addItem();
+  };
+
+  function addItem() {
     const newObject = new Object();
     newObject.categories = categoriesSelect;
     newObject.subcategories = subcategoriesSelect;
     newObject.brand = brandSelect;
     newObject.cashback = cashbackSelect;
-    newObject.id = products.length + 1
-    products.push(newObject)
-  };
+    newObject.id = products.length + 1;
+    products.push(newObject);
+  }
 
   //----------Click On Next/Prev Button
 
