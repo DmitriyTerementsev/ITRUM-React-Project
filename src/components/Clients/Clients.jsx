@@ -17,12 +17,41 @@ function Clients() {
   const [showPages, setShowPages] = useState(10);
   const list = useRef(null);
   const description = useRef(null);
+  const [showClients, setShowClients] = useState([]);
+
+  let clientsClone = [];
+  for (let i = 0; i < clients.length; i++) {
+    clientsClone.push(clients[i]);
+  }
 
   let showBySearch = [];
 
-  let showClients = clients
-    .slice(currentPage * showPages, currentPage * showPages + showPages)
-    .map((item) => item);
+  useEffect(() => {
+    setShowClients(
+      clients
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+        .map((item) => item),
+      console.log('render')
+    );
+  }, []);
+  /*
+  function render() {
+    setShowClients(
+      clients
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+        .map((item) => item),
+      console.log('render')
+    );
+  }
+*/
+  function reRender() {
+    setShowClients(
+      showBySearch
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+        .map((item) => item),
+      console.log('rerender')
+    );
+  }
 
   useEffect(() => {
     setAllPages(Math.ceil(clients.length / showPages));
@@ -34,32 +63,24 @@ function Clients() {
 
   useEffect(() => {
     if (inputValue !== '') {
-      for (let i = 0; i < clients.length; i++) {
-        console.log(inputValue);
+      clientsClone.map((item) => {
         if (
-          clients[i].name !== null &&
-          !clients[i].name.toLowerCase().includes(inputValue)
-          /*&& 
-          (clients[i].lastName.toLowerCase().includes(inputValue) &&
-            clients[i].lastName !== null) &&
-          clients[i].email.toLowerCase().includes(inputValue) &&
-          clients[i].phone.toLowerCase().includes(inputValue)*/
+          (item['name'] !== null &&
+            item['name'].toLowerCase().includes(inputValue.toLowerCase())) ||
+          (item['lastName'] !== null &&
+            item['lastName']
+              .toLowerCase()
+              .includes(inputValue.toLowerCase())) ||
+          (item['email'] !== null &&
+            item['email'].toLowerCase().includes(inputValue.toLowerCase())) ||
+          (item['phone'] !== null &&
+            item['phone'].includes(inputValue.toLowerCase()))
         ) {
-          console.log('no');
-          console.log(clients[i]);
-        } else {
-          console.log('yes');
-          console.log(clients[i]);
-          showBySearch.push(clients[i]);
-          console.log(showBySearch);
-          showClients.splice(i, showClients.length);
-          console.log(showClients);
-          showClients = showBySearch
-            .slice(currentPage * showPages, currentPage * showPages + showPages)
-            .map((item) => item);
-            console.log(showClients);
+          showBySearch.push(item);
         }
-      }
+        return showBySearch;
+      });
+      reRender();
     }
   }, [inputValue]);
 
