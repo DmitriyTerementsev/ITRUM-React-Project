@@ -30,20 +30,10 @@ function Clients() {
     setShowClients(
       clients
         .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item),
-      console.log('render')
+        .map((item) => item)
     );
-  }, []);
-  /*
-  function render() {
-    setShowClients(
-      clients
-        .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item),
-      console.log('render')
-    );
-  }
-*/
+  }, [currentPage, showPages]);
+
   function reRender() {
     setShowClients(
       showBySearch
@@ -54,11 +44,11 @@ function Clients() {
   }
 
   useEffect(() => {
-    setAllPages(Math.ceil(clients.length / showPages));
-  }, [clients]);
+    setAllPages(Math.ceil(clientsClone.length / showPages));
+  }, [clientsClone]);
 
   useEffect(() => {
-    setAllPages(Math.ceil(clients.length / showPages));
+    setAllPages(Math.ceil(clientsClone.length / showPages));
   }, [showPages]);
 
   useEffect(() => {

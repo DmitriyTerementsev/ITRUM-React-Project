@@ -2,7 +2,7 @@ const clients = [
   {
     "email": "svetlana.tumalaeva@mail.ru",
     "phone": "+79034285680",
-    "name": "Cветлана",
+    "name": "Светлана",
     "lastName": "Тумалаева",
     "firmName": "",
     "role": "SPECIALIST"
