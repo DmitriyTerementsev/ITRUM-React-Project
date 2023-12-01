@@ -17,23 +17,42 @@ function Clients() {
   const [showPages, setShowPages] = useState(10);
   const list = useRef(null);
   const description = useRef(null);
-  const [showClients, setShowClients] = useState([]);
+  const [showClients, setShowClients] = useState(clients);
 
   let clientsClone = [];
   for (let i = 0; i < clients.length; i++) {
     clientsClone.push(clients[i]);
   }
 
-  let showBySearch = [];
+  //let showBySearch = [];
+
+  useEffect(() => {
+    setShowClients(
+      clientsClone
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+        .map((item) => item)
+    );
+  }, [clientsClone.length]);
 
   useEffect(() => {
     setShowClients(
       clients
+        .filter(
+          (item) =>
+            (item.name !== null &&
+              item.name.toLowerCase().includes(inputValue.toLowerCase())) ||
+            (item.lastName !== null &&
+              item.lastName.toLowerCase().includes(inputValue.toLowerCase())) ||
+            (item.email !== null &&
+              item.email.toLowerCase().includes(inputValue.toLowerCase())) ||
+            (item.phone !== null && item.phone.includes(inputValue))
+        )
         .slice(currentPage * showPages, currentPage * showPages + showPages)
         .map((item) => item)
     );
-  }, [currentPage, showPages]);
+  }, [inputValue, showPages, currentPage]);
 
+  /*
   function reRender() {
     setShowClients(
       showBySearch
@@ -42,15 +61,27 @@ function Clients() {
       console.log('rerender')
     );
   }
+*/
+  useEffect(() => {
+    setAllPages(
+      Math.ceil(
+        clients.filter((item) =>
+          item.name.toLowerCase().includes(inputValue.toLowerCase())
+        ).length / showPages
+      )
+    );
+  }, [clientsClone.length, inputValue]);
 
   useEffect(() => {
-    setAllPages(Math.ceil(clientsClone.length / showPages));
-  }, [clientsClone]);
-
-  useEffect(() => {
-    setAllPages(Math.ceil(clientsClone.length / showPages));
+    setAllPages(
+      Math.ceil(
+        clients.filter((item) =>
+          item.name.toLowerCase().includes(inputValue.toLowerCase())
+        ).length / showPages
+      )
+    );
   }, [showPages]);
-
+  /*
   useEffect(() => {
     if (inputValue !== '') {
       clientsClone.map((item) => {
@@ -70,10 +101,10 @@ function Clients() {
         }
         return showBySearch;
       });
-      reRender();
+      reRender()
     }
   }, [inputValue]);
-
+*/
   return (
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
