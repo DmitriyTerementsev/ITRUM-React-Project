@@ -1,3 +1,4 @@
+import './TableNavigation.css'
 import arrowRight from '../../images/en-arrow-right.svg';
 import { useLocation } from "react-router-dom";
 

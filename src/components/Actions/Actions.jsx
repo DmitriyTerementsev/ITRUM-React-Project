@@ -1,3 +1,4 @@
+import './Actions.css'
 import ActionsDescription from '../ActionsDescription/ActionsDescription';
 import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';

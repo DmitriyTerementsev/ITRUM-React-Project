@@ -1,4 +1,4 @@
-let productItems = [
+let productItems:any[] = [
   {
     id: 1,
     categories: 'Эстетический уход',

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TableNavigation from '../TableNavigation/TableNavigation';
-import { useState, useEffect, useRef } from 'react';
 import clients from '../../utils/clients.ts';
 import ClientsDescription from '../ClientsDescription/ClientsDescription';
 import ClientsItem from '../ClientsItem/ClientsItem';
@@ -20,8 +19,8 @@ function Clients() {
   const description = useRef(null);
   const [showClients, setShowClients] = useState(clients);
 
-  function clearInput(){
-    setInputValue('')
+  function clearInput() {
+    setInputValue('');
   }
 
   let clientsClone: any[] = [];
@@ -63,24 +62,17 @@ function Clients() {
         ).length / showPages
       )
     );
-  }, [clientsClone.length, inputValue]);
-
-  useEffect(() => {
-    setAllPages(
-      Math.ceil(
-        clients.filter((item) =>
-          item.name.toLowerCase().includes(inputValue.toLowerCase())
-        ).length / showPages
-      )
-    );
-  }, [showPages]);
+  }, [clientsClone.length, inputValue, showPages]);
 
   return (
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
         <ProductList.Provider value={list}>
           <section className='actions actions_clients'>
-            <TableSearch inputValue={(e) => setInputValue(e.target.value)} clearInput={() => clearInput()}/>
+            <TableSearch
+              inputValue={(e: any) => setInputValue(e.target.value)}
+              clearInput={() => clearInput()}
+            />
             <TableNavigation
               currentPage={currentPage}
               allPages={allPages}
@@ -92,7 +84,7 @@ function Clients() {
               handlerPrevClick={() =>
                 currentPage > 0 ? setCurrentPage(currentPage - 1) : null
               }
-              showPages={(e) => setShowPages(e.target.value)}
+              showPages={(e: any) => setShowPages(e.target.value)}
             />
             <ClientsDescription description={description} />
             <ul className='actions__items actions__items_clients' ref={list}>

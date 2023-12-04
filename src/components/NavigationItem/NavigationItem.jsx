@@ -1,3 +1,4 @@
+import './NavigationItem.css'
 function NavigationItem({ link, name }) {
   return (
     <div className='navigation-item'>

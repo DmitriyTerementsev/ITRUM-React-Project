@@ -1,3 +1,4 @@
+import './Popup.css'
 import { useRef, useEffect } from 'react';
 
 function Popup({
@@ -16,7 +17,7 @@ function Popup({
       e.target.className === 'popup popup_active' ? onClose() : null;
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
-  }, []);
+  }, [onClose]);
 
   return (
     <div className={isOpen ? 'popup popup_active' : 'popup'} ref={popup}>

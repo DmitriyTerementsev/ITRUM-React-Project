@@ -1,9 +1,17 @@
+import React from 'react';
+import './TableSearch.css';
 import searchIcon from '../../images/en-searsh.svg';
 import cancelIcon from '../../images/en-cancel-fill.svg';
 
-function TableSearch({ inputValue, clearInput }) {
+interface TProps {
+  inputValue: () => void;
+  clearInput: () => void;
+}
+
+function TableSearch({ inputValue, clearInput }: TProps) {
   return (
     <section className='table-search'>
+      {/* заменить на компоненты иконок */}
       <img
         src={searchIcon}
         alt='icon'

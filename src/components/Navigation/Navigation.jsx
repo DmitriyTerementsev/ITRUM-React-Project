@@ -1,11 +1,16 @@
+import './Navigation.css';
 import NavigationItem from '../NavigationItem/NavigationItem';
 import { NavLink } from 'react-router-dom';
-import navigationItems from '../../utils/constants'
-
+import navigationItems from '../../utils/constants';
+import { ReactComponent as Protocols } from '../../images/protocols.svg';
 
 function Navigation() {
   return (
     <nav className='navigation'>
+      <div className='kek'>
+        <Protocols className='lol' />
+      </div>
+
       <NavLink to='/products' className='nav-link'>
         <NavigationItem link={navigationItems.products} name={'Продукты'} />
       </NavLink>
