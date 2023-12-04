@@ -1,5 +1,5 @@
 import Products from '../Products/Products';
-import Clients from '../Clients/Clients'
+import Clients from '../Clients/Clients.tsx'
 import { Routes, Route } from 'react-router-dom';
 
 function Table() {

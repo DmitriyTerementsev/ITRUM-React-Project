@@ -1,4 +1,4 @@
-const clients = [
+const clients: any[] = [
   {
     email: 'svetlana.tumalaeva@mail.ru',
     phone: '+79034285680',

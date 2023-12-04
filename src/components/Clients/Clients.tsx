@@ -1,6 +1,7 @@
+import React from 'react';
 import TableNavigation from '../TableNavigation/TableNavigation';
 import { useState, useEffect, useRef } from 'react';
-import clients from '../../utils/clients';
+import clients from '../../utils/clients.ts';
 import ClientsDescription from '../ClientsDescription/ClientsDescription';
 import ClientsItem from '../ClientsItem/ClientsItem';
 import {
@@ -19,12 +20,14 @@ function Clients() {
   const description = useRef(null);
   const [showClients, setShowClients] = useState(clients);
 
-  let clientsClone = [];
+  function clearInput(){
+    setInputValue('')
+  }
+
+  let clientsClone: any[] = [];
   for (let i = 0; i < clients.length; i++) {
     clientsClone.push(clients[i]);
   }
-
-  //let showBySearch = [];
 
   useEffect(() => {
     setShowClients(
@@ -52,16 +55,6 @@ function Clients() {
     );
   }, [inputValue, showPages, currentPage]);
 
-  /*
-  function reRender() {
-    setShowClients(
-      showBySearch
-        .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item),
-      console.log('rerender')
-    );
-  }
-*/
   useEffect(() => {
     setAllPages(
       Math.ceil(
@@ -81,36 +74,13 @@ function Clients() {
       )
     );
   }, [showPages]);
-  /*
-  useEffect(() => {
-    if (inputValue !== '') {
-      clientsClone.map((item) => {
-        if (
-          (item['name'] !== null &&
-            item['name'].toLowerCase().includes(inputValue.toLowerCase())) ||
-          (item['lastName'] !== null &&
-            item['lastName']
-              .toLowerCase()
-              .includes(inputValue.toLowerCase())) ||
-          (item['email'] !== null &&
-            item['email'].toLowerCase().includes(inputValue.toLowerCase())) ||
-          (item['phone'] !== null &&
-            item['phone'].includes(inputValue.toLowerCase()))
-        ) {
-          showBySearch.push(item);
-        }
-        return showBySearch;
-      });
-      reRender()
-    }
-  }, [inputValue]);
-*/
+
   return (
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
         <ProductList.Provider value={list}>
           <section className='actions actions_clients'>
-            <TableSearch inputValue={(e) => setInputValue(e.target.value)} />
+            <TableSearch inputValue={(e) => setInputValue(e.target.value)} clearInput={() => clearInput()}/>
             <TableNavigation
               currentPage={currentPage}
               allPages={allPages}

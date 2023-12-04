@@ -1,4 +1,4 @@
-function ClientsDescription({ clickHandlerAll, description }) {
+function ClientsDescription({ description }) {
   return (
     <div className='actions__description actions__description_clients' ref={description}>
       <p className='actions__text'>ФИ</p>
