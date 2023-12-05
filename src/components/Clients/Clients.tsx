@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from '../Actions/Actions.module.scss';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
-import clients from '../../utils/clients.ts';
+import clients from '../../constants/clients.ts';
 import ClientsDescription from '../ClientsDescription/ClientsDescription.tsx';
 import ClientsItem from '../ClientsItem/ClientsItem.tsx';
 import {

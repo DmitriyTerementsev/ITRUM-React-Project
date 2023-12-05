@@ -1,8 +1,8 @@
 import styles from './Categories.module.scss';
 import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
-import categoriesList from '../../utils/categoriesList.ts';
-import subCategoriesList from '../../utils/subCategoriesList.ts';
+import categoriesList from '../../constants/categoriesList.ts';
+import subCategoriesList from '../../constants/subCategoriesList.ts';
 
 function Categories() {
   const [isActiveCat, setIsActiveCat] = useState(false);
@@ -68,7 +68,11 @@ function Categories() {
               Здесь пока нет категорий
             </p>
             {categoriesList?.map(({ categoriesName, id }) => (
-              <CategoriesItem key={id} categoriesName={categoriesName} styles={styles}/>
+              <CategoriesItem
+                key={id}
+                categoriesName={categoriesName}
+                styles={styles}
+              />
             ))}
           </ul>
         </div>
@@ -102,7 +106,11 @@ function Categories() {
               Здесь пока нет подкатегорий
             </p>
             {subCategoriesList?.map(({ categoriesName, id }) => (
-              <CategoriesItem key={id} categoriesName={categoriesName} styles={styles}/>
+              <CategoriesItem
+                key={id}
+                categoriesName={categoriesName}
+                styles={styles}
+              />
             ))}
           </ul>
         </div>

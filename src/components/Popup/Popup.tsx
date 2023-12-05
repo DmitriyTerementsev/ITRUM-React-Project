@@ -4,10 +4,10 @@ import React, { useRef, useEffect } from 'react';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  categoriesSelect: string;
-  subcategoriesSelect: string;
-  brandSelect: string;
-  cashbackSelect: string;
+  categoriesSelect: () => void;
+  subcategoriesSelect: () => void;
+  brandSelect: () => void;
+  cashbackSelect: () => void;
 }
 
 function Popup({
@@ -22,7 +22,7 @@ function Popup({
   const popup = useRef(null);
 
   useEffect(() => {
-    const onClick = (e) =>
+    const onClick = (e: any) =>
       e.target.className === styles.popup + ' ' + styles.popup_active
         ? onClose()
         : null;
@@ -62,6 +62,7 @@ function Popup({
           />
           <p className={styles.popup__text}>Категория</p>
           <select className={styles.popup__select} onChange={categoriesSelect}>
+            <option value=''>Выберите категорию</option>
             <option value='Категория 1'>Категория 1</option>
             <option value='Категория 2'>Категория 2</option>
             <option value='Категория 3'>Категория 3</option>
@@ -71,12 +72,14 @@ function Popup({
             className={styles.popup__select}
             onChange={subcategoriesSelect}
           >
+            <option value=''>Выберите подкатегорию</option>
             <option value='Подкатегория 1'>Подкатегория 1</option>
             <option value='Подкатегория 2'>Подкатегория 2</option>
             <option value='Подкатегория 3'>Подкатегория 3</option>
           </select>
           <p className={styles.popup__text}>Бренд</p>
           <select className={styles.popup__select} onChange={brandSelect}>
+            <option value=''>Выберите бренд</option>
             <option value='Бренд 1'>Бренд 1</option>
             <option value='Бренд 2'>Бренд 2</option>
             <option value='Бренд 3'>Бренд 3</option>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Actions from '../Actions/Actions.tsx';
 import Popup from '../Popup/Popup.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
-import products from '../../utils/products.ts';
+import products from '../../constants/products.ts';
 import {
   ShowItemsValue,
   ProductList,
@@ -51,20 +51,27 @@ function Products({ styles }) {
   };
 
   function addItem() {
-    let newObject: {
-      categories: string;
-      subcategories: string;
-      brand: string;
-      cashback: string;
-      id: number;
-    } = {
-      categories: categoriesSelect,
-      subcategories: subcategoriesSelect,
-      brand: brandSelect,
-      cashback: cashbackSelect,
-      id: products.length + 1,
-    };
-    products.push(newObject);
+    if (
+      (categoriesSelect &&
+        subcategoriesSelect &&
+        brandSelect &&
+        cashbackSelect) !== ''
+    ) {
+      let newObject: {
+        categories: string;
+        subcategories: string;
+        brand: string;
+        cashback: string;
+        id: number;
+      } = {
+        categories: categoriesSelect,
+        subcategories: subcategoriesSelect,
+        brand: brandSelect,
+        cashback: cashbackSelect,
+        id: products.length + 1,
+      };
+      products.push(newObject);
+    }
   }
 
   //----------Click On Next/Prev Button
@@ -97,8 +104,8 @@ function Products({ styles }) {
 
   function handleDeleteItem() {
     const listItems = list.current!.childNodes;
-    for (let i:number = 0; i < listItems.length; i++) {
-      for (let j:number = 0; j < products.length; j++) {
+    for (let i: number = 0; i < listItems.length; i++) {
+      for (let j: number = 0; j < products.length; j++) {
         if (
           listItems[i].id == products[j].id &&
           listItems[i].querySelector(styles.actions__checkbox).checked === true
