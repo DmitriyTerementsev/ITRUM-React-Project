@@ -1,16 +1,16 @@
-function ActionsDescription({ clickHandlerAll, description }) {
+function ActionsDescription({ clickHandlerAll, description, styles }) {
   return (
-    <div className='actions__description' ref={description}>
+    <div className={styles.actions__description} ref={description}>
       <input
         type='checkbox'
-        className='actions__checkbox'
+        className={styles.actions__checkbox}
         onClick={clickHandlerAll}
       />
-      <p className='actions__text actions__text_categories'>Категория</p>
-      <p className='actions__text actions__text_subcategories'>Подкатегория</p>
-      <p className='actions__text actions__text_brand'>Бренд</p>
-      <p className='actions__text actions__text_product'>Товары</p>
-      <p className='actions__text actions__text_cashback'>Кешбэк</p>
+      <p className={styles.actions__text + ' ' + styles.actions__text_categories}>Категория</p>
+      <p className={styles.actions__text + ' ' + styles.actions__text_subcategories}>Подкатегория</p>
+      <p className={styles.actions__text + ' ' + styles.actions__text_brand}>Бренд</p>
+      <p className={styles.actions__text + ' ' + styles.actions__text_product}>Товары</p>
+      <p className={styles.actions__text + ' ' + styles.actions__text_cashback}>Кешбэк</p>
     </div>
   );
 }

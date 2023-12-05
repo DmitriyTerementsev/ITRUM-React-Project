@@ -32,7 +32,7 @@ function Navigation() {
           navbar.isActive ? styles.active : styles.navigation__link
         }
       >
-        <NavigationItem styles={styles} name={'Пользователи'}>
+        <NavigationItem styles={styles} name={'Клиенты'}>
           <Users className={styles.navigation__icon} />
         </NavigationItem>
       </NavLink>

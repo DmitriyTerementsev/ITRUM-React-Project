@@ -1,4 +1,5 @@
-import './Actions.css'
+import React from 'react';
+import styles from './Actions.module.scss'
 import ActionsDescription from '../ActionsDescription/ActionsDescription';
 import ActionsItem from '../ActionsItem/ActionsItem';
 import ActionsSelected from '../ActionsSelected/ActionsSelected';
@@ -10,19 +11,20 @@ function Actions({
   clickHandler,
   counter,
   isActive,
-  description,
   closePopup,
-  showProducts
+  showProducts,
+  description
 }) {
   //---------render items by showPages icon
 
   return (
-    <div className='actions'>
+    <div className={styles.actions}>
       <ActionsDescription
         clickHandlerAll={clickHandlerAll}
         description={description}
+        styles={styles}
       />
-      <ul className='actions__items' ref={list}>
+      <ul className={styles.actions__items} ref={list}>
         {showProducts?.map(
           ({ id, categories, subcategories, brand, product, cashback }) => (
             <ActionsItem
@@ -34,6 +36,7 @@ function Actions({
               cashback={cashback}
               clickHandler={clickHandler}
               id={id}
+              styles={styles}
             />
           )
         )}
@@ -43,6 +46,7 @@ function Actions({
         handleDeleteItem={handleDeleteItem}
         isActive={isActive}
         closePopup={closePopup}
+        styles={styles}
       />
     </div>
   );

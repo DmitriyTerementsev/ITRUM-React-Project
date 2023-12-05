@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import TableNavigation from '../TableNavigation/TableNavigation';
+import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import clients from '../../utils/clients.ts';
 import ClientsDescription from '../ClientsDescription/ClientsDescription';
 import ClientsItem from '../ClientsItem/ClientsItem';

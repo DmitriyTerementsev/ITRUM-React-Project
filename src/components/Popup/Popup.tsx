@@ -1,5 +1,5 @@
-import './Popup.css'
-import { useRef, useEffect } from 'react';
+import styles from './Popup.module.scss'
+import React, { useRef, useEffect } from 'react';
 
 function Popup({
   isOpen,
@@ -14,50 +14,50 @@ function Popup({
 
   useEffect(() => {
     const onClick = (e) =>
-      e.target.className === 'popup popup_active' ? onClose() : null;
+      e.target.className === styles.popup + ' ' + styles.popup_active ? onClose() : null;
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
   }, [onClose]);
 
   return (
-    <div className={isOpen ? 'popup popup_active' : 'popup'} ref={popup}>
-      <div className='popup__container' ref={rootEl}>
-        <div className='popup__buttons'>
+    <div className={isOpen ? styles.popup + ' ' + styles.popup_active : styles.popup} ref={popup}>
+      <div className={styles.popup__container} ref={rootEl}>
+        <div className={styles.popup__buttons}>
           <button
-            className='popup__button popup__button_delete'
+            className={styles.popup__button + ' ' + styles.popup__button_delete}
             onClick={() => console.log('yes')}
           >
             Удалить
           </button>
           <button
-            className='popup__button popup__button_save'
+            className={styles.popup__button + ' ' + styles.popup__button_save}
             onClick={onClose}
           >
             Сохранить
           </button>
         </div>
-        <div className='popup__choice'>
-          <p className='popup__text'>Начисление кешбека с покупки</p>
+        <div className={styles.popup__choice}>
+          <p className={styles.popup__text}>Начисление кешбека с покупки</p>
           <input
             type='text'
-            className='popup__input'
+            className={styles.popup__input}
             placeholder='Введите Кешбэк'
             onChange={cashbackSelect}
           />
-          <p className='popup__text'>Категория</p>
-          <select className='popup__select' onChange={categoriesSelect}>
+          <p className={styles.popup__text}>Категория</p>
+          <select className={styles.popup__select} onChange={categoriesSelect}>
             <option value='Категория 1'>Категория 1</option>
             <option value='Категория 2'>Категория 2</option>
             <option value='Категория 3'>Категория 3</option>
           </select>
-          <p className='popup__text'>Подкатегория</p>
-          <select className='popup__select' onChange={subcategoriesSelect}>
+          <p className={styles.popup__text}>Подкатегория</p>
+          <select className={styles.popup__select} onChange={subcategoriesSelect}>
             <option value='Подкатегория 1'>Подкатегория 1</option>
             <option value='Подкатегория 2'>Подкатегория 2</option>
             <option value='Подкатегория 3'>Подкатегория 3</option>
           </select>
-          <p className='popup__text'>Бренд</p>
-          <select className='popup__select' onChange={brandSelect}>
+          <p className={styles.popup__text}>Бренд</p>
+          <select className={styles.popup__select} onChange={brandSelect}>
             <option value='Бренд 1'>Бренд 1</option>
             <option value='Бренд 2'>Бренд 2</option>
             <option value='Бренд 3'>Бренд 3</option>

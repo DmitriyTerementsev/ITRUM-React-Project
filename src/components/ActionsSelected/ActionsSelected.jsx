@@ -6,32 +6,33 @@ function ActionsSelected({
   handleDeleteItem,
   isActive,
   closePopup,
+  styles
 }) {
   return (
     <div
       className={
         isActive
-          ? 'actions__select-items actions__select-items_active'
-          : 'actions__select-items'
+          ? styles.actions__select + ' ' + styles.actions__select_active
+          : styles.actions__select
       }
     >
-      <button className='actions__close-button' onClick={closePopup}>
+      <button className={styles.actions__close} onClick={closePopup}>
         <img
           src={closeIcon}
           alt='icon'
-          className='actions__close-button-icon'
+          className='actions__close-icon'
         />
       </button>
-      <p className='actions__select-text'>
+      <p className={styles.select__text}>
         Количество выбранных позиций: {counter}
       </p>
-      <button className='actions__delete-button' onClick={handleDeleteItem}>
+      <button className={styles.actions__delete} onClick={handleDeleteItem}>
         <img
           src={trashIcon}
           alt='icon'
-          className='actions__delete-button-icon'
+          className='actions__delete-icon'
         />
-        <p className='actions__delete-button-text'>Удалить</p>
+        <p className={styles.delete__text}>Удалить</p>
       </button>
     </div>
   );

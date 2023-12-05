@@ -1,4 +1,4 @@
-.table-navigation {
+.table{
   display: flex;
   width: 400px;
   height: 32px;
@@ -37,7 +37,7 @@
     justify-content: center;
   }
 
-  &__input-text {
+  &__pages {
     width: 50px;
     font-size: 14px;
     font-weight: 400;
@@ -60,9 +60,9 @@
     &:hover {
       cursor: pointer;
     }
-
-    &-icon_rotate {
-      rotate: (180deg);
-    }
+  }
+  
+  &__icon_rotate {
+    rotate: (180deg);
   }
 }

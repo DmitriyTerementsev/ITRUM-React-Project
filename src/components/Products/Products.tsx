@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Actions from '../Actions/Actions';
-import Popup from '../Popup/Popup';
-import TableNavigation from '../TableNavigation/TableNavigation';
+import Actions from '../Actions/Actions.tsx';
+import Popup from '../Popup/Popup.tsx';
+import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import products from '../../utils/products.ts';
 import {
   ShowItemsValue,
@@ -9,7 +9,7 @@ import {
   ItemsDescription,
 } from '../../contexts/ShowItemsValue';
 
-function Products() {
+function Products({ styles }) {
   //----------States
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -22,8 +22,8 @@ function Products() {
   const [subcategoriesSelect, setSubcategories] = useState('');
   const [brandSelect, setBrand] = useState('');
   const [cashbackSelect, setCashback] = useState('');
-  const list = useRef<HTMLMediaElement>(null);
-  const description = useRef<HTMLMediaElement>(null);
+  const list: any = useRef<HTMLMediaElement>(null);
+  const description: any = useRef<HTMLMediaElement>(null);
 
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
@@ -83,12 +83,12 @@ function Products() {
     if (e.target.checked === true) {
       setCounter(showProducts.length);
       list.current!.childNodes.forEach((item: any) => {
-        item.querySelector('.actions__checkbox').checked = true;
+        item.querySelector(styles.actions__checkbox).checked = true;
       });
     } else {
       setCounter(0);
       list.current!.childNodes.forEach((item: any) => {
-        item.querySelector('.actions__checkbox').checked = false;
+        item.querySelector(styles.actions__checkbox).checked = false;
       });
     }
   }
@@ -101,7 +101,7 @@ function Products() {
       for (let j = 0; j < products.length; j++) {
         if (
           listItems[i].id == products[j].id &&
-          listItems[i].querySelector('.actions__checkbox').checked === true
+          listItems[i].querySelector(styles.actions__checkbox).checked === true
         ) {
           products.splice(j, 1);
         }
@@ -109,7 +109,8 @@ function Products() {
     }
     setActive(false);
     setCounter(0);
-    description.current!.querySelector('.actions__checkbox').checked = false;
+    description.current!.querySelector(styles.actions__checkbox).checked =
+      false;
   }
 
   //----------Effects
@@ -157,7 +158,7 @@ function Products() {
             }
             showPages={(e: any) => setShowPages(e.target.value)}
           />
-          <button onClick={openPopup} className='table__button'>
+          <button onClick={openPopup} className={styles.table__button}>
             Добавить акцию
           </button>
           <Actions

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Table.css';
+import styles from './Table.module.scss'
 import { Routes, Route } from 'react-router-dom';
 import Products from '../Products/Products.tsx';
 import Clients from '../Clients/Clients.tsx';
@@ -7,10 +7,10 @@ import Categories from '../Categories/Categories.tsx';
 
 function Table() {
   return (
-    <div className='table'>
-      <div className='table__container'>
+    <div className={styles.table}>
+      <div className={styles.table__container}>
         <Routes>
-          <Route path='/products' element={<Products />} />
+          <Route path='/products' element={<Products styles={styles}/>} />
         </Routes>
         <Routes>
           <Route path='/clients' element={<Clients />} />
