@@ -1,6 +1,6 @@
 import styles from './Categories.module.scss';
 import React, { useState, useEffect } from 'react';
-import CategoriesItem from '../CategoriesItem/CategoriesItem';
+import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
 import categoriesList from '../../utils/categoriesList.ts';
 import subCategoriesList from '../../utils/subCategoriesList.ts';
 

@@ -1,7 +1,13 @@
-import editButton from '../../images/editButton.svg';
-import trashButton from '../../images/trashButton.svg';
+import React from 'react';
+import { ReactComponent as EditButton } from '../../images/editButton.svg';
+import { ReactComponent as TrashButton } from '../../images/trashButton.svg';
 
-function CategoriesItem({ categoriesName, styles }) {
+interface Props {
+  categoriesName: string
+  styles: any;
+}
+
+function CategoriesItem({ categoriesName, styles }: Props) {
   return (
     <li className={styles.categories__item}>
       <p className={styles.categories__name}>{categoriesName}</p>
@@ -10,13 +16,13 @@ function CategoriesItem({ categoriesName, styles }) {
           type='button'
           className={styles.categories__button + ' ' + styles.categories__button_icon}
         >
-          <img src={editButton} alt='icon' className={styles.categories__edit} />
+          <EditButton className={styles.categories__edit} />
         </button>
         <button
           type='button'
           className={styles.categories__button + ' ' + styles.categories__button_icon}
         >
-          <img src={trashButton} alt='icon' className={styles.categories__edit} />
+          <TrashButton className={styles.categories__edit} />
         </button>
       </div>
     </li>

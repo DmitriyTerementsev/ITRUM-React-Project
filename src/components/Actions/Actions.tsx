@@ -1,8 +1,20 @@
 import React from 'react';
-import styles from './Actions.module.scss'
-import ActionsDescription from '../ActionsDescription/ActionsDescription';
-import ActionsItem from '../ActionsItem/ActionsItem';
-import ActionsSelected from '../ActionsSelected/ActionsSelected';
+import styles from './Actions.module.scss';
+import ActionsDescription from '../ActionsDescription/ActionsDescription.tsx';
+import ActionsItem from '../ActionsItem/ActionsItem.tsx';
+import ActionsSelected from '../ActionsSelected/ActionsSelected.tsx';
+
+interface Props {
+  list: any;
+  handleDeleteItem: () => void;
+  clickHandlerAll: () => void;
+  clickHandler: () => void;
+  counter: number;
+  isActive: boolean;
+  closePopup: () => void;
+  showProducts: any[];
+  description: any;
+}
 
 function Actions({
   list,
@@ -13,10 +25,8 @@ function Actions({
   isActive,
   closePopup,
   showProducts,
-  description
-}) {
-  //---------render items by showPages icon
-
+  description,
+}: Props) {
   return (
     <div className={styles.actions}>
       <ActionsDescription

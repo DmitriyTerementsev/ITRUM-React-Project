@@ -1,5 +1,14 @@
-import styles from './Popup.module.scss'
+import styles from './Popup.module.scss';
 import React, { useRef, useEffect } from 'react';
+
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  categoriesSelect: string;
+  subcategoriesSelect: string;
+  brandSelect: string;
+  cashbackSelect: string;
+}
 
 function Popup({
   isOpen,
@@ -8,19 +17,26 @@ function Popup({
   subcategoriesSelect,
   brandSelect,
   cashbackSelect,
-}) {
+}: Props) {
   const rootEl = useRef(null);
   const popup = useRef(null);
 
   useEffect(() => {
     const onClick = (e) =>
-      e.target.className === styles.popup + ' ' + styles.popup_active ? onClose() : null;
+      e.target.className === styles.popup + ' ' + styles.popup_active
+        ? onClose()
+        : null;
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
   }, [onClose]);
 
   return (
-    <div className={isOpen ? styles.popup + ' ' + styles.popup_active : styles.popup} ref={popup}>
+    <div
+      className={
+        isOpen ? styles.popup + ' ' + styles.popup_active : styles.popup
+      }
+      ref={popup}
+    >
       <div className={styles.popup__container} ref={rootEl}>
         <div className={styles.popup__buttons}>
           <button
@@ -51,7 +67,10 @@ function Popup({
             <option value='Категория 3'>Категория 3</option>
           </select>
           <p className={styles.popup__text}>Подкатегория</p>
-          <select className={styles.popup__select} onChange={subcategoriesSelect}>
+          <select
+            className={styles.popup__select}
+            onChange={subcategoriesSelect}
+          >
             <option value='Подкатегория 1'>Подкатегория 1</option>
             <option value='Подкатегория 2'>Подкатегория 2</option>
             <option value='Подкатегория 3'>Подкатегория 3</option>

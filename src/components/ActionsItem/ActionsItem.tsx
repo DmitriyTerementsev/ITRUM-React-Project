@@ -1,3 +1,16 @@
+import React from 'react';
+
+interface Props {
+  clickHandler: () => void;
+  categories: string;
+  subcategories: string;
+  brand: string;
+  cashback: string;
+  product: string;
+  id: string;
+  styles: any;
+}
+
 function ActionsItem({
   categories,
   subcategories,
@@ -7,7 +20,7 @@ function ActionsItem({
   clickHandler,
   id,
   styles,
-}) {
+}: Props) {
   return (
     <li className={styles.actions__item} id={id}>
       <input

@@ -1,13 +1,22 @@
-import trashIcon from '../../images/trash.svg';
-import closeIcon from '../../images/en-close.svg';
+import React from 'react';
+import { ReactComponent as TrashIcon } from '../../images/trash.svg';
+import { ReactComponent as CloseIcon } from '../../images/en-close.svg';
+
+interface Props {
+  closePopup: () => void;
+  handleDeleteItem: () => void;
+  isActive: boolean;
+  counter: number;
+  styles: any;
+}
 
 function ActionsSelected({
   counter,
   handleDeleteItem,
   isActive,
   closePopup,
-  styles
-}) {
+  styles,
+}: Props) {
   return (
     <div
       className={
@@ -17,21 +26,13 @@ function ActionsSelected({
       }
     >
       <button className={styles.actions__close} onClick={closePopup}>
-        <img
-          src={closeIcon}
-          alt='icon'
-          className='actions__close-icon'
-        />
+        <TrashIcon className={styles.actions__close} />
       </button>
       <p className={styles.select__text}>
         Количество выбранных позиций: {counter}
       </p>
       <button className={styles.actions__delete} onClick={handleDeleteItem}>
-        <img
-          src={trashIcon}
-          alt='icon'
-          className='actions__delete-icon'
-        />
+        <CloseIcon className={styles.actions__delete} />
         <p className={styles.delete__text}>Удалить</p>
       </button>
     </div>
