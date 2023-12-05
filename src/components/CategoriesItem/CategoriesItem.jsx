@@ -1,22 +1,22 @@
 import editButton from '../../images/editButton.svg';
 import trashButton from '../../images/trashButton.svg';
 
-function CategoriesItem({ categoriesName }) {
+function CategoriesItem({ categoriesName, styles }) {
   return (
-    <li className='categories__item'>
-      <p className='categories__name'>{categoriesName}</p>
-      <div className='categories__buttons'>
+    <li className={styles.categories__item}>
+      <p className={styles.categories__name}>{categoriesName}</p>
+      <div className={styles.categories__buttons}>
         <button
           type='button'
-          className='categories__button categories__button_icon'
+          className={styles.categories__button + ' ' + styles.categories__button_icon}
         >
-          <img src={editButton} alt='icon' className='categories__edit' />
+          <img src={editButton} alt='icon' className={styles.categories__edit} />
         </button>
         <button
           type='button'
-          className='categories__button categories__button_icon'
+          className={styles.categories__button + ' ' + styles.categories__button_icon}
         >
-          <img src={trashButton} alt='icon' className='categories__edit' />
+          <img src={trashButton} alt='icon' className={styles.categories__edit} />
         </button>
       </div>
     </li>
