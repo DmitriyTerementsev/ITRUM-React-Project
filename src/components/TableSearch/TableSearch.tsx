@@ -1,5 +1,5 @@
 import React from 'react';
-import './TableSearch.css';
+import './TableSearch.scss';
 import searchIcon from '../../images/en-searsh.svg';
 import cancelIcon from '../../images/en-cancel-fill.svg';
 
@@ -9,7 +9,7 @@ import cancelIcon from '../../images/en-cancel-fill.svg';
 }
 */
 
-function TableSearch({ inputValue, clearInput }) {
+function TableSearch({ inputValue, clearInput, styles }) {
   return (
     <section className='table-search'>
       {/* заменить на компоненты иконок */}

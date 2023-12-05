@@ -1,9 +1,9 @@
-function ClientsDescription({ description }) {
+function ClientsDescription({ description, styles }) {
   return (
-    <div className='actions__description actions__description_clients' ref={description}>
-      <p className='actions__text'>ФИ</p>
-      <p className='actions__text'>Почта</p>
-      <p className='actions__text'>Телефон</p>
+    <div className={styles.actions__description + ' ' + styles.actions__description_clients} ref={description}>
+      <p className={styles.actions__text}>ФИ</p>
+      <p className={styles.actions__text}>Почта</p>
+      <p className={styles.actions__text}>Телефон</p>
     </div>
   );
 }

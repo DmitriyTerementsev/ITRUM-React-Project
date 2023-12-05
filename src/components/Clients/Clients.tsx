@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import styles from '../Actions/Actions.module.scss';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import clients from '../../utils/clients.ts';
 import ClientsDescription from '../ClientsDescription/ClientsDescription';
@@ -68,10 +69,11 @@ function Clients() {
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
         <ProductList.Provider value={list}>
-          <section className='actions actions_clients'>
+          <section className={styles.actions + ' ' + styles.actions_clients}>
             <TableSearch
               inputValue={(e: any) => setInputValue(e.target.value)}
               clearInput={() => clearInput()}
+              styles={styles}
             />
             <TableNavigation
               currentPage={currentPage}
@@ -86,14 +88,20 @@ function Clients() {
               }
               showPages={(e: any) => setShowPages(e.target.value)}
             />
-            <ClientsDescription description={description} />
-            <ul className='actions__items actions__items_clients' ref={list}>
+            <ClientsDescription description={description} styles={styles} />
+            <ul
+              className={
+                styles.actions__items + ' ' + styles.actions__items_clients
+              }
+              ref={list}
+            >
               {showClients?.map(({ name, lastName, phone, email }) => (
                 <ClientsItem
                   key={name + ' ' + lastName + phone}
                   name={name + ' ' + lastName}
                   phone={phone}
                   email={email}
+                  styles={styles}
                 />
               ))}
             </ul>

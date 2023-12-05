@@ -1,13 +1,13 @@
-function ClientsItem({ name, email, phone }) {
+function ClientsItem({ name, email, phone, styles }) {
   return (
-    <li className='actions__item'>
-      <p className='actions__text'>
+    <li className={styles.actions__item}>
+      <p className={styles.actions__text}>
         {name}
       </p>
-      <p className='actions__text'>
+      <p className={styles.actions__text}>
         {email}
       </p>
-      <p className='actions__text'>
+      <p className={styles.actions__text}>
         {phone}
       </p>
     </li>
