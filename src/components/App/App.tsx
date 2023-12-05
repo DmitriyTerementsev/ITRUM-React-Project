@@ -1,5 +1,6 @@
-import Navigation from '../Navigation/Navigation';
-import Table from '../Table/Table';
+import React from 'react';
+import Navigation from '../Navigation/Navigation.tsx';
+import Table from '../Table/Table.tsx';
 
 function App() {
   return (

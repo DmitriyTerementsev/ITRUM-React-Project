@@ -1,3 +1,4 @@
+import React from 'react';
 import './Table.css';
 import { Routes, Route } from 'react-router-dom';
 import Products from '../Products/Products.tsx';
