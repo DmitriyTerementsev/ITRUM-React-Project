@@ -97,8 +97,8 @@ function Products({ styles }) {
 
   function handleDeleteItem() {
     const listItems = list.current!.childNodes;
-    for (let i = 0; i < listItems.length; i++) {
-      for (let j = 0; j < products.length; j++) {
+    for (let i:number = 0; i < listItems.length; i++) {
+      for (let j:number = 0; j < products.length; j++) {
         if (
           listItems[i].id == products[j].id &&
           listItems[i].querySelector(styles.actions__checkbox).checked === true

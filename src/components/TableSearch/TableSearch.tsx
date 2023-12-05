@@ -1,33 +1,27 @@
 import React from 'react';
-import './TableSearch.scss';
-import searchIcon from '../../images/en-searsh.svg';
-import cancelIcon from '../../images/en-cancel-fill.svg';
+import styles from './TableSearch.module.scss';
+import { ReactComponent as SearchIcon } from '../../images/en-searsh.svg';
+import { ReactComponent as DeleteIcon } from '../../images/en-cancel-fill.svg';
 
-/* interface TProps {
+interface Props {
   inputValue: () => void;
   clearInput: () => void;
 }
-*/
 
-function TableSearch({ inputValue, clearInput, styles }) {
+function TableSearch({ inputValue, clearInput }: Props) {
   return (
-    <section className='table-search'>
-      {/* заменить на компоненты иконок */}
-      <img
-        src={searchIcon}
-        alt='icon'
-        className='table-search__icon table-search__icon_search'
+    <section className={styles.search}>
+      <SearchIcon
+        className={styles.search__icon + ' ' + styles.search__icon_search}
       />
       <input
         type='text'
-        className='table-search__input'
+        className={styles.search__input}
         placeholder='Поиск'
         onChange={inputValue}
       />
-      <img
-        src={cancelIcon}
-        alt='icon'
-        className='table-search__icon table-search__icon_cancel'
+      <DeleteIcon
+        className={styles.search__icon + ' ' + styles.search__icon_cancel}
         onClick={clearInput}
       />
     </section>
