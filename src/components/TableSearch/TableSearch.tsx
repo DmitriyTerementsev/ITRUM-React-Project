@@ -3,12 +3,13 @@ import './TableSearch.css';
 import searchIcon from '../../images/en-searsh.svg';
 import cancelIcon from '../../images/en-cancel-fill.svg';
 
-interface TProps {
+/* interface TProps {
   inputValue: () => void;
   clearInput: () => void;
 }
+*/
 
-function TableSearch({ inputValue, clearInput }: TProps) {
+function TableSearch({ inputValue, clearInput }) {
   return (
     <section className='table-search'>
       {/* заменить на компоненты иконок */}

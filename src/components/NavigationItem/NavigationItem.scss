@@ -1,10 +1,11 @@
 .navigation-item {
-  width: 100%;
+  width: 185px;
   height: 56px;
   display: flex;
   align-items: center;
+  padding-left: 20px;
   gap: 16px;
-  
+
   &:hover {
     cursor: pointer;
   }

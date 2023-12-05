@@ -1,8 +1,8 @@
 import './NavigationItem.css'
-function NavigationItem({ link, name }) {
+function NavigationItem({ children, name }) {
   return (
     <div className='navigation-item'>
-      <div className='navigation-item__icon'>{link}</div>
+      {children}
       <p className='navigation-item__text'>{name}</p>
     </div>
   );

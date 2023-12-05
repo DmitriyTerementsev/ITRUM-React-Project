@@ -8,7 +8,7 @@ import {
   ProductList,
   ItemsDescription,
 } from '../../contexts/ShowItemsValue';
-import TableSearch from '../TableSearch/TableSearch';
+import TableSearch from '../TableSearch/TableSearch.tsx';
 
 function Clients() {
   const [inputValue, setInputValue] = useState('');
