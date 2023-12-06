@@ -1,8 +1,8 @@
-const clients: any[] = [
+export const clients = [
   {
     email: 'svetlana.tumalaeva@mail.ru',
     phone: '+79034285680',
-    name: 'Светлана',
+    name: 'Cветлана',
     lastName: 'Тумалаева',
     firmName: '',
     role: 'SPECIALIST',
@@ -7992,5 +7992,3 @@ const clients: any[] = [
     role: 'SPECIALIST',
   },
 ];
-
-export default clients;

@@ -1,6 +1,8 @@
 .actions {
   margin-top: 24px;
-  height: 675px;
+  height: 654px;
+  overflow: scroll;
+  overflow-x: hidden;
   position: relative;
 
   &__description {
@@ -9,11 +11,6 @@
     align-items: center;
     background-color: #f8f8fa;
     border-bottom: 1px solid #ebecef;
-    justify-content: space-between;
-
-    &_clients {
-      margin-top: 24px;
-    }
   }
 
   &__checkbox {
@@ -31,12 +28,11 @@
     font-weight: 500;
     line-height: 24px;
     text-align: left;
+    color: #737680;
     padding-left: 8px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 320px;
-    color: #434652;
 
     &_categories {
       width: 242px;
@@ -61,6 +57,7 @@
     }
 
     &_item {
+      color: #434652;
       font-weight: 400;
       line-height: 20px;
     }
@@ -69,13 +66,6 @@
   &__items {
     list-style-type: none;
     padding-left: 0;
-    overflow: scroll;
-    overflow-x: hidden;
-    height: 604px;
-
-    &_clients {
-      height: 680px;
-    }
   }
 
   &__item {
@@ -85,7 +75,7 @@
     border-bottom: 1px solid #ebecef;
   }
 
-  &__select {
+  &__select-items {
     opacity: 0;
     visibility: hidden;
     transition: all 0.5s ease;
@@ -102,13 +92,13 @@
       opacity: 1;
       visibility: visible;
       transition: all 0.5s ease;
-      position: absolute;
-      bottom: 40px;
+      position: sticky;
+      bottom: 20px;
       left: 220px;
     }
   }
 
-  &__close {
+  &__close-button {
     appearance: none;
     border: 0;
     background-color: #ffffff;
@@ -121,7 +111,17 @@
     }
   }
 
-  &__delete {
+  &__select-text {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #999999;
+    align-self: center;
+  }
+
+  &__delete-button {
     appearance: none;
     border: 0;
     background-color: #ffffff;
@@ -130,28 +130,17 @@
     justify-content: space-between;
     align-self: center;
     align-items: center;
+    margin-top: 26px;
 
     &:hover {
       cursor: pointer;
     }
   }
-}
 
-.select__text {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0px;
-  text-align: center;
-  color: #999999;
-  align-self: center;
-  margin-bottom: 20px;
-}
-
-.delete__text {
-  margin-top: 2px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  color: #999999;
+  &__delete-button-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #999999;
+  }
 }

@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Actions from '../Actions/Actions.tsx';
-import Popup from '../Popup/Popup.tsx';
-import TableNavigation from '../TableNavigation/TableNavigation.tsx';
-import products from '../../constants/products.ts';
+import Actions from '../Actions/Actions';
+import Popup from '../Popup/Popup';
+import { useEffect, useState, useRef } from 'react';
+import TableNavigation from '../TableNavigation/TableNavigation';
+import products from '../../utils/products';
 import {
   ShowItemsValue,
   ProductList,
   ItemsDescription,
 } from '../../contexts/ShowItemsValue';
 
-function Products({ styles }) {
+function Products() {
   //----------States
-  const [checked, setChecked] = useState(false)
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,13 +18,13 @@ function Products({ styles }) {
   const [showPages, setShowPages] = useState(10);
   const [isOpen, setOpen] = useState(false);
 
-  const [categoriesSelect, setCategories] = useState('');
-  const [subcategoriesSelect, setSubcategories] = useState('');
-  const [brandSelect, setBrand] = useState('');
-  const [cashbackSelect, setCashback] = useState('');
-  const list: any = useRef<HTMLElement>(null);
-  const description: any = useRef<HTMLElement>(null);
+  const [categoriesSelect, setCategories] = useState(null);
+  const [subcategoriesSelect, setSubcategories] = useState(null);
+  const [brandSelect, setBrand] = useState(null);
+  const [cashbackSelect, setCashback] = useState(null);
 
+  const list = useRef(null);
+  const description = useRef(null);
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
     .map((item) => item);
@@ -48,36 +47,18 @@ function Products({ styles }) {
 
   const onClose = () => {
     setOpen(false);
-    addItem();
+    const newObject = new Object();
+    newObject.categories = categoriesSelect;
+    newObject.subcategories = subcategoriesSelect;
+    newObject.brand = brandSelect;
+    newObject.cashback = cashbackSelect;
+    newObject.id = products.length + 1;
+    products.push(newObject);
   };
-
-  function addItem() {
-    if (
-      (categoriesSelect &&
-        subcategoriesSelect &&
-        brandSelect &&
-        cashbackSelect) !== ''
-    ) {
-      let newObject: {
-        categories: string;
-        subcategories: string;
-        brand: string;
-        cashback: string;
-        id: number;
-      } = {
-        categories: categoriesSelect,
-        subcategories: subcategoriesSelect,
-        brand: brandSelect,
-        cashback: cashbackSelect,
-        id: products.length + 1,
-      };
-      products.push(newObject);
-    }
-  }
 
   //----------Click On Next/Prev Button
 
-  function handleClickItem(e: any) {
+  function clickHandler(e) {
     if (e.target.checked === true) {
       setCounter(counter + 1);
     } else {
@@ -87,18 +68,16 @@ function Products({ styles }) {
 
   //----------Click on checkbox - select All
 
-  function handleClickAllSelect(e: any) {
+  function clickHandlerAll(e) {
     if (e.target.checked === true) {
       setCounter(showProducts.length);
-      list.current!.childNodes.forEach((item: any) => {
-        console.log(item)
-        //console.log(item.querySelector(`.${styles.actions__checkbox}`))
-        //item.querySelector(styles.actions__checkbox).checked = true;
+      list.current.childNodes.forEach((item) => {
+        item.querySelector('.actions__checkbox').checked = true;
       });
     } else {
       setCounter(0);
-      list.current!.childNodes.forEach((item: any) => {
-        item.querySelector(styles.actions__checkbox).checked = false;
+      list.current.childNodes.forEach((item) => {
+        item.querySelector('.actions__checkbox').checked = false;
       });
     }
   }
@@ -106,13 +85,12 @@ function Products({ styles }) {
   //----------Click on delete items
 
   function handleDeleteItem() {
-    console.log(description.current)
-    const listItems = list.current!.childNodes;
-    for (let i: number = 0; i < listItems.length; i++) {
-      for (let j: number = 0; j < products.length; j++) {
+    const listItems = list.current.childNodes;
+    for (let i = 0; i < listItems.length; i++) {
+      for (let j = 0; j < products.length; j++) {
         if (
           listItems[i].id == products[j].id &&
-          listItems[i].querySelector(styles.actions__checkbox).checked === true
+          listItems[i].querySelector('.actions__checkbox').checked === true
         ) {
           products.splice(j, 1);
         }
@@ -120,8 +98,7 @@ function Products({ styles }) {
     }
     setActive(false);
     setCounter(0);
-    description.checked =
-      false;
+    description.current.querySelector('.actions__checkbox').checked = false;
   }
 
   //----------Effects
@@ -135,7 +112,7 @@ function Products({ styles }) {
   }, [counter]);
 
   useEffect(() => {
-    function keyHandler(evt: any) {
+    function keyHandler(evt) {
       if (evt.key === 'Escape') {
         onClose();
       }
@@ -150,7 +127,17 @@ function Products({ styles }) {
 
   useEffect(() => {
     setAllPages(Math.ceil(products.length / showPages));
-  }, [products.length, showPages]);
+  }, [products.length]);
+
+  useEffect(() => {
+    setAllPages(Math.ceil(products.length / showPages));
+  }, [showPages]);
+
+  useEffect(() => {
+    if (currentPage === allPages) {
+      setCurrentPage(allPages - 1);
+    }
+  }, [allPages]);
 
   return (
     <ItemsDescription.Provider value={description}>
@@ -159,38 +146,40 @@ function Products({ styles }) {
           <TableNavigation
             currentPage={currentPage}
             allPages={allPages}
-            handleClickNext={() =>
+            handlerNextClick={() =>
               currentPage === allPages - 1
                 ? null
                 : setCurrentPage(currentPage + 1)
             }
-            handleClickPrev={() =>
+            handlerPrevClick={() =>
               currentPage > 0 ? setCurrentPage(currentPage - 1) : null
             }
-            showPages={(e: any) => setShowPages(e.target.value)}
+            showPages={(e) => setShowPages(e.target.value)}
           />
-          <button onClick={openPopup} className={styles.table__button}>
+          <button onClick={openPopup} className='table__button'>
             Добавить акцию
           </button>
           <Actions
+            currentPage={currentPage}
+            products={products}
+            showPages={showPages}
             list={list}
-            handleDeleteItem={() => handleDeleteItem()}
-            handleClickAllSelect={(e: any) => handleClickAllSelect(e)}
-            handleClickItem={(e: any) => handleClickItem(e)}
+            handleDeleteItem={handleDeleteItem}
+            clickHandlerAll={clickHandlerAll}
+            clickHandler={clickHandler}
             counter={counter}
             closePopup={closePopup}
             isActive={isActive}
             description={description}
             showProducts={showProducts}
-            checked={checked}
           />
           <Popup
             isOpen={isOpen}
             onClose={onClose}
-            categoriesSelect={(e: any) => setCategories(e.target.value)}
-            subcategoriesSelect={(e: any) => setSubcategories(e.target.value)}
-            brandSelect={(e: any) => setBrand(e.target.value)}
-            cashbackSelect={(e: any) => setCashback(e.target.value)}
+            categoriesSelect={(e) => setCategories(e.target.value)}
+            subcategoriesSelect={(e) => setSubcategories(e.target.value)}
+            brandSelect={(e) => setBrand(e.target.value)}
+            cashbackSelect={(e) => setCashback(e.target.value)}
           />
         </ProductList.Provider>
       </ShowItemsValue.Provider>

@@ -1,0 +1,10 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/Inter_web/inter.css);
+@import url(./components/Root/Root.css);
+@import url(./components/App/App.css);
+@import url(./components/Navigation/Navigation.css);
+@import url(./components/NavigationItem/NavigationItem.css);
+@import url(./components/Table/Table.css);
+@import url(./components/TableNavigation/TableNavigation.css);
+@import url(./components/Actions/Actions.css);
+@import url(./components/Popup/Popup.css);
