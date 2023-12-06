@@ -16,7 +16,6 @@ function Categories() {
       categoriesName: inputValueCat,
       id: categoriesList.length + 1,
     });
-    //setValue('');
   }
 
   function addSubCategories() {
@@ -24,7 +23,6 @@ function Categories() {
       categoriesName: inputValueSubCat,
       id: subCategoriesList.length + 1,
     });
-    //setValue('');
   }
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function Categories() {
           <button
             type='button'
             className={styles.categories__button}
-            onClick={addCategories}
+            onClick={() => addCategories()}
           >
             Добавить категорию
           </button>
