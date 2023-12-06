@@ -18,8 +18,8 @@ function Popup({
   brandSelect,
   cashbackSelect,
 }: Props) {
-  const rootEl = useRef(null);
-  const popup = useRef(null);
+  const rootEl: any = useRef(null);
+  const popup: any = useRef(null);
 
   useEffect(() => {
     const onClick = (e: any) =>

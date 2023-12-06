@@ -5,10 +5,10 @@ import { ReactComponent as DeleteIcon } from '../../images/en-cancel-fill.svg';
 
 interface Props {
   inputValue: (e: any) => void;
-  clearInput: () => void;
+  handleInputClear: () => void;
 }
 
-function TableSearch({ inputValue, clearInput }: Props) {
+function TableSearch({ inputValue, handleInputClear }: Props) {
   return (
     <section className={styles.search}>
       <SearchIcon
@@ -22,7 +22,7 @@ function TableSearch({ inputValue, clearInput }: Props) {
       />
       <DeleteIcon
         className={styles.search__icon + ' ' + styles.search__icon_cancel}
-        onClick={clearInput}
+        onClick={handleInputClear}
       />
     </section>
   );

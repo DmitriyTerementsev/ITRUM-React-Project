@@ -1,18 +1,23 @@
 import React from 'react';
 
 interface Props {
-  clickHandlerAll: () => void;
+  handleClickAllSelect: (e: any) => void;
   description: any;
   styles: any;
 }
 
-function ActionsDescription({ clickHandlerAll, description, styles }: Props) {
+function ActionsDescription({
+  handleClickAllSelect,
+  description,
+  styles,
+}: Props) {
   return (
-    <div className={styles.actions__description} ref={description}>
+    <div className={styles.actions__description}>
       <input
         type='checkbox'
         className={styles.actions__checkbox}
-        onClick={clickHandlerAll}
+        onClick={(e: any) => handleClickAllSelect(e)}
+        ref={description}
       />
       <p
         className={styles.actions__text + ' ' + styles.actions__text_categories}

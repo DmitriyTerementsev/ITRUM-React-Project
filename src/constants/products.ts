@@ -1,4 +1,4 @@
-let productItems:any[] = [
+let productItems: any[] = [
   {
     id: 1,
     categories: 'Эстетический уход',
@@ -6,6 +6,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '1%',
+    checked: false,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '2%',
+    checked: false,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '3%',
+    checked: false,
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '4%',
+    checked: false,
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '5%',
+    checked: false,
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '6%',
+    checked: false,
   },
   {
     id: 7,
@@ -54,6 +60,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '7%',
+    checked: false,
   },
   {
     id: 8,
@@ -62,6 +69,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '8%',
+    checked: false,
   },
   {
     id: 9,
@@ -70,6 +78,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '9%',
+    checked: false,
   },
   {
     id: 10,
@@ -78,6 +87,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '10%',
+    checked: false,
   },
   {
     id: 11,
@@ -86,6 +96,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '11%',
+    checked: false,
   },
   {
     id: 12,
@@ -94,6 +105,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '12%',
+    checked: false,
   },
   {
     id: 13,
@@ -102,6 +114,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '13%',
+    checked: false,
   },
   {
     id: 14,
@@ -110,6 +123,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '14%',
+    checked: false,
   },
   {
     id: 15,
@@ -118,6 +132,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '15%',
+    checked: false,
   },
   {
     id: 16,
@@ -126,6 +141,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '16%',
+    checked: false,
   },
   {
     id: 17,
@@ -134,6 +150,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '17%',
+    checked: false,
   },
   {
     id: 18,
@@ -142,6 +159,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '18%',
+    checked: false,
   },
   {
     id: 19,
@@ -150,6 +168,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '19%',
+    checked: false,
   },
   {
     id: 20,
@@ -158,6 +177,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '20%',
+    checked: false,
   },
   {
     id: 21,
@@ -166,6 +186,7 @@ let productItems:any[] = [
     brand: 'Academie',
     product: 'Гоммаж с кремом и витамином У, 50мл',
     cashback: '21%',
+    checked: false,
   },
 ];
 

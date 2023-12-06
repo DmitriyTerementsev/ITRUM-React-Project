@@ -6,16 +6,16 @@ import { useLocation } from 'react-router-dom';
 interface Props {
   currentPage: number;
   allPages: number;
-  handlerNextClick: () => void;
-  handlerPrevClick: () => void;
+  handleClickNext: () => void;
+  handleClickPrev: () => void;
   showPages: (e: any) => void;
 }
 
 function TableNavigation({
   currentPage,
   allPages,
-  handlerNextClick,
-  handlerPrevClick,
+  handleClickNext,
+  handleClickPrev,
   showPages,
 }: Props) {
   const tableRoute = useLocation().pathname === '/clients';
@@ -34,10 +34,10 @@ function TableNavigation({
       <p className={styles.table__text}>Страница</p>
       <p className={styles.table__input}>{currentPage + 1}</p>
       <p className={styles.table__pages}>из {allPages}</p>
-      <button className={styles.table__button} onClick={handlerPrevClick}>
+      <button className={styles.table__button} onClick={handleClickPrev}>
         <img src={arrowRight} alt='icon' className={styles.table__icon} />
       </button>
-      <button className={styles.table__button} onClick={handlerNextClick}>
+      <button className={styles.table__button} onClick={handleClickNext}>
         <img
           src={arrowRight}
           alt='icon'

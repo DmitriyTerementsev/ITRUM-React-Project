@@ -7,36 +7,46 @@ import ActionsSelected from '../ActionsSelected/ActionsSelected.tsx';
 interface Props {
   list: any;
   handleDeleteItem: () => void;
-  clickHandlerAll: () => void;
-  clickHandler: () => void;
+  handleClickAllSelect: (e: any) => void;
+  handleClickItem: (e: any) => void;
   counter: number;
   isActive: boolean;
   closePopup: () => void;
   showProducts: any[];
   description: any;
+  checked: boolean;
 }
 
 function Actions({
   list,
   handleDeleteItem,
-  clickHandlerAll,
-  clickHandler,
+  handleClickAllSelect,
+  handleClickItem,
   counter,
   isActive,
   closePopup,
   showProducts,
   description,
+  checked
 }: Props) {
   return (
     <div className={styles.actions}>
       <ActionsDescription
-        clickHandlerAll={clickHandlerAll}
+        handleClickAllSelect={(e: any) => handleClickAllSelect(e)}
         description={description}
         styles={styles}
       />
       <ul className={styles.actions__items} ref={list}>
         {showProducts?.map(
-          ({ id, categories, subcategories, brand, product, cashback }) => (
+          ({
+            id,
+            categories,
+            subcategories,
+            brand,
+            product,
+            cashback,
+            checked,
+          }) => (
             <ActionsItem
               key={id}
               categories={categories}
@@ -44,9 +54,10 @@ function Actions({
               brand={brand}
               product={product}
               cashback={cashback}
-              clickHandler={clickHandler}
+              handleClickItem={(e: any) => handleClickItem(e)}
               id={id}
               styles={styles}
+              checked={checked}
             />
           )
         )}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  clickHandler: () => void;
+  handleClickItem: (e: any) => void;
   categories: string;
   subcategories: string;
   brand: string;
@@ -9,6 +9,7 @@ interface Props {
   product: string;
   id: string;
   styles: any;
+  checked: boolean;
 }
 
 function ActionsItem({
@@ -17,16 +18,18 @@ function ActionsItem({
   brand,
   product,
   cashback,
-  clickHandler,
+  handleClickItem,
   id,
   styles,
+  checked,
 }: Props) {
   return (
     <li className={styles.actions__item} id={id}>
       <input
         type='checkbox'
         className={styles.actions__checkbox}
-        onClick={clickHandler}
+        onClick={(e: any) => handleClickItem(e)}
+        onChange={() => checked}
       />
       <p
         className={

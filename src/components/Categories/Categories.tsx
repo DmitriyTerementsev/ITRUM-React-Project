@@ -16,7 +16,7 @@ function Categories() {
       categoriesName: inputValueCat,
       id: categoriesList.length + 1,
     });
-    setValue('');
+    //setValue('');
   }
 
   function addSubCategories() {
@@ -24,7 +24,7 @@ function Categories() {
       categoriesName: inputValueSubCat,
       id: subCategoriesList.length + 1,
     });
-    setValue('');
+    //setValue('');
   }
 
   useEffect(() => {

@@ -20,7 +20,7 @@ function Clients() {
   const description = useRef(null);
   const [showClients, setShowClients] = useState(clients);
 
-  function clearInput() {
+  function handleInputClear() {
     setInputValue('');
   }
 
@@ -72,17 +72,17 @@ function Clients() {
           <section className={styles.actions + ' ' + styles.actions_clients}>
             <TableSearch
               inputValue={(e: any) => setInputValue(e.target.value)}
-              clearInput={() => clearInput()}
+              handleInputClear={() => handleInputClear()}
             />
             <TableNavigation
               currentPage={currentPage}
               allPages={allPages}
-              handlerNextClick={() =>
+              handleClickNext={() =>
                 currentPage === allPages - 1
                   ? null
                   : setCurrentPage(currentPage + 1)
               }
-              handlerPrevClick={() =>
+              handleClickPrev={() =>
                 currentPage > 0 ? setCurrentPage(currentPage - 1) : null
               }
               showPages={(e: any) => setShowPages(e.target.value)}

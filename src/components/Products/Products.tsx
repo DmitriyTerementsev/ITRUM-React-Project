@@ -11,6 +11,7 @@ import {
 
 function Products({ styles }) {
   //----------States
+  const [checked, setChecked] = useState(false)
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,8 +23,8 @@ function Products({ styles }) {
   const [subcategoriesSelect, setSubcategories] = useState('');
   const [brandSelect, setBrand] = useState('');
   const [cashbackSelect, setCashback] = useState('');
-  const list: any = useRef<HTMLMediaElement>(null);
-  const description: any = useRef<HTMLMediaElement>(null);
+  const list: any = useRef<HTMLElement>(null);
+  const description: any = useRef<HTMLElement>(null);
 
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
@@ -76,7 +77,7 @@ function Products({ styles }) {
 
   //----------Click On Next/Prev Button
 
-  function clickHandler(e: any) {
+  function handleClickItem(e: any) {
     if (e.target.checked === true) {
       setCounter(counter + 1);
     } else {
@@ -86,11 +87,13 @@ function Products({ styles }) {
 
   //----------Click on checkbox - select All
 
-  function clickHandlerAll(e: any) {
+  function handleClickAllSelect(e: any) {
     if (e.target.checked === true) {
       setCounter(showProducts.length);
       list.current!.childNodes.forEach((item: any) => {
-        item.querySelector(styles.actions__checkbox).checked = true;
+        console.log(item)
+        //console.log(item.querySelector(`.${styles.actions__checkbox}`))
+        //item.querySelector(styles.actions__checkbox).checked = true;
       });
     } else {
       setCounter(0);
@@ -103,6 +106,7 @@ function Products({ styles }) {
   //----------Click on delete items
 
   function handleDeleteItem() {
+    console.log(description.current)
     const listItems = list.current!.childNodes;
     for (let i: number = 0; i < listItems.length; i++) {
       for (let j: number = 0; j < products.length; j++) {
@@ -116,7 +120,7 @@ function Products({ styles }) {
     }
     setActive(false);
     setCounter(0);
-    description.current!.querySelector(styles.actions__checkbox).checked =
+    description.checked =
       false;
   }
 
@@ -155,12 +159,12 @@ function Products({ styles }) {
           <TableNavigation
             currentPage={currentPage}
             allPages={allPages}
-            handlerNextClick={() =>
+            handleClickNext={() =>
               currentPage === allPages - 1
                 ? null
                 : setCurrentPage(currentPage + 1)
             }
-            handlerPrevClick={() =>
+            handleClickPrev={() =>
               currentPage > 0 ? setCurrentPage(currentPage - 1) : null
             }
             showPages={(e: any) => setShowPages(e.target.value)}
@@ -170,14 +174,15 @@ function Products({ styles }) {
           </button>
           <Actions
             list={list}
-            handleDeleteItem={handleDeleteItem}
-            clickHandlerAll={() => clickHandlerAll}
-            clickHandler={() => clickHandler}
+            handleDeleteItem={() => handleDeleteItem()}
+            handleClickAllSelect={(e: any) => handleClickAllSelect(e)}
+            handleClickItem={(e: any) => handleClickItem(e)}
             counter={counter}
             closePopup={closePopup}
             isActive={isActive}
             description={description}
             showProducts={showProducts}
+            checked={checked}
           />
           <Popup
             isOpen={isOpen}

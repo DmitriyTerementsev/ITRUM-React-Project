@@ -26,13 +26,13 @@ function ActionsSelected({
       }
     >
       <button className={styles.actions__close} onClick={closePopup}>
-        <TrashIcon className={styles.actions__close} />
+        <CloseIcon className={styles.actions__close} />
       </button>
       <p className={styles.select__text}>
         Количество выбранных позиций: {counter}
       </p>
       <button className={styles.actions__delete} onClick={handleDeleteItem}>
-        <CloseIcon className={styles.actions__delete} />
+        <TrashIcon className={styles.actions__delete} />
         <p className={styles.delete__text}>Удалить</p>
       </button>
     </div>
