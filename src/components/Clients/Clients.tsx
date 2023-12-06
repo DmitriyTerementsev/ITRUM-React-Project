@@ -73,7 +73,6 @@ function Clients() {
             <TableSearch
               inputValue={(e: any) => setInputValue(e.target.value)}
               clearInput={() => clearInput()}
-              styles={styles}
             />
             <TableNavigation
               currentPage={currentPage}

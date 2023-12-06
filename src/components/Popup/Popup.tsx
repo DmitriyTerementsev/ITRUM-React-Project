@@ -4,10 +4,10 @@ import React, { useRef, useEffect } from 'react';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  categoriesSelect: () => void;
-  subcategoriesSelect: () => void;
-  brandSelect: () => void;
-  cashbackSelect: () => void;
+  categoriesSelect: (e: any) => void;
+  subcategoriesSelect: (e: any) => void;
+  brandSelect: (e: any) => void;
+  cashbackSelect: (e: any) => void;
 }
 
 function Popup({

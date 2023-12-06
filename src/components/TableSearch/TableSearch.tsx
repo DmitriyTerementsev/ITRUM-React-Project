@@ -4,7 +4,7 @@ import { ReactComponent as SearchIcon } from '../../images/en-searsh.svg';
 import { ReactComponent as DeleteIcon } from '../../images/en-cancel-fill.svg';
 
 interface Props {
-  inputValue: () => void;
+  inputValue: (e: any) => void;
   clearInput: () => void;
 }
 

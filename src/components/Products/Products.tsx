@@ -171,8 +171,8 @@ function Products({ styles }) {
           <Actions
             list={list}
             handleDeleteItem={handleDeleteItem}
-            clickHandlerAll={clickHandlerAll}
-            clickHandler={clickHandler}
+            clickHandlerAll={() => clickHandlerAll}
+            clickHandler={() => clickHandler}
             counter={counter}
             closePopup={closePopup}
             isActive={isActive}

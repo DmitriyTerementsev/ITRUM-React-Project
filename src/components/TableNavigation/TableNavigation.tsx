@@ -8,7 +8,7 @@ interface Props {
   allPages: number;
   handlerNextClick: () => void;
   handlerPrevClick: () => void;
-  showPages: any[];
+  showPages: (e: any) => void;
 }
 
 function TableNavigation({
