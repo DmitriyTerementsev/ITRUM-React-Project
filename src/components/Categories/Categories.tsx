@@ -13,37 +13,54 @@ function Categories() {
   const [buttonTextSubCat, setButtonTextSubCat] = useState(
     'Добавить подкатегорию'
   );
+  const [categoriesItems, setCategoriesItems] = useState<any>([]);
+  const [subCategoriesItems, setSubCategoriesItems] = useState<any>([]);
 
   function addCategories() {
-    if (
-      inputValueCat !== '' &&
-      buttonTextCat === 'Добавить категорию'
-    ) {
+    if (inputValueCat !== '' && buttonTextCat === 'Добавить категорию') {
       categoriesList.push({
         categoriesName: inputValueCat,
         id: categoriesList.length + 1,
       });
       setInputValueCat('');
-    } else {
-      console.log(inputValueCat)
+    } else if (buttonTextCat === 'Сохранить изменения') {
       setInputValueCat('');
-      setButtonTextCat('Добавить категорию')
+      setButtonTextCat('Добавить категорию');
     }
   }
 
   function addSubCategories() {
-    if (inputValueSubCat !== '' &&
-    buttonTextSubCat === 'Добавить подкатегорию') {
+    if (
+      inputValueSubCat !== '' &&
+      buttonTextSubCat === 'Добавить подкатегорию'
+    ) {
       subCategoriesList.push({
         categoriesName: inputValueSubCat,
         id: subCategoriesList.length + 1,
       });
       setInputValueSubCat('');
-    } else {
-      console.log(inputValueSubCat)
-      setInputValueCat('');
-      setButtonTextSubCat('Добавить подкатегорию')
+    } else if (buttonTextSubCat === 'Сохранить изменения') {
+      setInputValueSubCat('');
+      setButtonTextSubCat('Добавить подкатегорию');
     }
+  }
+
+  function editCategoriesItem(categoriesName: string, id: number) {
+    setButtonTextCat('Сохранить изменения');
+    setInputValueCat(categoriesName);
+  }
+
+  function editSubCategoriesItem(categoriesName: string, id: number) {
+    setButtonTextSubCat('Сохранить изменения');
+    setInputValueSubCat(categoriesName);
+  }
+
+  function deleteCategoriesItem(id: number) {
+    categoriesList.splice(id - 1, 1);
+  }
+
+  function deleteSubCategoriesItem(id: number) {
+    subCategoriesList.splice(id - 1, 1);
   }
 
   useEffect(() => {
@@ -56,10 +73,10 @@ function Categories() {
       : setIsActiveSubCat(false);
   }, [subCategoriesList.length]);
 
-  function editCategoriesItem(categoriesName: string) {
-    setButtonTextCat('Сохранить изменения');
-    setInputValueCat(categoriesName);
-  }
+  useEffect(() => {
+    setCategoriesItems(categoriesList);
+    setSubCategoriesItems(subCategoriesList);
+  }, [categoriesList, subCategoriesList]);
 
   return (
     <section className={styles.categories}>
@@ -92,12 +109,15 @@ function Categories() {
             >
               Здесь пока нет категорий
             </p>
-            {categoriesList?.map(({ categoriesName, id }) => (
+            {categoriesItems?.map(({ categoriesName, id }) => (
               <CategoriesItem
                 key={id}
                 categoriesName={categoriesName}
                 styles={styles}
-                editCategoriesItem={() => editCategoriesItem(categoriesName)}
+                editCategoriesItem={() =>
+                  editCategoriesItem(categoriesName, id)
+                }
+                deleteCategoriesItem={() => deleteCategoriesItem(id)}
               />
             ))}
           </ul>
@@ -132,12 +152,15 @@ function Categories() {
             >
               Здесь пока нет подкатегорий
             </p>
-            {subCategoriesList?.map(({ categoriesName, id }) => (
+            {subCategoriesItems?.map(({ categoriesName, id }) => (
               <CategoriesItem
                 key={id}
                 categoriesName={categoriesName}
                 styles={styles}
-                editCategoriesItem={() => editCategoriesItem(categoriesName)}
+                editCategoriesItem={() =>
+                  editSubCategoriesItem(categoriesName, id)
+                }
+                deleteCategoriesItem={() => deleteSubCategoriesItem(id)}
               />
             ))}
           </ul>

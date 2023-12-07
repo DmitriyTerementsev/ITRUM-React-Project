@@ -6,9 +6,10 @@ interface Props {
   categoriesName: string;
   styles: any;
   editCategoriesItem: () => void;
+  deleteCategoriesItem: () => void
 }
 
-function CategoriesItem({ categoriesName, styles, editCategoriesItem }: Props) {
+function CategoriesItem({ categoriesName, styles, editCategoriesItem, deleteCategoriesItem }: Props) {
   return (
     <li className={styles.categories__item}>
       <p className={styles.categories__name}>{categoriesName}</p>
@@ -27,9 +28,9 @@ function CategoriesItem({ categoriesName, styles, editCategoriesItem }: Props) {
           className={
             styles.categories__button + ' ' + styles.categories__button_icon
           }
-          onClick={() => console.log('yes')}
+          onClick={() => deleteCategoriesItem()}
         >
-          <TrashButton className={styles.categories__edit} />
+          <TrashButton className={styles.categories__edit}/>
         </button>
       </div>
     </li>
