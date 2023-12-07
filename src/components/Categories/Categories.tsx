@@ -9,22 +9,41 @@ function Categories() {
   const [isActiveSubCat, setIsActiveSubCat] = useState(false);
   const [inputValueCat, setInputValueCat] = useState('');
   const [inputValueSubCat, setInputValueSubCat] = useState('');
-  const [value, setValue] = useState('');
+  const [buttonTextCat, setButtonTextCat] = useState('Добавить категорию');
+  const [buttonTextSubCat, setButtonTextSubCat] = useState(
+    'Добавить подкатегорию'
+  );
 
   function addCategories() {
-    categoriesList.push({
-      categoriesName: inputValueCat,
-      id: categoriesList.length + 1,
-    });
-    //setValue('');
+    if (
+      inputValueCat !== '' &&
+      buttonTextCat === 'Добавить категорию'
+    ) {
+      categoriesList.push({
+        categoriesName: inputValueCat,
+        id: categoriesList.length + 1,
+      });
+      setInputValueCat('');
+    } else {
+      console.log(inputValueCat)
+      setInputValueCat('');
+      setButtonTextCat('Добавить категорию')
+    }
   }
 
   function addSubCategories() {
-    subCategoriesList.push({
-      categoriesName: inputValueSubCat,
-      id: subCategoriesList.length + 1,
-    });
-    //setValue('');
+    if (inputValueSubCat !== '' &&
+    buttonTextSubCat === 'Добавить подкатегорию') {
+      subCategoriesList.push({
+        categoriesName: inputValueSubCat,
+        id: subCategoriesList.length + 1,
+      });
+      setInputValueSubCat('');
+    } else {
+      console.log(inputValueSubCat)
+      setInputValueCat('');
+      setButtonTextSubCat('Добавить подкатегорию')
+    }
   }
 
   useEffect(() => {
@@ -37,6 +56,11 @@ function Categories() {
       : setIsActiveSubCat(false);
   }, [subCategoriesList.length]);
 
+  function editCategoriesItem(categoriesName: string) {
+    setButtonTextCat('Сохранить изменения');
+    setInputValueCat(categoriesName);
+  }
+
   return (
     <section className={styles.categories}>
       <div className={styles.categories__elements}>
@@ -45,6 +69,7 @@ function Categories() {
             type='text'
             className={styles.categories__input}
             placeholder='Введите название категории'
+            value={inputValueCat}
             onChange={(e: any) => setInputValueCat(e.target.value)}
           />
           <button
@@ -52,7 +77,7 @@ function Categories() {
             className={styles.categories__button}
             onClick={addCategories}
           >
-            Добавить категорию
+            {buttonTextCat}
           </button>
           <ul className={styles.categories__items}>
             <p className={styles.categories__description}>Название категории</p>
@@ -72,6 +97,7 @@ function Categories() {
                 key={id}
                 categoriesName={categoriesName}
                 styles={styles}
+                editCategoriesItem={() => editCategoriesItem(categoriesName)}
               />
             ))}
           </ul>
@@ -81,6 +107,7 @@ function Categories() {
             type='text'
             className={styles.categories__input}
             placeholder='Введите название подкатегории'
+            value={inputValueSubCat}
             onChange={(e: any) => setInputValueSubCat(e.target.value)}
           />
           <button
@@ -88,7 +115,7 @@ function Categories() {
             className={styles.categories__button}
             onClick={addSubCategories}
           >
-            Добавить подкатегорию
+            {buttonTextSubCat}
           </button>
           <ul className={styles.categories__items}>
             <p className={styles.categories__description}>
@@ -110,6 +137,7 @@ function Categories() {
                 key={id}
                 categoriesName={categoriesName}
                 styles={styles}
+                editCategoriesItem={() => editCategoriesItem(categoriesName)}
               />
             ))}
           </ul>

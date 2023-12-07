@@ -152,6 +152,12 @@ function Products({ styles }) {
     setAllPages(Math.ceil(products.length / showPages));
   }, [products.length, showPages]);
 
+  useEffect(() => {
+    if (currentPage === allPages) {
+      setCurrentPage(allPages - 1);
+    }
+  }, [allPages]);
+
   return (
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
