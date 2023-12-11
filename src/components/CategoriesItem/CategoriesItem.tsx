@@ -1,25 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as EditButton } from '../../images/editButton.svg';
 import { ReactComponent as TrashButton } from '../../images/trashButton.svg';
 
 interface Props {
-  categoriesName: string;
+  item: any;
   styles: any;
-  editCategoriesItem: () => void;
-  deleteCategoriesItem: () => void
+  handleDeleteItem: (id) => void;
+  handleCompleteStatusUpdate: (item) => void;
+  isComplete: boolean;
+  handleCheckBox: () => void;
+  itemName: string;
 }
 
-function CategoriesItem({ categoriesName, styles, editCategoriesItem, deleteCategoriesItem }: Props) {
+function CategoriesItem({
+  item,
+  styles,
+  handleDeleteItem,
+  isComplete,
+  handleCheckBox,
+  itemName,
+}: Props) {
+  const [isEdited, setIsEdited] = useState(false);
+  const [text, setText] = useState(itemName);
+
+  const handleDeleteClick = () => {
+    console.log(item.id);
+    handleDeleteItem(item.id);
+  };
+
+  const handleEditClick = () => {
+    setIsEdited(!isEdited);
+  };
+
+  const handleEditText = (e: any) => {
+    setText(e.target.value);
+  };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      setIsEdited(!isEdited);
+    }
+  };
+
   return (
-    <li className={styles.categories__item}>
-      <p className={styles.categories__name}>{categoriesName}</p>
+    <li
+      className={
+        isComplete
+          ? styles.categories__item + ' ' + styles.categories__item_click
+          : styles.categories__item
+      }
+    >
+      <input
+        type='checkbox'
+        onChange={handleCheckBox}
+        checked={isComplete ? true : false}
+      />
+      {!isEdited ? (
+        <p
+          className={styles.task___text_status_complete}
+          onClick={handleEditClick}
+        >
+          {text}
+        </p>
+      ) : (
+        <input
+          className={styles.task__text_edit + ' ' + styles.task__text_active}
+          name='textEdit'
+          onChange={handleEditText}
+          value={text}
+          onKeyDown={handleKeyDown}
+          autoFocus
+        />
+      )}
       <div className={styles.categories__buttons}>
         <button
           type='button'
           className={
             styles.categories__button + ' ' + styles.categories__button_icon
           }
-          onClick={() => editCategoriesItem()}
+          onClick={handleEditClick}
         >
           <EditButton className={styles.categories__edit} />
         </button>
@@ -28,9 +87,9 @@ function CategoriesItem({ categoriesName, styles, editCategoriesItem, deleteCate
           className={
             styles.categories__button + ' ' + styles.categories__button_icon
           }
-          onClick={() => deleteCategoriesItem()}
+          onClick={handleDeleteClick}
         >
-          <TrashButton className={styles.categories__edit}/>
+          <TrashButton className={styles.categories__edit} />
         </button>
       </div>
     </li>

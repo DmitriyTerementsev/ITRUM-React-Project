@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
 import categoriesList from '../../constants/categoriesList.ts';
 import subCategoriesList from '../../constants/subCategoriesList.ts';
+import { ReactComponent as Arrows } from '../../images/arrows.svg';
 
 function Categories() {
   const [isActiveCat, setIsActiveCat] = useState(false);
@@ -15,68 +16,51 @@ function Categories() {
   );
   const [categoriesItems, setCategoriesItems] = useState<any>([]);
   const [subCategoriesItems, setSubCategoriesItems] = useState<any>([]);
+  const [isComplete, setIsComplete] = useState(false);
 
-  function addCategories() {
-    if (inputValueCat !== '' && buttonTextCat === 'Добавить категорию') {
-      categoriesList.push({
+  const handleChange = (e: any) => {
+    setInputValueCat(e.target.value);
+  };
+
+  // Обработчик добавления новой задачи
+  const handleAddItem = () => {
+    const newList = [
+      ...categoriesItems,
+      {
         categoriesName: inputValueCat,
-        id: categoriesList.length + 1,
-      });
-      setInputValueCat('');
-    } else if (buttonTextCat === 'Сохранить изменения') {
-      setInputValueCat('');
-      setButtonTextCat('Добавить категорию');
-    }
-  }
+        id: categoriesItems.length + 1,
+        status: false,
+      },
+    ];
+    setCategoriesItems(newList);
+    setInputValueCat('');
+  };
 
-  function addSubCategories() {
-    if (
-      inputValueSubCat !== '' &&
-      buttonTextSubCat === 'Добавить подкатегорию'
-    ) {
-      subCategoriesList.push({
-        categoriesName: inputValueSubCat,
-        id: subCategoriesList.length + 1,
-      });
-      setInputValueSubCat('');
-    } else if (buttonTextSubCat === 'Сохранить изменения') {
-      setInputValueSubCat('');
-      setButtonTextSubCat('Добавить подкатегорию');
-    }
-  }
+  // Обработчик удаления задачи
+  const handleDeleteItem = (id: number) => {
+    const newList = categoriesItems.filter((el) => el.id !== id);
+    setCategoriesItems(newList);
+  };
 
-  function editCategoriesItem(categoriesName: string, id: number) {
-    setButtonTextCat('Сохранить изменения');
-    setInputValueCat(categoriesName);
-  }
+  const handleCompleteStatusUpdate = (item: any) => {
+    const newList = categoriesItems.map((el) => {
+      if (el.id === item.id) {
+        el.status = item.status;
+      }
+      return el;
+    });
+    setCategoriesItems(newList);
+  };
 
-  function editSubCategoriesItem(categoriesName: string, id: number) {
-    setButtonTextSubCat('Сохранить изменения');
-    setInputValueSubCat(categoriesName);
-  }
-
-  function deleteCategoriesItem(id: number) {
-    categoriesList.splice(id - 1, 1);
-  }
-
-  function deleteSubCategoriesItem(id: number) {
-    subCategoriesList.splice(id - 1, 1);
-  }
+  const handleCheckBox = (item) => {
+    setIsComplete(!isComplete);
+    item.status = !isComplete;
+    handleCompleteStatusUpdate(item);
+  };
 
   useEffect(() => {
-    categoriesList.length === 0 ? setIsActiveCat(true) : setIsActiveCat(false);
-  }, [categoriesList.length]);
-
-  useEffect(() => {
-    subCategoriesList.length === 0
-      ? setIsActiveSubCat(true)
-      : setIsActiveSubCat(false);
-  }, [subCategoriesList.length]);
-
-  useEffect(() => {
-    setCategoriesItems(categoriesList);
-    setSubCategoriesItems(subCategoriesList);
-  }, [categoriesList, subCategoriesList]);
+    categoriesItems.length > 0 ? setIsActiveCat(true) : setIsActiveCat(false);
+  }, [categoriesItems.length]);
 
   return (
     <section className={styles.categories}>
@@ -87,12 +71,12 @@ function Categories() {
             className={styles.categories__input}
             placeholder='Введите название категории'
             value={inputValueCat}
-            onChange={(e: any) => setInputValueCat(e.target.value)}
+            onChange={handleChange}
           />
           <button
             type='button'
             className={styles.categories__button}
-            onClick={addCategories}
+            onClick={handleAddItem}
           >
             {buttonTextCat}
           </button>
@@ -100,7 +84,7 @@ function Categories() {
             <p className={styles.categories__description}>Название категории</p>
             <p
               className={
-                isActiveCat
+                !isActiveCat
                   ? styles.categories__null +
                     ' ' +
                     styles.categories__null_active
@@ -109,20 +93,43 @@ function Categories() {
             >
               Здесь пока нет категорий
             </p>
-            {categoriesItems?.map(({ categoriesName, id }) => (
+            {categoriesItems?.map((item: any) => (
               <CategoriesItem
-                key={id}
-                categoriesName={categoriesName}
+                item={item}
+                key={item.id}
+                itemName={item.categoriesName}
                 styles={styles}
-                editCategoriesItem={() =>
-                  editCategoriesItem(categoriesName, id)
+                handleDeleteItem={() => handleDeleteItem(item.id)}
+                handleCompleteStatusUpdate={() =>
+                  handleCompleteStatusUpdate(item)
                 }
-                deleteCategoriesItem={() => deleteCategoriesItem(id)}
+                isComplete={isComplete}
+                handleCheckBox={() => handleCheckBox(item)}
               />
             ))}
           </ul>
         </div>
-        <div className={styles.categories__element}>
+        <Arrows className={styles.arrows} />
+        <p
+          className={
+            !isComplete
+              ? styles.categories__choice +
+                ' ' +
+                styles.categories__choice_active
+              : styles.categories__choice
+          }
+        >
+          Выберите категорию
+        </p>
+        <div
+          className={
+            !isComplete
+              ? styles.categories__element +
+                ' ' +
+                styles.categories__element_null
+              : styles.categories__element
+          }
+        >
           <input
             type='text'
             className={styles.categories__input}
@@ -133,7 +140,7 @@ function Categories() {
           <button
             type='button'
             className={styles.categories__button}
-            onClick={addSubCategories}
+            onClick={() => console.log('yes')}
           >
             {buttonTextSubCat}
           </button>
@@ -157,10 +164,10 @@ function Categories() {
                 key={id}
                 categoriesName={categoriesName}
                 styles={styles}
-                editCategoriesItem={() =>
-                  editSubCategoriesItem(categoriesName, id)
-                }
-                deleteCategoriesItem={() => deleteSubCategoriesItem(id)}
+                editCategoriesItem={() => console.log('yes')}
+                deleteCategoriesItem={() => console.log('yes')}
+                isClicked={isClicked}
+                handleClickCategories={() => console.log('yes')}
               />
             ))}
           </ul>
