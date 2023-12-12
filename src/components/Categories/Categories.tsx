@@ -94,8 +94,9 @@ function Categories() {
             </p>
             {categoriesItems?.map((item: any) => (
               <CategoriesItem
+                categoriesItems={categoriesItems}
                 item={item}
-                key={item.id + item.categoriesName}
+                key={item.id}
                 itemName={item.categoriesName}
                 styles={styles}
                 handleDeleteItem={() => handleDeleteItem(item.id)}
@@ -156,15 +157,16 @@ function Categories() {
             >
               Здесь пока нет подкатегорий
             </p>
-            {subCategoriesItems?.map(({ categoriesName, id }) => (
+            {subCategoriesItems?.map((item: any) => (
               <CategoriesItem
-                key={id}
-                categoriesName={categoriesName}
+                item={item}
+                key={item.id}
+                itemName={item.categoriesName}
                 styles={styles}
-                editCategoriesItem={() => console.log('yes')}
-                deleteCategoriesItem={() => console.log('yes')}
-                isClicked={isClicked}
-                handleClickCategories={() => console.log('yes')}
+                handleDeleteItem={() => handleDeleteItem(item.id)}
+                handleCompleteStatusUpdate={() =>
+                  handleCompleteStatusUpdate(item)
+                }
               />
             ))}
           </ul>
