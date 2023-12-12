@@ -144,7 +144,7 @@
 
 .task__text {
   margin: 24px 0 0 10px;
-  width: 75%;
+  width: fit-content;
   color: #434652;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -155,19 +155,22 @@
   text-align: left;
 }
 
-.task__text_active {
-  background-color: rgb(24, 24, 24);
-  color: grey;
+.task__text_active:focus {
+  border: none;
 }
 
 .task__text_edit {
   border: none;
-  border: 1px dotted black;
-  background-color: whitesmoke;
+  background-color: transparent;
   padding: 0;
   margin: 24px 0 0 10px;
   width: 30%;
 }
+
+.task__text_edit:focus {
+  border: 0;
+  appearance: none;
+} 
 
 .checkbox {
   display: none;

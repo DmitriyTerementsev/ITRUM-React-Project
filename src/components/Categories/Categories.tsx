@@ -1,24 +1,24 @@
 import styles from './Categories.module.scss';
 import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
-import SubCategoriesItem from '../SubCategoriesItem/SubCategoriesItem.tsx';
 import categoriesList from '../../constants/categoriesList.ts';
 import subCategoriesList from '../../constants/subCategoriesList.ts';
 import { ReactComponent as Arrows } from '../../images/arrows.svg';
 
 function Categories() {
-  const [isActiveCat, setIsActiveCat] = useState(false);
-  const [isActiveSubCat, setIsActiveSubCat] = useState(false);
-  const [inputValueCat, setInputValueCat] = useState('');
-  const [inputValueSubCat, setInputValueSubCat] = useState('');
-  const [buttonTextCat, setButtonTextCat] = useState('Добавить категорию');
-  const [buttonTextSubCat, setButtonTextSubCat] = useState(
+  const [isActiveCat, setIsActiveCat] = useState<boolean>(false);
+  const [isActiveSubCat, setIsActiveSubCat] = useState<boolean>(false);
+  const [inputValueCat, setInputValueCat] = useState<string>('');
+  const [inputValueSubCat, setInputValueSubCat] = useState<string>('');
+  const [buttonTextCat, setButtonTextCat] =
+    useState<string>('Добавить категорию');
+  const [buttonTextSubCat, setButtonTextSubCat] = useState<string>(
     'Добавить подкатегорию'
   );
   const [selectedCategorie, setSelectedCategorie] = useState(0);
-  const [categoriesItems, setCategoriesItems] = useState<any>(categoriesList);
+  const [categoriesItems, setCategoriesItems] = useState<any[]>(categoriesList);
   const [subCategoriesItems, setSubCategoriesItems] =
-    useState<any>(subCategoriesList);
+    useState<any[]>(subCategoriesList);
 
   const handleChange = (e: any) => {
     setInputValueCat(e.target.value);
@@ -30,51 +30,56 @@ function Categories() {
 
   // Обработчик добавления новой задачи
   const handleAddItem = () => {
-    const newList = [
-      ...categoriesItems,
-      {
+    if (inputValueCat.trim() !== '') {
+      let id: number = Math.floor(Math.random() * 10000) + 1;
+      const newList = [
+        ...categoriesItems,
+        {
+          categoriesName: inputValueCat,
+          id: id,
+          status: false,
+        },
+      ];
+      categoriesList.push({
         categoriesName: inputValueCat,
-        id: categoriesItems.length + 1,
+        id: id,
         status: false,
-      },
-    ];
-    categoriesList.push({
-      categoriesName: inputValueCat,
-      id: categoriesItems.length + 1,
-      status: false,
-    });
-    setCategoriesItems(newList);
-    setInputValueCat('');
+      });
+      setCategoriesItems(newList);
+      setInputValueCat('');
+    }
   };
 
   const handleAddSubItem = () => {
-    const newList = [
-      ...subCategoriesItems,
-      {
+    if (inputValueSubCat.trim() !== '') {
+      let id: number = Math.floor(Math.random() * 10000) + 1;
+      const newList = [
+        ...subCategoriesItems,
+        {
+          categoriesName: inputValueSubCat,
+          id: id,
+          categories: selectedCategorie,
+        },
+      ];
+      subCategoriesList.push({
         categoriesName: inputValueSubCat,
-        id: subCategoriesItems.length + 1,
+        id: id,
         categories: selectedCategorie,
-      },
-    ];
-    subCategoriesList.push({
-      categoriesName: inputValueSubCat,
-      id: subCategoriesItems.length + 1,
-      categories: selectedCategorie,
-    });
-    setSubCategoriesItems(newList);
-    setInputValueSubCat('');
+      });
+      setSubCategoriesItems(newList);
+      setInputValueSubCat('');
+    }
   };
 
   // Обработчик удаления задачи
   const handleDeleteItem = (id: number) => {
     const newList = categoriesItems.filter((el) => el.id !== id);
-    setCategoriesItems(categoriesList.splice(id, 1));
+    setCategoriesItems(newList);
   };
 
   const handleDeleteSubItem = (id: number) => {
     const newList = subCategoriesItems.filter((el) => el.id !== id);
-    
-    setSubCategoriesItems(subCategoriesList.splice(id, 1));
+    setSubCategoriesItems(newList);
   };
 
   const handleCompleteStatusUpdate = (item: any) => {
@@ -98,12 +103,16 @@ function Categories() {
   }, [categoriesItems]);
 
   useEffect(() => {
-    subCategoriesItems.length === 0? setIsActiveSubCat(true): setIsActiveSubCat(false)
-  })
+    subCategoriesItems.length === 0
+      ? setIsActiveSubCat(true)
+      : setIsActiveSubCat(false);
+  });
 
   useEffect(() => {
     if (isClicked === false) {
       setSelectedCategorie(0);
+    } else {
+      setSelectedCategorie(selectedCategorie);
     }
   }, [isClicked]);
 

@@ -5,8 +5,8 @@ import { ReactComponent as TrashButton } from '../../images/trashButton.svg';
 interface Props {
   item: any;
   styles: any;
-  handleDeleteItem: (id) => void;
-  handleCompleteStatusUpdate: (item) => void;
+  handleDeleteItem: (id: number) => void;
+  handleCompleteStatusUpdate: (item: any) => void;
   itemName: string;
   categoriesItems: any;
   subCategoriesItems: any;
@@ -46,19 +46,18 @@ function CategoriesItem({
   const [isComplete, setIsComplete] = useState(false);
 
   const handleCheckBox = () => {
-    categoriesItems.map((item) => {
-      item.status === true ? (item.status = false) : (item.status = false);
+    console.log(isComplete);
+    categoriesItems.forEach((item) => {
+      if (item.status === true) {
+        item.status = false;
+      }
       handleCompleteStatusUpdate(item);
-      setIsComplete(false);
     });
     if (isComplete === false) {
-      setIsComplete(true);
+      handleCompleteStatusUpdate(item);
       item.status = true;
-    } else {
-      setIsComplete(false);
-      item.status = false;
     }
-    handleCompleteStatusUpdate(item);
+    setIsComplete(false);
   };
 
   return (
@@ -68,26 +67,23 @@ function CategoriesItem({
           ? styles.categories__item + ' ' + styles.categories__item_click
           : styles.categories__item
       }
-    ><div className={styles.div} onClick={handleCheckBox}>
-      <input className={styles.checkbox}
-        type='checkbox'
-        //onChange={handleCheckBox}
-        //checked={item.status === true ? true : false}
-      />
-      {!isEdited ? (
-        <p className={styles.task__text} onClick={handleEditClick}>
-          {text}
-        </p>
-      ) : (
-        <input
-          className={styles.task__text_edit + ' ' + styles.task__text_active}
-          name='textEdit'
-          onChange={handleEditText}
-          value={text}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
-      )}
+    >
+      <div className={styles.div} onClick={handleCheckBox}>
+        <input className={styles.checkbox} type='checkbox' />
+        {!isEdited ? (
+          <p className={styles.task__text} onClick={handleEditClick}>
+            {text}
+          </p>
+        ) : (
+          <input
+            className={styles.task__text_edit + ' ' + styles.task__text_active}
+            name='textEdit'
+            onChange={handleEditText}
+            value={text}
+            onKeyDown={handleKeyDown}
+            autoFocus
+          />
+        )}
       </div>
       <div className={styles.categories__buttons}>
         <button
