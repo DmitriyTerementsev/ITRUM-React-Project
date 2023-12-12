@@ -29,7 +29,8 @@ function Categories() {
   };
 
   // Обработчик добавления новой задачи
-  const handleAddItem = () => {
+  const handleAddItem = (e:any) => {
+    e.preventDefault()
     if (inputValueCat.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
       const newList = [
@@ -50,7 +51,8 @@ function Categories() {
     }
   };
 
-  const handleAddSubItem = () => {
+  const handleAddSubItem = (e: any) => {
+    e.preventDefault()
     if (inputValueSubCat.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
       const newList = [
@@ -141,20 +143,18 @@ function Categories() {
     <section className={styles.categories}>
       <div className={styles.categories__elements}>
         <div className={styles.categories__element}>
-          <input
-            type='text'
-            className={styles.categories__input}
-            placeholder='Введите название категории'
-            value={inputValueCat}
-            onChange={handleChange}
-          />
-          <button
-            type='button'
-            className={styles.categories__button}
-            onClick={handleAddItem}
-          >
-            {buttonTextCat}
-          </button>
+          <form action='' onSubmit={e => handleAddItem(e)} >
+            <input
+              type='text'
+              className={styles.categories__input}
+              placeholder='Введите название категории'
+              value={inputValueCat}
+              onChange={handleChange}
+            />
+            <button type='button' className={styles.categories__button}>
+              {buttonTextCat}
+            </button>
+          </form>
           <ul className={styles.categories__items}>
             <p className={styles.categories__description}>Название категории</p>
             <p
@@ -204,7 +204,7 @@ function Categories() {
                 styles.categories__element_null
               : styles.categories__element
           }
-        >
+        ><form action='' onSubmit={e => handleAddSubItem(e)} >
           <input
             type='text'
             className={styles.categories__input}
@@ -218,7 +218,7 @@ function Categories() {
             onClick={handleAddSubItem}
           >
             {buttonTextSubCat}
-          </button>
+          </button></form>
           <ul className={styles.categories__items}>
             <p className={styles.categories__description}>
               Название подкатегории
