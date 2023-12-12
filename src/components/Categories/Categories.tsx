@@ -16,7 +16,6 @@ function Categories() {
   );
   const [categoriesItems, setCategoriesItems] = useState<any>([]);
   const [subCategoriesItems, setSubCategoriesItems] = useState<any>([]);
-  const [isComplete, setIsComplete] = useState(false);
 
   const handleChange = (e: any) => {
     setInputValueCat(e.target.value);
@@ -43,7 +42,7 @@ function Categories() {
   };
 
   const handleCompleteStatusUpdate = (item: any) => {
-    const newList = categoriesItems.map((el) => {
+    const newList = categoriesItems.map((el: any) => {
       if (el.id === item.id) {
         el.status = item.status;
       }
@@ -52,15 +51,15 @@ function Categories() {
     setCategoriesItems(newList);
   };
 
-  const handleCheckBox = (item) => {
-    setIsComplete(!isComplete);
-    item.status = !isComplete;
-    handleCompleteStatusUpdate(item);
-  };
-
   useEffect(() => {
     categoriesItems.length > 0 ? setIsActiveCat(true) : setIsActiveCat(false);
   }, [categoriesItems.length]);
+
+  const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    setIsClicked(categoriesItems.some((element) => element.status === true));
+  }, [categoriesItems]);
 
   return (
     <section className={styles.categories}>
@@ -96,15 +95,13 @@ function Categories() {
             {categoriesItems?.map((item: any) => (
               <CategoriesItem
                 item={item}
-                key={item.id}
+                key={item.id + item.categoriesName}
                 itemName={item.categoriesName}
                 styles={styles}
                 handleDeleteItem={() => handleDeleteItem(item.id)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
                 }
-                isComplete={isComplete}
-                handleCheckBox={() => handleCheckBox(item)}
               />
             ))}
           </ul>
@@ -112,7 +109,7 @@ function Categories() {
         <Arrows className={styles.arrows} />
         <p
           className={
-            !isComplete
+            !isClicked
               ? styles.categories__choice +
                 ' ' +
                 styles.categories__choice_active
@@ -123,7 +120,7 @@ function Categories() {
         </p>
         <div
           className={
-            !isComplete
+            !isClicked
               ? styles.categories__element +
                 ' ' +
                 styles.categories__element_null

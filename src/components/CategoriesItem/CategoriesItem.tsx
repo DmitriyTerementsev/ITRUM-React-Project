@@ -7,8 +7,6 @@ interface Props {
   styles: any;
   handleDeleteItem: (id) => void;
   handleCompleteStatusUpdate: (item) => void;
-  isComplete: boolean;
-  handleCheckBox: () => void;
   itemName: string;
 }
 
@@ -16,9 +14,8 @@ function CategoriesItem({
   item,
   styles,
   handleDeleteItem,
-  isComplete,
-  handleCheckBox,
   itemName,
+  handleCompleteStatusUpdate,
 }: Props) {
   const [isEdited, setIsEdited] = useState(false);
   const [text, setText] = useState(itemName);
@@ -42,6 +39,18 @@ function CategoriesItem({
     }
   };
 
+  const [isComplete, setIsComplete] = useState(false);
+  const handleCheckBox = () => {
+    if (isComplete === false) {
+      setIsComplete(true);
+      item.status = true;
+    } else {
+      setIsComplete(false);
+      item.status = false;
+    }
+    handleCompleteStatusUpdate(item);
+  };
+
   return (
     <li
       className={
@@ -56,10 +65,7 @@ function CategoriesItem({
         checked={isComplete ? true : false}
       />
       {!isEdited ? (
-        <p
-          className={styles.task___text_status_complete}
-          onClick={handleEditClick}
-        >
+        <p className={styles.task__text} onClick={handleEditClick}>
           {text}
         </p>
       ) : (
