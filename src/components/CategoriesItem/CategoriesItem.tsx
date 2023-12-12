@@ -9,6 +9,7 @@ interface Props {
   handleCompleteStatusUpdate: (item) => void;
   itemName: string;
   categoriesItems: any;
+  subCategoriesItems: any;
 }
 
 function CategoriesItem({
@@ -18,6 +19,7 @@ function CategoriesItem({
   itemName,
   handleCompleteStatusUpdate,
   categoriesItems,
+  subCategoriesItems,
 }: Props) {
   const [isEdited, setIsEdited] = useState(false);
   const [text, setText] = useState(itemName);
@@ -42,14 +44,13 @@ function CategoriesItem({
   };
 
   const [isComplete, setIsComplete] = useState(false);
-  
+
   const handleCheckBox = () => {
-    categoriesItems.map(item => {
-      console.log(item)
-      item.status === true? item.status = false :  item.status = false
-      handleCompleteStatusUpdate(item)
+    categoriesItems.map((item) => {
+      item.status === true ? (item.status = false) : (item.status = false);
+      handleCompleteStatusUpdate(item);
       setIsComplete(false);
-    })
+    });
     if (isComplete === false) {
       setIsComplete(true);
       item.status = true;
@@ -67,11 +68,11 @@ function CategoriesItem({
           ? styles.categories__item + ' ' + styles.categories__item_click
           : styles.categories__item
       }
-    >
-      <input
+    ><div className={styles.div} onClick={handleCheckBox}>
+      <input className={styles.checkbox}
         type='checkbox'
-        onChange={handleCheckBox}
-        checked={item.status === true ? true : false}
+        //onChange={handleCheckBox}
+        //checked={item.status === true ? true : false}
       />
       {!isEdited ? (
         <p className={styles.task__text} onClick={handleEditClick}>
@@ -87,6 +88,7 @@ function CategoriesItem({
           autoFocus
         />
       )}
+      </div>
       <div className={styles.categories__buttons}>
         <button
           type='button'

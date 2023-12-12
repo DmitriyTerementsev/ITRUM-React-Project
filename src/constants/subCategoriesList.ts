@@ -1,7 +1,7 @@
 export interface subCategories {
   categoriesName: string;
   id: number;
-  status: 
+  categories: number 
 }
 let subCategoriesList: subCategories[] = [];
 export default subCategoriesList;
