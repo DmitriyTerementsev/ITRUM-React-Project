@@ -46,7 +46,6 @@ function CategoriesItem({
   const [isComplete, setIsComplete] = useState(false);
 
   const handleCheckBox = () => {
-    console.log(isComplete);
     categoriesItems.forEach((item) => {
       if (item.status === true) {
         item.status = false;
@@ -68,8 +67,12 @@ function CategoriesItem({
           : styles.categories__item
       }
     >
-      <div className={styles.div} onClick={handleCheckBox}>
-        <input className={styles.checkbox} type='checkbox' />
+      <div
+        className={styles.div}
+        onClick={() => {
+          item.status === false ? handleCheckBox() : console.log('no');
+        }}
+      >
         {!isEdited ? (
           <p className={styles.task__text} onClick={handleEditClick}>
             {text}
