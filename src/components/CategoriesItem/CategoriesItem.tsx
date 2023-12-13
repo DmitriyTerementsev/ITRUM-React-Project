@@ -25,7 +25,6 @@ function CategoriesItem({
   const [text, setText] = useState(itemName);
 
   const handleDeleteClick = () => {
-    console.log(item.id);
     handleDeleteItem(item.id);
   };
 

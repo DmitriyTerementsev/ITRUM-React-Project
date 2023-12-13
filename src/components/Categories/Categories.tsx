@@ -151,7 +151,7 @@ function Categories() {
               value={inputValueCat}
               onChange={handleChange}
             />
-            <button type='button' className={styles.categories__button}>
+            <button type='submit' className={styles.categories__button} onClick={handleAddItem}>
               {buttonTextCat}
             </button>
           </form>
@@ -213,7 +213,7 @@ function Categories() {
             onChange={handleChangeSub}
           />
           <button
-            type='button'
+            type='submit'
             className={styles.categories__button}
             onClick={handleAddSubItem}
           >
