@@ -11,7 +11,6 @@ import {
 
 function Products({ styles }) {
   //----------States
-  const [checked, setChecked] = useState(false)
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
@@ -58,13 +57,7 @@ function Products({ styles }) {
         brandSelect &&
         cashbackSelect) !== ''
     ) {
-      let newObject: {
-        categories: string;
-        subcategories: string;
-        brand: string;
-        cashback: string;
-        id: number;
-      } = {
+      let newObject = {
         categories: categoriesSelect,
         subcategories: subcategoriesSelect,
         brand: brandSelect,
@@ -91,7 +84,7 @@ function Products({ styles }) {
     if (e.target.checked === true) {
       setCounter(showProducts.length);
       list.current!.childNodes.forEach((item: any) => {
-        console.log(item)
+        console.log(item);
         //console.log(item.querySelector(`.${styles.actions__checkbox}`))
         //item.querySelector(styles.actions__checkbox).checked = true;
       });
@@ -106,7 +99,7 @@ function Products({ styles }) {
   //----------Click on delete items
 
   function handleDeleteItem() {
-    console.log(description.current)
+    console.log(description.current);
     const listItems = list.current!.childNodes;
     for (let i: number = 0; i < listItems.length; i++) {
       for (let j: number = 0; j < products.length; j++) {
@@ -120,8 +113,7 @@ function Products({ styles }) {
     }
     setActive(false);
     setCounter(0);
-    description.checked =
-      false;
+    description.checked = false;
   }
 
   //----------Effects
@@ -188,7 +180,6 @@ function Products({ styles }) {
             isActive={isActive}
             description={description}
             showProducts={showProducts}
-            checked={checked}
           />
           <Popup
             isOpen={isOpen}

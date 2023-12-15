@@ -3,34 +3,30 @@ import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
 import categoriesList from '../../constants/categoriesList.ts';
 import subCategoriesList from '../../constants/subCategoriesList.ts';
-import { ReactComponent as Arrows } from '../../images/arrows.svg';
+import { ReactComponent as Arrows } from '../../assets/icons/arrows.svg';
 
 function Categories() {
-  const [isActiveCat, setIsActiveCat] = useState<boolean>(false);
-  const [isActiveSubCat, setIsActiveSubCat] = useState<boolean>(false);
-  const [inputValueCat, setInputValueCat] = useState<string>('');
-  const [inputValueSubCat, setInputValueSubCat] = useState<string>('');
-  const [buttonTextCat, setButtonTextCat] =
-    useState<string>('Добавить категорию');
-  const [buttonTextSubCat, setButtonTextSubCat] = useState<string>(
-    'Добавить подкатегорию'
-  );
-  const [selectedCategorie, setSelectedCategorie] = useState(0);
-  const [categoriesItems, setCategoriesItems] = useState<any[]>(categoriesList);
+  const [isActiveCat, setIsActiveCat] = useState(false);
+  const [isActiveSubCat, setIsActiveSubCat] = useState(false);
+  const [inputValueCat, setInputValueCat] = useState('');
+  const [inputValueSubCat, setInputValueSubCat] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [categoriesItems, setCategoriesItems] = useState(categoriesList);
+  const [isClicked, setIsClicked] = useState(false);
   const [subCategoriesItems, setSubCategoriesItems] =
-    useState<any[]>(subCategoriesList);
+    useState(subCategoriesList);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValueCat(e.target.value);
   };
 
-  const handleChangeSub = (e: any) => {
+  const handleChangeSub = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValueSubCat(e.target.value);
   };
 
   // Обработчик добавления новой задачи
-  const handleAddItem = (e:any) => {
-    e.preventDefault()
+  const handleAddItem = (e: any) => {
+    e.preventDefault();
     if (inputValueCat.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
       const newList = [
@@ -52,25 +48,25 @@ function Categories() {
   };
 
   const handleAddSubItem = (e: any) => {
-    e.preventDefault()
-    if (inputValueSubCat.trim() !== '') {
+    e.preventDefault();
+    if (inputValueSubCat.trim() === '') return
       let id: number = Math.floor(Math.random() * 10000) + 1;
       const newList = [
         ...subCategoriesItems,
         {
           categoriesName: inputValueSubCat,
           id: id,
-          categories: selectedCategorie,
+          categories: selectedCategory,
         },
       ];
       subCategoriesList.push({
         categoriesName: inputValueSubCat,
         id: id,
-        categories: selectedCategorie,
+        categories: selectedCategory,
       });
       setSubCategoriesItems(newList);
       setInputValueSubCat('');
-    }
+    
   };
 
   // Обработчик удаления задачи
@@ -98,8 +94,6 @@ function Categories() {
     categoriesItems.length > 0 ? setIsActiveCat(true) : setIsActiveCat(false);
   }, [categoriesItems.length]);
 
-  const [isClicked, setIsClicked] = useState(false);
-
   useEffect(() => {
     setIsClicked(categoriesItems.some((element) => element.status === true));
   }, [categoriesItems]);
@@ -108,42 +102,42 @@ function Categories() {
     subCategoriesItems.length === 0
       ? setIsActiveSubCat(true)
       : setIsActiveSubCat(false);
-  });
+  }, [subCategoriesItems]);
 
   useEffect(() => {
     if (isClicked === false) {
-      setSelectedCategorie(0);
+      setSelectedCategory(0);
     } else {
-      setSelectedCategorie(selectedCategorie);
+      setSelectedCategory(selectedCategory);
     }
-  }, [isClicked]);
+  }, [isClicked, selectedCategory]);
 
   useEffect(() => {
     categoriesItems.forEach((item) => {
       if (item.status === true) {
-        setSelectedCategorie(item.id);
+        setSelectedCategory(item.id);
       }
     });
     setSubCategoriesItems(
       subCategoriesList
-        .filter((item: any) => item.categories === selectedCategorie)
+        .filter((item: any) => item.categories === selectedCategory)
         .map((item: any) => item)
     );
-  }, [categoriesItems, selectedCategorie, subCategoriesList]);
+  }, [categoriesItems, selectedCategory, subCategoriesList]);
 
   useEffect(() => {
     setSubCategoriesItems(
       subCategoriesList
-        .filter((item: any) => item.categories === selectedCategorie)
+        .filter((item: any) => item.categories === selectedCategory)
         .map((item: any) => item)
     );
-  }, [categoriesItems, isClicked]);
+  }, [categoriesItems, isClicked, selectedCategory]);
 
   return (
     <section className={styles.categories}>
       <div className={styles.categories__elements}>
         <div className={styles.categories__element}>
-          <form action='' onSubmit={e => handleAddItem(e)} >
+          <form action='' onSubmit={(e) => handleAddItem(e)}>
             <input
               type='text'
               className={styles.categories__input}
@@ -151,8 +145,12 @@ function Categories() {
               value={inputValueCat}
               onChange={handleChange}
             />
-            <button type='submit' className={styles.categories__button} onClick={handleAddItem}>
-              {buttonTextCat}
+            <button
+              type='submit'
+              className={styles.categories__button}
+              onClick={handleAddItem}
+            >
+              Добавить категорию
             </button>
           </form>
           <ul className={styles.categories__items}>
@@ -171,7 +169,6 @@ function Categories() {
             {categoriesItems?.map((item: any) => (
               <CategoriesItem
                 categoriesItems={categoriesItems}
-                subCategoriesItems={subCategoriesItems}
                 item={item}
                 key={item.id}
                 itemName={item.categoriesName}
@@ -204,21 +201,23 @@ function Categories() {
                 styles.categories__element_null
               : styles.categories__element
           }
-        ><form action='' onSubmit={e => handleAddSubItem(e)} >
-          <input
-            type='text'
-            className={styles.categories__input}
-            placeholder='Введите название подкатегории'
-            value={inputValueSubCat}
-            onChange={handleChangeSub}
-          />
-          <button
-            type='submit'
-            className={styles.categories__button}
-            onClick={handleAddSubItem}
-          >
-            {buttonTextSubCat}
-          </button></form>
+        >
+          <form action='' onSubmit={(e) => handleAddSubItem(e)}>
+            <input
+              type='text'
+              className={styles.categories__input}
+              placeholder='Введите название подкатегории'
+              value={inputValueSubCat}
+              onChange={handleChangeSub}
+            />
+            <button
+              type='submit'
+              className={styles.categories__button}
+              onClick={handleAddSubItem}
+            >
+              Добавить подкатегорию
+            </button>
+          </form>
           <ul className={styles.categories__items}>
             <p className={styles.categories__description}>
               Название подкатегории
@@ -237,7 +236,6 @@ function Categories() {
             {subCategoriesItems?.map((item: any) => (
               <CategoriesItem
                 categoriesItems={categoriesItems}
-                subCategoriesItems={subCategoriesItems}
                 item={item}
                 key={item.id}
                 itemName={item.categoriesName}

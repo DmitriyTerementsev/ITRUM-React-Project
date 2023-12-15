@@ -1,8 +1,8 @@
 import React from 'react';
-import { ReactComponent as TrashIcon } from '../../images/trash.svg';
-import { ReactComponent as CloseIcon } from '../../images/en-close.svg';
+import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
+import { ReactComponent as CloseIcon } from '../../assets/icons/en-close.svg';
 
-interface Props {
+interface ActionsSelectedProps {
   closePopup: () => void;
   handleDeleteItem: () => void;
   isActive: boolean;
@@ -16,7 +16,7 @@ function ActionsSelected({
   isActive,
   closePopup,
   styles,
-}: Props) {
+}: ActionsSelectedProps) {
   return (
     <div
       className={

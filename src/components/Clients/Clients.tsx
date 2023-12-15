@@ -31,9 +31,10 @@ function Clients() {
 
   useEffect(() => {
     setShowClients(
-      clientsClone
-        .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item)
+      clientsClone.slice(
+        currentPage * showPages,
+        currentPage * showPages + showPages
+      )
     );
   }, [clientsClone.length]);
 
@@ -56,13 +57,10 @@ function Clients() {
   }, [inputValue, showPages, currentPage]);
 
   useEffect(() => {
-    setAllPages(
-      Math.ceil(
-        clients.filter((item) =>
-          item.name.toLowerCase().includes(inputValue.toLowerCase())
-        ).length / showPages
-      )
+    const filteredClients = clients.filter((item) =>
+      item.name.toLowerCase().includes(inputValue.toLowerCase())
     );
+    setAllPages(Math.ceil(filteredClients.length / showPages));
   }, [clientsClone.length, inputValue, showPages]);
 
   return (

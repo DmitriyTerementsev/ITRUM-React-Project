@@ -1,7 +1,7 @@
 import styles from './Popup.module.scss';
 import React, { useRef, useEffect } from 'react';
 
-interface Props {
+interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
   categoriesSelect: (e: any) => void;
@@ -17,7 +17,7 @@ function Popup({
   subcategoriesSelect,
   brandSelect,
   cashbackSelect,
-}: Props) {
+}: PopupProps) {
   const rootEl: any = useRef(null);
   const popup: any = useRef(null);
 

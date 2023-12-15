@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+interface ActionsDescriptionProps {
   handleClickAllSelect: (e: any) => void;
   description: any;
   styles: any;
@@ -10,7 +10,7 @@ function ActionsDescription({
   handleClickAllSelect,
   description,
   styles,
-}: Props) {
+}: ActionsDescriptionProps) {
   return (
     <div className={styles.actions__description}>
       <input

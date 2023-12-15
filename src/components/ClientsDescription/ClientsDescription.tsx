@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface Props {
+interface ClientsDescriptionProps {
   description: any;
   styles: any;
 }
 
-function ClientsDescription({ description, styles }: Props) {
+function ClientsDescription({ description, styles }: ClientsDescriptionProps) {
   return (
     <div
       className={

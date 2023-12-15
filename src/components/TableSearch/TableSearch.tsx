@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './TableSearch.module.scss';
-import { ReactComponent as SearchIcon } from '../../images/en-searsh.svg';
-import { ReactComponent as DeleteIcon } from '../../images/en-cancel-fill.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/en-searsh.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/icons/en-cancel-fill.svg';
 
-interface Props {
+interface TableSearchProps {
   inputValue: (e: any) => void;
   handleInputClear: () => void;
 }
 
-function TableSearch({ inputValue, handleInputClear }: Props) {
+function TableSearch({ inputValue, handleInputClear }: TableSearchProps) {
   return (
     <section className={styles.search}>
       <SearchIcon

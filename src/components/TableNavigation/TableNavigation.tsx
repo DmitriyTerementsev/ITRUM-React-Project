@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './TableNavigation.module.scss';
-import arrowRight from '../../images/en-arrow-right.svg';
+import arrowRight from '../../assets/icons/en-arrow-right.svg';
 import { useLocation } from 'react-router-dom';
 
-interface Props {
+interface TableNavigationProps {
   currentPage: number;
   allPages: number;
   handleClickNext: () => void;
@@ -17,7 +17,7 @@ function TableNavigation({
   handleClickNext,
   handleClickPrev,
   showPages,
-}: Props) {
+}: TableNavigationProps) {
   const tableRoute = useLocation().pathname === '/clients';
   return (
     <div

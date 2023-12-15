@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { ReactComponent as EditButton } from '../../images/editButton.svg';
-import { ReactComponent as TrashButton } from '../../images/trashButton.svg';
+import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg';
+import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 
-interface Props {
+interface CategoriesItemProps {
   item: any;
   styles: any;
   handleDeleteItem: (id: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
   itemName: string;
   categoriesItems: any;
-  subCategoriesItems: any;
 }
 
 function CategoriesItem({
@@ -19,8 +18,7 @@ function CategoriesItem({
   itemName,
   handleCompleteStatusUpdate,
   categoriesItems,
-  subCategoriesItems,
-}: Props) {
+}: CategoriesItemProps) {
   const [isEdited, setIsEdited] = useState(false);
   const [text, setText] = useState(itemName);
 

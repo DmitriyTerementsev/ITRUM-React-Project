@@ -1,12 +1,12 @@
 import React from 'react';
-
-interface Props {
+import styles from '../Navigation/Navigation.module.scss';
+interface NavigationItemProps {
   children: any;
   name: string;
   styles: any;
 }
 
-function NavigationItem({ children, name, styles }: Props) {
+function NavigationItem({ children, name }: NavigationItemProps) {
   return (
     <div className={styles.navigation__item}>
       {children}

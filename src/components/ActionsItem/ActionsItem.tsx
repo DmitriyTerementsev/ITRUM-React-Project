@@ -1,6 +1,6 @@
 import React from 'react';
-
-interface Props {
+import styles from '../Actions/Actions.module.scss';
+interface ActionsItemProps {
   handleClickItem: (e: any) => void;
   categories: string;
   subcategories: string;
@@ -8,7 +8,6 @@ interface Props {
   cashback: string;
   product: string;
   id: string;
-  styles: any;
   checked: boolean;
 }
 
@@ -20,9 +19,8 @@ function ActionsItem({
   cashback,
   handleClickItem,
   id,
-  styles,
   checked,
-}: Props) {
+}: ActionsItemProps) {
   return (
     <li className={styles.actions__item} id={id}>
       <input
@@ -32,13 +30,7 @@ function ActionsItem({
         onChange={() => checked}
       />
       <p
-        className={
-          styles.actions__text +
-          ' ' +
-          styles.actions__text_item +
-          ' ' +
-          styles.actions__text_categories
-        }
+        className={`${styles.actions__text} ${styles.actions__text_item} ${styles.actions__text_categories}`}
       >
         {categories}
       </p>
