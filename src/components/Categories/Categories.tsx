@@ -25,7 +25,7 @@ function Categories() {
   };
 
   // Обработчик добавления новой задачи
-  const handleAddItem = (e: any) => {
+  const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValueCat.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
@@ -47,26 +47,25 @@ function Categories() {
     }
   };
 
-  const handleAddSubItem = (e: any) => {
+  const handleAddSubItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputValueSubCat.trim() === '') return
-      let id: number = Math.floor(Math.random() * 10000) + 1;
-      const newList = [
-        ...subCategoriesItems,
-        {
-          categoriesName: inputValueSubCat,
-          id: id,
-          categories: selectedCategory,
-        },
-      ];
-      subCategoriesList.push({
+    if (inputValueSubCat.trim() === '') return;
+    let id: number = Math.floor(Math.random() * 10000) + 1;
+    const newList = [
+      ...subCategoriesItems,
+      {
         categoriesName: inputValueSubCat,
         id: id,
         categories: selectedCategory,
-      });
-      setSubCategoriesItems(newList);
-      setInputValueSubCat('');
-    
+      },
+    ];
+    subCategoriesList.push({
+      categoriesName: inputValueSubCat,
+      id: id,
+      categories: selectedCategory,
+    });
+    setSubCategoriesItems(newList);
+    setInputValueSubCat('');
   };
 
   // Обработчик удаления задачи
@@ -80,7 +79,10 @@ function Categories() {
     setSubCategoriesItems(newList);
   };
 
-  const handleCompleteStatusUpdate = (item: any) => {
+  const handleCompleteStatusUpdate = (item: {
+    id: number;
+    status: boolean;
+  }) => {
     const newList = categoriesItems.map((el: any) => {
       if (el.id === item.id) {
         el.status = item.status;
@@ -137,7 +139,7 @@ function Categories() {
     <section className={styles.categories}>
       <div className={styles.categories__elements}>
         <div className={styles.categories__element}>
-          <form action='' onSubmit={(e) => handleAddItem(e)}>
+          <form onSubmit={(e) => handleAddItem(e)}>
             <input
               type='text'
               className={styles.categories__input}
@@ -145,11 +147,7 @@ function Categories() {
               value={inputValueCat}
               onChange={handleChange}
             />
-            <button
-              type='submit'
-              className={styles.categories__button}
-              onClick={handleAddItem}
-            >
+            <button type='submit' className={styles.categories__button}>
               Добавить категорию
             </button>
           </form>
@@ -158,9 +156,7 @@ function Categories() {
             <p
               className={
                 !isActiveCat
-                  ? styles.categories__null +
-                    ' ' +
-                    styles.categories__null_active
+                  ? `${styles.categories__null} ${styles.categories__null_active}`
                   : styles.categories__null
               }
             >
@@ -172,7 +168,6 @@ function Categories() {
                 item={item}
                 key={item.id}
                 itemName={item.categoriesName}
-                styles={styles}
                 handleDeleteItem={() => handleDeleteItem(item.id)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
@@ -185,9 +180,7 @@ function Categories() {
         <p
           className={
             !isClicked
-              ? styles.categories__choice +
-                ' ' +
-                styles.categories__choice_active
+              ? `${styles.categories__choice} ${styles.categories__choice_active}`
               : styles.categories__choice
           }
         >
@@ -196,13 +189,11 @@ function Categories() {
         <div
           className={
             !isClicked
-              ? styles.categories__element +
-                ' ' +
-                styles.categories__element_null
+              ? `${styles.categories__element} ${styles.categories__element_null}`
               : styles.categories__element
           }
         >
-          <form action='' onSubmit={(e) => handleAddSubItem(e)}>
+          <form onSubmit={(e) => handleAddSubItem(e)}>
             <input
               type='text'
               className={styles.categories__input}
@@ -210,11 +201,7 @@ function Categories() {
               value={inputValueSubCat}
               onChange={handleChangeSub}
             />
-            <button
-              type='submit'
-              className={styles.categories__button}
-              onClick={handleAddSubItem}
-            >
+            <button type='submit' className={styles.categories__button}>
               Добавить подкатегорию
             </button>
           </form>
@@ -225,9 +212,7 @@ function Categories() {
             <p
               className={
                 isActiveSubCat
-                  ? styles.categories__null +
-                    ' ' +
-                    styles.categories__null_active
+                  ? `${styles.categories__null} ${styles.categories__null_active}`
                   : styles.categories__null
               }
             >
@@ -239,7 +224,6 @@ function Categories() {
                 item={item}
                 key={item.id}
                 itemName={item.categoriesName}
-                styles={styles}
                 handleDeleteItem={() => handleDeleteSubItem(item.id)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)

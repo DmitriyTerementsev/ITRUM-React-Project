@@ -1,13 +1,12 @@
 import React from 'react';
-
+import styles from '../Actions/Actions.module.scss';
 interface ClientsItemProps {
   name: string;
   email: string;
   phone: string;
-  styles: any;
 }
 
-function ClientsItem({ name, email, phone, styles }: ClientsItemProps) {
+function ClientsItem({ name, email, phone }: ClientsItemProps) {
   return (
     <li className={styles.actions__item}>
       <p className={styles.actions__text}>{name}</p>

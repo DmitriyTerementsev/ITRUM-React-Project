@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../Actions/Actions.module.scss';
 import { ReactComponent as TrashIcon } from '../../assets/icons/trash.svg';
 import { ReactComponent as CloseIcon } from '../../assets/icons/en-close.svg';
 
@@ -7,7 +8,6 @@ interface ActionsSelectedProps {
   handleDeleteItem: () => void;
   isActive: boolean;
   counter: number;
-  styles: any;
 }
 
 function ActionsSelected({
@@ -15,7 +15,6 @@ function ActionsSelected({
   handleDeleteItem,
   isActive,
   closePopup,
-  styles,
 }: ActionsSelectedProps) {
   return (
     <div

@@ -1,22 +1,20 @@
 import React from 'react';
-
+import styles from '../Actions/Actions.module.scss';
 interface ActionsDescriptionProps {
-  handleClickAllSelect: (e: any) => void;
-  description: any;
-  styles: any;
+  handleClickAllSelect: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  description: React.MutableRefObject<null>;
 }
 
 function ActionsDescription({
   handleClickAllSelect,
   description,
-  styles,
 }: ActionsDescriptionProps) {
   return (
     <div className={styles.actions__description}>
       <input
         type='checkbox'
         className={styles.actions__checkbox}
-        onClick={(e: any) => handleClickAllSelect(e)}
+        onClick={(e) => handleClickAllSelect(e)}
         ref={description}
       />
       <p

@@ -15,9 +15,7 @@ function Navigation() {
             navbar.isActive ? styles.active : styles.navigation__link
           }
         >
-          <NavigationItem styles={styles} name={item.name}>
-            {item.svg}
-          </NavigationItem>
+          <NavigationItem name={item.name}>{item.svg}</NavigationItem>
         </NavLink>
       ))}
     </nav>

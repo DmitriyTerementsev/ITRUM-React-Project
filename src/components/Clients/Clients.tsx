@@ -67,7 +67,7 @@ function Clients() {
     <ItemsDescription.Provider value={description}>
       <ShowItemsValue.Provider value={showPages}>
         <ProductList.Provider value={list}>
-          <section className={styles.actions + ' ' + styles.actions_clients}>
+          <section className={`${styles.actions} ${styles.actions_clients}`}>
             <TableSearch
               inputValue={(e: any) => setInputValue(e.target.value)}
               handleInputClear={() => handleInputClear()}
@@ -85,7 +85,7 @@ function Clients() {
               }
               showPages={(e: any) => setShowPages(e.target.value)}
             />
-            <ClientsDescription description={description} styles={styles} />
+            <ClientsDescription description={description} />
             <ul
               className={
                 styles.actions__items + ' ' + styles.actions__items_clients
@@ -98,7 +98,6 @@ function Clients() {
                   name={name + ' ' + lastName}
                   phone={phone}
                   email={email}
-                  styles={styles}
                 />
               ))}
             </ul>

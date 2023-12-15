@@ -12,7 +12,7 @@ function TableSearch({ inputValue, handleInputClear }: TableSearchProps) {
   return (
     <section className={styles.search}>
       <SearchIcon
-        className={styles.search__icon + ' ' + styles.search__icon_search}
+        className={`${styles.search__icon} ${styles.search__icon_search}`}
       />
       <input
         type='text'
@@ -21,7 +21,7 @@ function TableSearch({ inputValue, handleInputClear }: TableSearchProps) {
         onChange={inputValue}
       />
       <DeleteIcon
-        className={styles.search__icon + ' ' + styles.search__icon_cancel}
+        className={`${styles.search__icon} ${styles.search__icon_cancel}`}
         onClick={handleInputClear}
       />
     </section>

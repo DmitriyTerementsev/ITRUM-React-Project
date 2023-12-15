@@ -1,11 +1,10 @@
 import React from 'react';
-
+import styles from '../Actions/Actions.module.scss';
 interface ClientsDescriptionProps {
-  description: any;
-  styles: any;
+  description: React.MutableRefObject<null>;
 }
 
-function ClientsDescription({ description, styles }: ClientsDescriptionProps) {
+function ClientsDescription({ description }: ClientsDescriptionProps) {
   return (
     <div
       className={

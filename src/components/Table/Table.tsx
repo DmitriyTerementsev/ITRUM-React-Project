@@ -10,7 +10,7 @@ function Table() {
     <div className={styles.table}>
       <div className={styles.table__container}>
         <Routes>
-          <Route path='/products' element={<Products styles={styles}/>} />
+          <Route path='/products' element={<Products/>} />
         </Routes>
         <Routes>
           <Route path='/clients' element={<Clients />} />

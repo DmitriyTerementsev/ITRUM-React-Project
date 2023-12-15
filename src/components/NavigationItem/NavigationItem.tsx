@@ -3,7 +3,6 @@ import styles from '../Navigation/Navigation.module.scss';
 interface NavigationItemProps {
   children: any;
   name: string;
-  styles: any;
 }
 
 function NavigationItem({ children, name }: NavigationItemProps) {

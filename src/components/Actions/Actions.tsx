@@ -5,15 +5,15 @@ import ActionsItem from '../ActionsItem/ActionsItem.tsx';
 import ActionsSelected from '../ActionsSelected/ActionsSelected.tsx';
 
 interface ActionsProps {
-  list: any;
+  list: React.MutableRefObject<null>;
   handleDeleteItem: () => void;
-  handleClickAllSelect: (e: any) => void;
-  handleClickItem: (e: any) => void;
+  handleClickAllSelect: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  handleClickItem: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   counter: number;
   isActive: boolean;
   closePopup: () => void;
   showProducts: any[];
-  description: any;
+  description: React.MutableRefObject<null>;
 }
 
 function Actions({
@@ -30,9 +30,8 @@ function Actions({
   return (
     <div className={styles.actions}>
       <ActionsDescription
-        handleClickAllSelect={(e: any) => handleClickAllSelect(e)}
+        handleClickAllSelect={(e) => handleClickAllSelect(e)}
         description={description}
-        styles={styles}
       />
       <ul className={styles.actions__items} ref={list}>
         {showProducts?.map(
@@ -44,7 +43,7 @@ function Actions({
               brand={product.brand}
               product={product.product}
               cashback={product.cashback}
-              handleClickItem={(e: any) => handleClickItem(e)}
+              handleClickItem={(e) => handleClickItem(e)}
               id={product.id}
               checked={product.checked}
             />
@@ -56,7 +55,6 @@ function Actions({
         handleDeleteItem={handleDeleteItem}
         isActive={isActive}
         closePopup={closePopup}
-        styles={styles}
       />
     </div>
   );

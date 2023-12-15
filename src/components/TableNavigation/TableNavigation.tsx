@@ -22,7 +22,7 @@ function TableNavigation({
   return (
     <div
       className={
-        tableRoute ? styles.table + ' ' + styles.table_clients : styles.table
+        tableRoute ? `${styles.table} ${styles.table_clients}` : styles.table
       }
     >
       <p className={styles.table__text}>Показывать</p>
@@ -41,7 +41,7 @@ function TableNavigation({
         <img
           src={arrowRight}
           alt='icon'
-          className={styles.table__icon + ' ' + styles.table__icon_rotate}
+          className={`${styles.table__icon} ${styles.table__icon_rotate}`}
         />
       </button>
     </div>

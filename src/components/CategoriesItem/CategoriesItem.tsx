@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg';
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
-
+import styles from '../Categories/Categories.module.scss';
 interface CategoriesItemProps {
   item: any;
-  styles: any;
   handleDeleteItem: (id: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
   itemName: string;
-  categoriesItems: any;
+  categoriesItems: any[];
 }
 
 function CategoriesItem({
   item,
-  styles,
   handleDeleteItem,
   itemName,
   handleCompleteStatusUpdate,
@@ -60,7 +58,7 @@ function CategoriesItem({
     <li
       className={
         item.status === true
-          ? styles.categories__item + ' ' + styles.categories__item_click
+          ? `${styles.categories__item} ${styles.categories__item_click}`
           : styles.categories__item
       }
     >
@@ -76,7 +74,7 @@ function CategoriesItem({
           </p>
         ) : (
           <input
-            className={styles.task__text_edit + ' ' + styles.task__text_active}
+            className={`${styles.task__text_edit} ${styles.task__text_active}`}
             name='textEdit'
             onChange={handleEditText}
             value={text}
@@ -88,18 +86,14 @@ function CategoriesItem({
       <div className={styles.categories__buttons}>
         <button
           type='button'
-          className={
-            styles.categories__button + ' ' + styles.categories__button_icon
-          }
+          className={`${styles.categories__button} ${styles.categories__button_icon}`}
           onClick={handleEditClick}
         >
           <EditButton className={styles.categories__edit} />
         </button>
         <button
           type='button'
-          className={
-            styles.categories__button + ' ' + styles.categories__button_icon
-          }
+          className={`${styles.categories__button} ${styles.categories__button_icon}`}
           onClick={handleDeleteClick}
         >
           <TrashButton className={styles.categories__edit} />

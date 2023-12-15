@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../Actions/Actions.module.scss';
 interface ActionsItemProps {
-  handleClickItem: (e: any) => void;
+  handleClickItem: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   categories: string;
   subcategories: string;
   brand: string;
@@ -26,7 +26,7 @@ function ActionsItem({
       <input
         type='checkbox'
         className={styles.actions__checkbox}
-        onClick={(e: any) => handleClickItem(e)}
+        onClick={(e) => handleClickItem(e)}
         onChange={() => checked}
       />
       <p

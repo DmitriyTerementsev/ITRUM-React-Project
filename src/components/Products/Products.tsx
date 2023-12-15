@@ -8,8 +8,9 @@ import {
   ProductList,
   ItemsDescription,
 } from '../../contexts/ShowItemsValue';
+import styles from '../Table/Table.module.scss';
 
-function Products({ styles }) {
+function Products() {
   //----------States
   const [isActive, setActive] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -22,7 +23,7 @@ function Products({ styles }) {
   const [subcategoriesSelect, setSubcategories] = useState('');
   const [brandSelect, setBrand] = useState('');
   const [cashbackSelect, setCashback] = useState('');
-  const list: any = useRef<HTMLElement>(null);
+  const list: any = useRef(null);
   const description: any = useRef<HTMLElement>(null);
 
   let showProducts = products
@@ -184,10 +185,18 @@ function Products({ styles }) {
           <Popup
             isOpen={isOpen}
             onClose={onClose}
-            categoriesSelect={(e: any) => setCategories(e.target.value)}
-            subcategoriesSelect={(e: any) => setSubcategories(e.target.value)}
-            brandSelect={(e: any) => setBrand(e.target.value)}
-            cashbackSelect={(e: any) => setCashback(e.target.value)}
+            categoriesSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setCategories(e.currentTarget.value)
+            }
+            subcategoriesSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setSubcategories(e.currentTarget.value)
+            }
+            brandSelect={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setBrand(e.currentTarget.value)
+            }
+            cashbackSelect={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCashback(e.currentTarget.value)
+            }
           />
         </ProductList.Provider>
       </ShowItemsValue.Provider>
