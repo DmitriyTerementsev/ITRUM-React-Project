@@ -37,8 +37,9 @@ function Brands() {
       });
       setBrandsItems(newList);
       setInputValue('');
+      setInputLogoValue('');
     }
-    console.log(brandsItems)
+    console.log(brandsItems);
   };
 
   const handleDeleteItem = (id: number) => {
@@ -79,7 +80,11 @@ function Brands() {
             value={inputLogoValue}
             onChange={handleChangeFile}
           />
-          <input type='text' value={inputLogoTextValue} onChange={() => console.log("yes")} />
+          <input
+            type='text'
+            value={inputLogoTextValue}
+            onChange={() => console.log('yes')}
+          />
           <Upload className={styles.icon} />
         </div>
         <button className={styles.brands__button} type='submit'>
@@ -92,9 +97,15 @@ function Brands() {
         {activeBrands ? (
           <p className={styles.brands__null}>Здесь пока нет брендов</p>
         ) : (
-          brandsItems?.map((item) => {
-            <BrandsItem key={item.id} name={item.brandName} link={item.link} handleAddItem={handleAddItem} />;
-          })
+          brandsItems?.map((item: any) => (
+            <BrandsItem
+              key={item.id}
+              item={item}
+              brandName={item.brandName}
+              logo={item.logo}
+              handleDeleteItem={() => handleDeleteItem(item.id)}
+            />
+          ))
         )}
       </ul>
     </section>
