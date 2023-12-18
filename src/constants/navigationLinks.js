@@ -33,7 +33,7 @@ export const navigationLinks = [
   },
   {
     path: '/brands',
-    name: 'Брэнды',
+    name: 'Бренды',
     svg: <Brands className={styles.navigation__icon} />,
   },
   {

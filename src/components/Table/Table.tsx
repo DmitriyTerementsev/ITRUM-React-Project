@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Products from '../Products/Products.tsx';
 import Clients from '../Clients/Clients.tsx';
 import Categories from '../Categories/Categories.tsx';
+import Brands from '../Brands/Brands.tsx';
 
 function Table() {
   return (
@@ -17,6 +18,9 @@ function Table() {
         </Routes>
         <Routes>
           <Route path='/categories' element={<Categories />} />
+        </Routes>
+        <Routes>
+          <Route path='/brands' element={<Brands />} />
         </Routes>
       </div>
     </div>

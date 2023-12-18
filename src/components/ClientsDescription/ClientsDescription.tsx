@@ -8,7 +8,7 @@ function ClientsDescription({ description }: ClientsDescriptionProps) {
   return (
     <div
       className={
-        styles.actions__description + ' ' + styles.actions__description_clients
+        `${styles.actions__description} ${styles.actions__description_clients}`
       }
       ref={description}
     >

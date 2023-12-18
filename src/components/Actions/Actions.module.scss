@@ -14,6 +14,10 @@
     &_clients {
       margin-top: 24px;
     }
+
+    &_brand {
+      margin-top: 44px;
+    }
   }
 
   &__checkbox {
@@ -36,7 +40,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 320px;
-    color: #434652;
+    color: #737680;
 
     &_categories {
       width: 242px;
@@ -63,6 +67,14 @@
     &_item {
       font-weight: 400;
       line-height: 20px;
+    }
+
+    &_brands {
+      width: 794px;
+    }
+
+    &_logo {
+      width: 165px;
     }
   }
 
@@ -135,6 +147,7 @@
       cursor: pointer;
     }
   }
+
 }
 
 .select__text {
