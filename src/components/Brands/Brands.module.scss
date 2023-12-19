@@ -115,15 +115,23 @@
   }
 
   &__logo {
+    display: flex;
     width: 111px;
     height: 111px;
     background-color: #fafafa;
     margin: 10px 0 0 10px;
+    justify-content: center;
+    position: relative;
   }
 
   &__image {
     width: 100%;
     height: 100%;
+
+    &_active {
+      background-color: #fafafa;
+      opacity: 0.4;
+    }
   }
 
   &__name {
@@ -157,5 +165,16 @@
     line-height: 20px;
     margin: 24px auto 0 auto;
     text-align: center;
+  }
+
+  &__layout {
+    position: absolute;
+    top: 40px;
+    &_inactive {
+      display: none;
+    }
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

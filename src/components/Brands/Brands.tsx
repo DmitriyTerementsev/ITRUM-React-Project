@@ -4,6 +4,8 @@ import BrandsDescription from '../BrandsDescription/BrandsDescription.tsx';
 import { ReactComponent as Upload } from '../../assets/icons/upload.svg';
 import brandsList from '../../constants/brandsList.ts';
 import BrandsItem from '../BrandsItem/BrandsItem.tsx';
+import fakeLogo from '../../assets/icons/fakeLogo.png';
+import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 
 function Brands() {
   const [brandsItems, setBrandsItems] = useState(brandsList);
@@ -13,6 +15,7 @@ function Brands() {
   const [inputLogoTextValue, setInputTextValue] = useState(
     'Загрузить логотип бренда'
   );
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     brandsItems.length > 0 ? setActiveBrands(false) : setActiveBrands(true);
@@ -27,13 +30,13 @@ function Brands() {
         {
           brandName: inputValue,
           id: id,
-          logo: inputLogoValue,
+          logo: fakeLogo,
         },
       ];
       brandsList.push({
         brandName: inputValue,
         id: id,
-        logo: inputLogoValue,
+        logo: fakeLogo,
       });
       setBrandsItems(newList);
       setInputValue('');
@@ -52,7 +55,7 @@ function Brands() {
   };
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputLogoValue(e.target.value);
+    setInputTextValue(e.target.value.replace('C:\\fakepath\\', ''));
   };
 
   useEffect(() => {
@@ -60,6 +63,32 @@ function Brands() {
       ? setInputTextValue('Загрузить логотип бренда')
       : setInputTextValue(inputLogoValue);
   }, [inputLogoValue]);
+
+  const openPopup = () => {
+    if (isOpen === false) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    function keyHandler(evt: any) {
+      if (evt.key === 'Escape') {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', keyHandler);
+    }
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, [isOpen]);
 
   return (
     <section className={styles.brands}>
@@ -104,10 +133,12 @@ function Brands() {
               brandName={item.brandName}
               logo={item.logo}
               handleDeleteItem={() => handleDeleteItem(item.id)}
+              openPopup={openPopup}
             />
           ))
         )}
       </ul>
+      <PopupDeleteItem isOpen={isOpen} onClose={onClose} />
     </section>
   );
 }

@@ -25,12 +25,22 @@
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
+    &_delete {
+      width: 400px;
+      height: 310px;
+      margin: 450px auto 0 auto;
+    }
   }
 
   &__buttons {
     margin: 27px auto;
     display: flex;
     gap: 16px;
+    &_delete {
+      margin: 40px auto 32px auto;
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 
   &__button {
@@ -57,6 +67,22 @@
     &_save {
       background-color: #c06ecc;
       border: 1px solid #bd68ca;
+    }
+
+    &_confirm {
+      width: 320px;
+      height: 40px;
+      background-color: #c06ecc;
+      border: 1px solid #bd68ca;
+    }
+
+    &_cancel {
+      appearance: none;
+      width: 320px;
+      height: 40px;
+      background-color: #ffffff;
+      border: 0;
+      color: #c06ecc;
     }
   }
 
@@ -88,5 +114,14 @@
     height: 40px;
     border-radius: 8px;
     border: 1px solid #d0d3da;
+  }
+
+  &__title {
+    margin-top: 40px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0px;
+    text-align: center;
   }
 }
