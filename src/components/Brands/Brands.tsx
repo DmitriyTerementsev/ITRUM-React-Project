@@ -6,9 +6,17 @@ import brandsList from '../../constants/brandsList.ts';
 import BrandsItem from '../BrandsItem/BrandsItem.tsx';
 import fakeLogo from '../../assets/icons/fakeLogo.png';
 import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
+import { useDispatch } from 'react-redux';
+import { addBrand, deleteBrand } from '../../types/types.ts';
+import { useSelector } from 'react-redux';
 
 function Brands() {
-  const [brandsItems, setBrandsItems] = useState(brandsList);
+  const data: any = useSelector((item) => {
+    return item;
+  });
+  const dispatch = useDispatch();
+
+  const [brandsItems, setBrandsItems] = useState([]);
   const [activeBrands, setActiveBrands] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [inputLogoValue, setInputLogoValue] = useState('');
@@ -16,7 +24,10 @@ function Brands() {
     'Загрузить логотип бренда'
   );
   const [isOpen, setIsOpen] = useState(false);
-
+  useEffect(() => {
+    setBrandsItems(data.brand.brands);
+  }, [data]);
+  console.log(brandsItems)
   useEffect(() => {
     brandsItems.length > 0 ? setActiveBrands(false) : setActiveBrands(true);
   }, [brandsItems.length]);
@@ -25,29 +36,24 @@ function Brands() {
     e.preventDefault();
     if (inputValue.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
-      const newList = [
-        ...brandsItems,
-        {
+
+      //setBrandsItems(newList);
+      dispatch(
+        addBrand({
           brandName: inputValue,
           id: id,
           logo: fakeLogo,
-        },
-      ];
-      brandsList.push({
-        brandName: inputValue,
-        id: id,
-        logo: fakeLogo,
-      });
-      setBrandsItems(newList);
+        })
+      );
       setInputValue('');
       setInputLogoValue('');
     }
-    console.log(brandsItems);
+
+    //console.log(brandsItems);
   };
 
   const handleDeleteItem = (id: number) => {
-    const newList = brandsItems.filter((el) => el.id !== id);
-    setBrandsItems(newList);
+    dispatch(deleteBrand(id));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,6 +96,15 @@ function Brands() {
     };
   }, [isOpen]);
 
+  const [isUpload, setIsUpload] = useState(false);
+  const checkUpload = () => {
+    if (isUpload === false) {
+      setIsUpload(true);
+    } else {
+      setIsUpload(false);
+    }
+  };
+
   return (
     <section className={styles.brands}>
       <form className={styles.brands__form} onSubmit={handleAddItem}>
@@ -101,7 +116,11 @@ function Brands() {
           onChange={handleChange}
         />
         <div
-          className={`${styles.brands__input} ${styles.brands__input_upload}`}
+          className={
+            !isUpload
+              ? `${styles.brands__input} ${styles.brands__input_upload}`
+              : `${styles.brands__input} ${styles.brands__input_upload} ${styles.brands__input_upload_active}`
+          }
         >
           <input
             type='file'
@@ -130,15 +149,22 @@ function Brands() {
             <BrandsItem
               key={item.id}
               item={item}
-              brandName={item.brandName}
+              brandName={item.name}
               logo={item.logo}
               handleDeleteItem={() => handleDeleteItem(item.id)}
               openPopup={openPopup}
+              checkUpload={checkUpload}
+              isOpen={isOpen}
+              onClose={onClose}
             />
           ))
         )}
       </ul>
-      <PopupDeleteItem isOpen={isOpen} onClose={onClose} />
+      <PopupDeleteItem
+        isOpen={isOpen}
+        onClose={onClose}
+        //handleDeleteItem={handleDeleteItem()}
+      />
     </section>
   );
 }

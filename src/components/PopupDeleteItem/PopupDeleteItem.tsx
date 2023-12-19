@@ -4,10 +4,14 @@ import React, { useRef, useEffect, useState } from 'react';
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
+  //handleDeleteItem: (id: number) => void;
 }
 
-function PopupDeleteItem({ isOpen, onClose }: PopupProps) {
-  const [text, setText] = useState();
+function PopupDeleteItem({
+  isOpen,
+  onClose,
+  //handleDeleteItem,
+}: PopupProps) {
   const rootEl: React.MutableRefObject<null> = useRef(null);
   const popup: React.MutableRefObject<null> = useRef(null);
 
@@ -34,10 +38,22 @@ function PopupDeleteItem({ isOpen, onClose }: PopupProps) {
         <p className={styles.popup__title}>
           Вы действительно хотите удалить бренд
         </p>
-        <p className={styles.popup__brand}>{text}</p>
-        <div className={`${styles.popup__buttons} ${styles.popup__buttons_delete}`}>
-          <button className={`${styles.popup__button} ${styles.popup__button_confirm}`}>Удалить</button>
-          <button className={`${styles.popup__button} ${styles.popup__button_cancel}`} onClick={onClose}>Отменить удаление</button>
+        <p className={styles.popup__brand}>{}</p>
+        <div
+          className={`${styles.popup__buttons} ${styles.popup__buttons_delete}`}
+        >
+          <button
+            className={`${styles.popup__button} ${styles.popup__button_confirm}`}
+            //onClick={handleDeleteItem}
+          >
+            Удалить
+          </button>
+          <button
+            className={`${styles.popup__button} ${styles.popup__button_cancel}`}
+            onClick={onClose}
+          >
+            Отменить удаление
+          </button>
         </div>
       </div>
     </div>

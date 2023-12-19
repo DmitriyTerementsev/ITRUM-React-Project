@@ -36,6 +36,10 @@
       overflow: hidden;
       position: relative;
 
+      &_active {
+        box-shadow: 0 0 10px 5px #c06ecc;
+      }
+
       input[type='file'] {
         appearance: none;
         opacity: 0;
