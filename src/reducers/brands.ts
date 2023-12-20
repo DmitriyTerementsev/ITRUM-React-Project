@@ -1,4 +1,4 @@
-import { BrandState, BrandActionTypes, BrandAction } from '../types/types.ts';
+import { BrandState, BrandActionTypes, BrandAction } from '../types/brandTypes.ts';
 
 const initialState: BrandState = {
   brands: [],
@@ -10,7 +10,6 @@ export const BrandReducer = (
   state = initialState,
   action: BrandAction
 ): BrandState => {
-  console.log(action);
   switch (action.type) {
     case BrandActionTypes.FETCH_BRANDS:
       return { loading: true, error: null, brands: [] };

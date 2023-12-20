@@ -6,19 +6,19 @@ interface CategoriesItemProps {
   item: any;
   handleDeleteItem: (id: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
-  itemName: string;
+  name: string;
   categoriesItems: any[];
 }
 
 function CategoriesItem({
   item,
   handleDeleteItem,
-  itemName,
+  name,
   handleCompleteStatusUpdate,
   categoriesItems,
 }: CategoriesItemProps) {
   const [isEdited, setIsEdited] = useState(false);
-  const [text, setText] = useState(itemName);
+  const [text, setText] = useState(name);
 
   const handleDeleteClick = () => {
     handleDeleteItem(item.id);
@@ -69,7 +69,7 @@ function CategoriesItem({
         }}
       >
         {!isEdited ? (
-          <p className={styles.task__text} onClick={handleEditClick}>
+          <p className={styles.task__text}>
             {text}
           </p>
         ) : (

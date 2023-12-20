@@ -1,17 +1,25 @@
 import styles from './Categories.module.scss';
 import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
-import categoriesList from '../../constants/categoriesList.ts';
+//import { categoriesList } from '../../constants/categoriesList.ts';
 import subCategoriesList from '../../constants/subCategoriesList.ts';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory } from '../../types/categoryTypes.ts';
 
 function Categories() {
+  const data: any = useSelector((item) => {
+    return item;
+  });
+  const categories = data.category.categories;
+  const dispatch = useDispatch();
   const [isActiveCat, setIsActiveCat] = useState(false);
   const [isActiveSubCat, setIsActiveSubCat] = useState(false);
   const [inputValueCat, setInputValueCat] = useState('');
   const [inputValueSubCat, setInputValueSubCat] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [categoriesItems, setCategoriesItems] = useState(categoriesList);
+  const [categoriesItems, setCategoriesItems] = useState(categories);
+  console.log(categoriesItems);
   const [isClicked, setIsClicked] = useState(false);
   const [subCategoriesItems, setSubCategoriesItems] =
     useState(subCategoriesList);
@@ -24,6 +32,13 @@ function Categories() {
     setInputValueSubCat(e.target.value);
   };
 
+  useEffect(() => {
+    categoriesItems.map(item => {
+      return item.status = false
+    })
+    console.log(categoriesItems)
+  }, [])
+
   // Обработчик добавления новой задачи
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,17 +47,12 @@ function Categories() {
       const newList = [
         ...categoriesItems,
         {
-          categoriesName: inputValueCat,
+          name: inputValueCat,
           id: id,
           status: false,
         },
       ];
-      categoriesList.push({
-        categoriesName: inputValueCat,
-        id: id,
-        status: false,
-      });
-      setCategoriesItems(newList);
+      //setCategoriesItems(newList);
       setInputValueCat('');
     }
   };
@@ -94,7 +104,7 @@ function Categories() {
 
   useEffect(() => {
     categoriesItems.length > 0 ? setIsActiveCat(true) : setIsActiveCat(false);
-  }, [categoriesItems.length]);
+  }, [categoriesItems]);
 
   useEffect(() => {
     setIsClicked(categoriesItems.some((element) => element.status === true));
@@ -151,8 +161,8 @@ function Categories() {
               Добавить категорию
             </button>
           </form>
+          <p className={styles.categories__description}>Название категории</p>
           <ul className={styles.categories__items}>
-            <p className={styles.categories__description}>Название категории</p>
             <p
               className={
                 !isActiveCat
@@ -167,7 +177,7 @@ function Categories() {
                 categoriesItems={categoriesItems}
                 item={item}
                 key={item.id}
-                itemName={item.categoriesName}
+                name={item.name}
                 handleDeleteItem={() => handleDeleteItem(item.id)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)

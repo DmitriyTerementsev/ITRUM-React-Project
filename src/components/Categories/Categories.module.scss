@@ -62,7 +62,9 @@
   &__items {
     list-style-type: none;
     padding-left: 0;
-    height: 735px;
+    height: 690px;
+    overflow: scroll;
+    overflow-x: hidden;
   }
 
   &__description {
@@ -144,8 +146,9 @@
 
 .task__text {
   margin: 24px 0 0 10px;
-  width: fit-content;
+  width: 270px;
   color: #434652;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 14px;
@@ -164,7 +167,6 @@
   background-color: transparent;
   padding: 0;
   margin: 24px 0 0 10px;
-  width: 30%;
 }
 
 .task__text_edit:focus {

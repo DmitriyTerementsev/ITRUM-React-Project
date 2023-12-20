@@ -4,7 +4,11 @@ import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg'
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 import { ReactComponent as Layout } from '../../assets/icons/baseLogo.svg';
 import { useDispatch } from 'react-redux';
-import { deleteBrand, editBrandLogo, editBrandName } from '../../types/types.ts';
+import {
+  deleteBrand,
+  editBrandLogo,
+  editBrandName,
+} from '../../types/brandTypes.ts';
 import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 
 interface BrandsItemProps {
@@ -53,7 +57,7 @@ function BrandsItem({
   };
 
   const handleDeleteClick = () => {
-    dispatch(deleteBrand(item.id))
+    dispatch(deleteBrand(item.id));
   };
 
   const handleEditLogo = () => {
@@ -86,9 +90,7 @@ function BrandsItem({
           />
         </div>
         {!isEdited ? (
-          <p className={styles.brands__name} onClick={handleEditClick}>
-            {text}
-          </p>
+          <p className={styles.brands__name}>{text}</p>
         ) : (
           <input
             className={`${styles.brands__name_edit} ${styles.brands__name_active}`}

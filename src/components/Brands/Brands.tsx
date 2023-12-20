@@ -4,9 +4,8 @@ import BrandsDescription from '../BrandsDescription/BrandsDescription.tsx';
 import { ReactComponent as Upload } from '../../assets/icons/upload.svg';
 import BrandsItem from '../BrandsItem/BrandsItem.tsx';
 import fakeLogo from '../../assets/icons/fakeLogo.png';
-import { useDispatch } from 'react-redux';
-import { addBrand, deleteBrand } from '../../types/types.ts';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBrand, deleteBrand } from '../../types/brandTypes.ts';
 
 function Brands() {
   const data: any = useSelector((item) => {
@@ -25,7 +24,7 @@ function Brands() {
   useEffect(() => {
     setBrandsItems(data.brand.brands);
   }, [data]);
-  console.log(brandsItems);
+  //console.log(brandsItems);
   useEffect(() => {
     brandsItems.length > 0 ? setActiveBrands(false) : setActiveBrands(true);
   }, [brandsItems.length]);
