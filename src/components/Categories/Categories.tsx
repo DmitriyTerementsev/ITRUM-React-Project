@@ -1,28 +1,29 @@
 import styles from './Categories.module.scss';
 import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
-//import { categoriesList } from '../../constants/categoriesList.ts';
-import subCategoriesList from '../../constants/subCategoriesList.ts';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory } from '../../types/categoryTypes.ts';
+import { addCategory, deleteCategory } from '../../types/categoryTypes.ts';
+import {
+  addSubCategory,
+  deleteSubCategory,
+} from '../../types/subCategoryTypes.ts';
 
 function Categories() {
   const data: any = useSelector((item) => {
     return item;
   });
   const categories = data.category.categories;
+  const subCategories = data.subCategory.subCategories;
   const dispatch = useDispatch();
   const [isActiveCat, setIsActiveCat] = useState(false);
   const [isActiveSubCat, setIsActiveSubCat] = useState(false);
   const [inputValueCat, setInputValueCat] = useState('');
   const [inputValueSubCat, setInputValueSubCat] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
   const [categoriesItems, setCategoriesItems] = useState(categories);
-  console.log(categoriesItems);
   const [isClicked, setIsClicked] = useState(false);
-  const [subCategoriesItems, setSubCategoriesItems] =
-    useState(subCategoriesList);
+  const [subCategoriesItems, setSubCategoriesItems] = useState(subCategories);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValueCat(e.target.value);
@@ -32,82 +33,66 @@ function Categories() {
     setInputValueSubCat(e.target.value);
   };
 
-  useEffect(() => {
-    categoriesItems.map(item => {
-      return item.status = false
-    })
-    console.log(categoriesItems)
-  }, [])
-
   // Обработчик добавления новой задачи
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValueCat.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
-      const newList = [
-        ...categoriesItems,
-        {
+      dispatch(
+        addCategory({
           name: inputValueCat,
           id: id,
-          status: false,
-        },
-      ];
-      //setCategoriesItems(newList);
+          position: id,
+        })
+      );
       setInputValueCat('');
     }
   };
+
+  useEffect(() => {
+    setCategoriesItems(categories);
+  }, [categories]);
 
   const handleAddSubItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValueSubCat.trim() === '') return;
     let id: number = Math.floor(Math.random() * 10000) + 1;
-    const newList = [
-      ...subCategoriesItems,
-      {
-        categoriesName: inputValueSubCat,
+    dispatch(
+      addSubCategory({
+        name: inputValueSubCat,
         id: id,
-        categories: selectedCategory,
-      },
-    ];
-    subCategoriesList.push({
-      categoriesName: inputValueSubCat,
-      id: id,
-      categories: selectedCategory,
-    });
-    setSubCategoriesItems(newList);
+        position: selectedCategory,
+        catalog_product: { id: id },
+      })
+    );
     setInputValueSubCat('');
   };
 
   // Обработчик удаления задачи
   const handleDeleteItem = (id: number) => {
-    const newList = categoriesItems.filter((el) => el.id !== id);
-    setCategoriesItems(newList);
+    console.log(id);
+    dispatch(deleteCategory(id));
   };
 
   const handleDeleteSubItem = (id: number) => {
-    const newList = subCategoriesItems.filter((el) => el.id !== id);
-    setSubCategoriesItems(newList);
+    console.log(id);
+    dispatch(deleteSubCategory(id));
   };
 
   const handleCompleteStatusUpdate = (item: {
     id: number;
-    status: boolean;
+    position: number;
   }) => {
-    const newList = categoriesItems.map((el: any) => {
-      if (el.id === item.id) {
-        el.status = item.status;
-      }
-      return el;
-    });
-    setCategoriesItems(newList);
+    if (item.position !== selectedCategory) {
+      setIsClicked(true);
+      setSelectedCategory(item.position);
+    } else {
+      setIsClicked(false);
+    }
   };
 
   useEffect(() => {
     categoriesItems.length > 0 ? setIsActiveCat(true) : setIsActiveCat(false);
-  }, [categoriesItems]);
-
-  useEffect(() => {
-    setIsClicked(categoriesItems.some((element) => element.status === true));
   }, [categoriesItems]);
 
   useEffect(() => {
@@ -118,32 +103,19 @@ function Categories() {
 
   useEffect(() => {
     if (isClicked === false) {
-      setSelectedCategory(0);
+      setSelectedCategory(null);
     } else {
       setSelectedCategory(selectedCategory);
     }
   }, [isClicked, selectedCategory]);
 
   useEffect(() => {
-    categoriesItems.forEach((item) => {
-      if (item.status === true) {
-        setSelectedCategory(item.id);
-      }
-    });
     setSubCategoriesItems(
-      subCategoriesList
-        .filter((item: any) => item.categories === selectedCategory)
+      subCategories
+        .filter((item: any) => item.position === selectedCategory)
         .map((item: any) => item)
     );
-  }, [categoriesItems, selectedCategory, subCategoriesList]);
-
-  useEffect(() => {
-    setSubCategoriesItems(
-      subCategoriesList
-        .filter((item: any) => item.categories === selectedCategory)
-        .map((item: any) => item)
-    );
-  }, [categoriesItems, isClicked, selectedCategory]);
+  }, [categoriesItems, selectedCategory, subCategories, isClicked]);
 
   return (
     <section className={styles.categories}>
@@ -182,6 +154,7 @@ function Categories() {
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
                 }
+                selectedCategory={selectedCategory}
               />
             ))}
           </ul>
@@ -215,10 +188,10 @@ function Categories() {
               Добавить подкатегорию
             </button>
           </form>
+          <p className={styles.categories__description}>
+            Название подкатегории
+          </p>
           <ul className={styles.categories__items}>
-            <p className={styles.categories__description}>
-              Название подкатегории
-            </p>
             <p
               className={
                 isActiveSubCat
@@ -230,14 +203,15 @@ function Categories() {
             </p>
             {subCategoriesItems?.map((item: any) => (
               <CategoriesItem
+                key={item.id}
                 categoriesItems={categoriesItems}
                 item={item}
-                key={item.id}
-                itemName={item.categoriesName}
+                name={item.name}
                 handleDeleteItem={() => handleDeleteSubItem(item.id)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
                 }
+                selectedCategory={selectedCategory}
               />
             ))}
           </ul>

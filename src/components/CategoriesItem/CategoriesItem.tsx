@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg';
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 import styles from '../Categories/Categories.module.scss';
+import { useDispatch } from 'react-redux';
+import { editCategoryName } from '../../types/categoryTypes.ts';
+import { editSubCategoryName } from '../../types/subCategoryTypes.ts';
 interface CategoriesItemProps {
   item: any;
   handleDeleteItem: (id: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
   name: string;
   categoriesItems: any[];
+  selectedCategory: number | null;
 }
 
 function CategoriesItem({
@@ -16,7 +20,9 @@ function CategoriesItem({
   name,
   handleCompleteStatusUpdate,
   categoriesItems,
+  selectedCategory,
 }: CategoriesItemProps) {
+  const dispatch = useDispatch();
   const [isEdited, setIsEdited] = useState(false);
   const [text, setText] = useState(name);
 
@@ -25,60 +31,47 @@ function CategoriesItem({
   };
 
   const handleEditClick = () => {
-    setIsEdited(!isEdited);
+    if (isEdited) {
+      setIsEdited(!isEdited);
+      dispatch(editCategoryName(text, item.id));
+      dispatch(editSubCategoryName(text, item.id));
+    } else {
+      setIsEdited(!isEdited);
+    }
   };
 
   const handleEditText = (e: any) => {
     setText(e.target.value);
   };
 
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      setIsEdited(!isEdited);
-    }
-  };
-
-  const [isComplete, setIsComplete] = useState(false);
-
   const handleCheckBox = () => {
-    categoriesItems.forEach((item) => {
-      if (item.status === true) {
-        item.status = false;
-      }
-      handleCompleteStatusUpdate(item);
-    });
-    if (isComplete === false) {
-      handleCompleteStatusUpdate(item);
-      item.status = true;
-    }
-    setIsComplete(false);
+    handleCompleteStatusUpdate(item);
   };
 
   return (
     <li
       className={
-        item.status === true
+        item.position === selectedCategory && item.catalog_product === undefined
           ? `${styles.categories__item} ${styles.categories__item_click}`
           : styles.categories__item
       }
     >
       <div
         className={styles.div}
-        onClick={() => {
-          item.status === false ? handleCheckBox() : console.log('no');
-        }}
+        onClick={() =>
+          item.catalog_product === undefined
+            ? handleCheckBox()
+            : console.log('no')
+        }
       >
         {!isEdited ? (
-          <p className={styles.task__text}>
-            {text}
-          </p>
+          <p className={styles.task__text}>{text}</p>
         ) : (
           <input
             className={`${styles.task__text_edit} ${styles.task__text_active}`}
             name='textEdit'
             onChange={handleEditText}
             value={text}
-            onKeyDown={handleKeyDown}
             autoFocus
           />
         )}

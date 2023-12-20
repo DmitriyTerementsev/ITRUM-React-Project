@@ -44,7 +44,7 @@ interface CategoryEditNameAction {
 
 export const addCategory = (data: any) => ({
   type: CategoryActionTypes.CATEGORY_ADD,
-  payload: { id: data.id, name: data.name, position: data.position },
+  payload: { name: data.name, id: data.id, position: data.position },
 });
 
 export const deleteCategory = (id: number) => ({
