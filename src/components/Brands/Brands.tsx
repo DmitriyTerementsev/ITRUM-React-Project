@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './Brands.module.scss';
 import BrandsDescription from '../BrandsDescription/BrandsDescription.tsx';
 import { ReactComponent as Upload } from '../../assets/icons/upload.svg';
-import brandsList from '../../constants/brandsList.ts';
 import BrandsItem from '../BrandsItem/BrandsItem.tsx';
 import fakeLogo from '../../assets/icons/fakeLogo.png';
-import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 import { useDispatch } from 'react-redux';
 import { addBrand, deleteBrand } from '../../types/types.ts';
 import { useSelector } from 'react-redux';
@@ -27,7 +25,7 @@ function Brands() {
   useEffect(() => {
     setBrandsItems(data.brand.brands);
   }, [data]);
-  console.log(brandsItems)
+  console.log(brandsItems);
   useEffect(() => {
     brandsItems.length > 0 ? setActiveBrands(false) : setActiveBrands(true);
   }, [brandsItems.length]);
@@ -36,8 +34,6 @@ function Brands() {
     e.preventDefault();
     if (inputValue.trim() !== '') {
       let id: number = Math.floor(Math.random() * 10000) + 1;
-
-      //setBrandsItems(newList);
       dispatch(
         addBrand({
           brandName: inputValue,
@@ -48,12 +44,12 @@ function Brands() {
       setInputValue('');
       setInputLogoValue('');
     }
-
-    //console.log(brandsItems);
   };
 
   const handleDeleteItem = (id: number) => {
+    console.log(id);
     dispatch(deleteBrand(id));
+    setIsOpen(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +98,7 @@ function Brands() {
       setIsUpload(true);
     } else {
       setIsUpload(false);
+      setInputTextValue('Загрузить логотип бренда');
     }
   };
 
@@ -156,15 +153,11 @@ function Brands() {
               checkUpload={checkUpload}
               isOpen={isOpen}
               onClose={onClose}
+              inputLogoTextValue={inputLogoTextValue}
             />
           ))
         )}
       </ul>
-      <PopupDeleteItem
-        isOpen={isOpen}
-        onClose={onClose}
-        //handleDeleteItem={handleDeleteItem()}
-      />
     </section>
   );
 }

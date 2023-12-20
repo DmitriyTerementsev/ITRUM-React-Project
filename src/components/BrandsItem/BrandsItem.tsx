@@ -3,19 +3,20 @@ import styles from '../Brands/Brands.module.scss';
 import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg';
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 import { ReactComponent as Layout } from '../../assets/icons/baseLogo.svg';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { editBrandName, editBrandLogo } from '../../types/types.ts';
+import { deleteBrand, editBrandLogo, editBrandName } from '../../types/types.ts';
+import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 
 interface BrandsItemProps {
   brandName: string;
   logo: string;
   handleDeleteItem: () => void;
   item: any;
-  openPopup: () => void;
   checkUpload: () => void;
   isOpen: boolean;
   onClose: () => void;
+  inputLogoTextValue: string;
+  openPopup: () => void;
 }
 
 function BrandsItem({
@@ -27,10 +28,8 @@ function BrandsItem({
   isOpen,
   onClose,
   item,
+  inputLogoTextValue,
 }: BrandsItemProps) {
-  const data: any = useSelector((item) => {
-    return item;
-  });
   const dispatch = useDispatch();
 
   const [isEdited, setIsEdited] = useState(false);
@@ -38,25 +37,31 @@ function BrandsItem({
 
   const handleEditText = (e: any) => {
     setText(e.target.value);
-    
   };
 
   const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       setIsEdited(!isEdited);
-      dispatch(editBrandName(text));
+      dispatch(editBrandName(text, item.id));
+      checkUpload();
     }
   };
 
   const handleEditClick = () => {
     setIsEdited(!isEdited);
+    checkUpload();
   };
 
   const handleDeleteClick = () => {
-    handleDeleteItem();
+    dispatch(deleteBrand(item.id))
   };
 
-  const handleEditLogo = () => {};
+  const handleEditLogo = () => {
+    if (inputLogoTextValue !== 'Загрузить логотип бренда') {
+      checkUpload();
+      dispatch(editBrandLogo(inputLogoTextValue, item.id));
+    }
+  };
 
   return (
     <>
@@ -111,6 +116,12 @@ function BrandsItem({
           </button>
         </div>
       </li>
+      <PopupDeleteItem
+        isOpen={isOpen}
+        onClose={onClose}
+        handleDeleteItem={handleDeleteItem}
+        item={item}
+      />
     </>
   );
 }

@@ -10,6 +10,7 @@ export const BrandReducer = (
   state = initialState,
   action: BrandAction
 ): BrandState => {
+  console.log(action);
   switch (action.type) {
     case BrandActionTypes.FETCH_BRANDS:
       return { loading: true, error: null, brands: [] };
@@ -33,13 +34,29 @@ export const BrandReducer = (
       return {
         loading: false,
         error: null,
-        brands: [...state.brands],
+        brands: state.brands.map((item) => {
+          if (item.id === action.id) {
+            return {
+              ...item,
+              name: action.payload,
+            };
+          }
+          return item;
+        }),
       };
     case BrandActionTypes.BRAND_EDIT_LOGO:
       return {
         loading: false,
         error: null,
-        brands: [],
+        brands: state.brands.map((item) => {
+          if (item.id === action.id) {
+            return {
+              ...item,
+              logo: action.payload,
+            };
+          }
+          return item;
+        }),
       };
     default:
       return state;

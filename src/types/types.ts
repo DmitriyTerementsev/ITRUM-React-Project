@@ -71,11 +71,13 @@ interface BrandDeleteAction {
 interface BrandEditNameAction {
   type: BrandActionTypes.BRAND_EDIT_NAME;
   payload: string;
+  id: number;
 }
 
 interface BrandEditLogoAction {
   type: BrandActionTypes.BRAND_EDIT_LOGO;
   payload: string;
+  id: number;
 }
 
 export const addBrand = (data: any) => ({
@@ -88,14 +90,16 @@ export const deleteBrand = (id: number) => ({
   payload: id,
 });
 
-export const editBrandName = (name: string) => ({
+export const editBrandName = (name: string, id: number) => ({
   type: BrandActionTypes.BRAND_EDIT_NAME,
   payload: name,
+  id: id,
 });
 
-export const editBrandLogo = (logo: string) => ({
+export const editBrandLogo = (logo: string, id: number) => ({
   type: BrandActionTypes.BRAND_EDIT_LOGO,
   payload: logo,
+  id: id,
 });
 
 export type BrandAction =
