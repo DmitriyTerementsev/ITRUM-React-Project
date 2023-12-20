@@ -5,11 +5,10 @@ import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.sv
 import { ReactComponent as Layout } from '../../assets/icons/baseLogo.svg';
 import { useDispatch } from 'react-redux';
 import {
-  deleteBrand,
   editBrandLogo,
   editBrandName,
 } from '../../types/brandTypes.ts';
-import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
+
 
 interface BrandsItemProps {
   brandName: string;
@@ -20,7 +19,7 @@ interface BrandsItemProps {
   isOpen: boolean;
   onClose: () => void;
   inputLogoTextValue: string;
-  openPopup: () => void;
+  openPopup: (item) => void;
 }
 
 function BrandsItem({
@@ -43,28 +42,22 @@ function BrandsItem({
     setText(e.target.value);
   };
 
-  const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
+  const handleEditClick = () => {
+    if (isEdited) {
       setIsEdited(!isEdited);
       dispatch(editBrandName(text, item.id));
       checkUpload();
+      if (inputLogoTextValue !== 'Загрузить логотип бренда') {
+        dispatch(editBrandLogo(inputLogoTextValue, item.id));
+      }
+    } else {
+      setIsEdited(!isEdited);
+      checkUpload();
     }
-  };
-
-  const handleEditClick = () => {
-    setIsEdited(!isEdited);
-    checkUpload();
   };
 
   const handleDeleteClick = () => {
-    dispatch(deleteBrand(item.id));
-  };
-
-  const handleEditLogo = () => {
-    if (inputLogoTextValue !== 'Загрузить логотип бренда') {
-      checkUpload();
-      dispatch(editBrandLogo(inputLogoTextValue, item.id));
-    }
+    openPopup(item)
   };
 
   return (
@@ -86,7 +79,6 @@ function BrandsItem({
                 ? styles.brands__layout
                 : `${styles.brands__layout} ${styles.brands__layout_inactive}`
             }
-            onClick={handleEditLogo}
           />
         </div>
         {!isEdited ? (
@@ -97,7 +89,6 @@ function BrandsItem({
             name='textEdit'
             onChange={handleEditText}
             value={text}
-            onKeyDown={handleKeyDown}
             autoFocus
           />
         )}
@@ -118,12 +109,6 @@ function BrandsItem({
           </button>
         </div>
       </li>
-      <PopupDeleteItem
-        isOpen={isOpen}
-        onClose={onClose}
-        handleDeleteItem={handleDeleteItem}
-        item={item}
-      />
     </>
   );
 }

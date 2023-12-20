@@ -6,13 +6,14 @@ import BrandsItem from '../BrandsItem/BrandsItem.tsx';
 import fakeLogo from '../../assets/icons/fakeLogo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBrand, deleteBrand } from '../../types/brandTypes.ts';
+import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 
 function Brands() {
   const data: any = useSelector((item) => {
     return item;
   });
   const dispatch = useDispatch();
-
+  const [selectedBrand, setSelectedBrand] = useState({})
   const [brandsItems, setBrandsItems] = useState([]);
   const [activeBrands, setActiveBrands] = useState(true);
   const [inputValue, setInputValue] = useState('');
@@ -24,7 +25,7 @@ function Brands() {
   useEffect(() => {
     setBrandsItems(data.brand.brands);
   }, [data]);
-  //console.log(brandsItems);
+
   useEffect(() => {
     brandsItems.length > 0 ? setActiveBrands(false) : setActiveBrands(true);
   }, [brandsItems.length]);
@@ -46,7 +47,6 @@ function Brands() {
   };
 
   const handleDeleteItem = (id: number) => {
-    console.log(id);
     dispatch(deleteBrand(id));
     setIsOpen(false);
   };
@@ -65,9 +65,10 @@ function Brands() {
       : setInputTextValue(inputLogoValue);
   }, [inputLogoValue]);
 
-  const openPopup = () => {
+  const openPopup = (item) => {
     if (isOpen === false) {
       setIsOpen(true);
+      setSelectedBrand(item)
     } else {
       setIsOpen(false);
     }
@@ -157,6 +158,13 @@ function Brands() {
           ))
         )}
       </ul>
+
+      <PopupDeleteItem
+        isOpen={isOpen}
+        onClose={onClose}
+        handleDeleteItem={handleDeleteItem}
+        selectedBrand={selectedBrand}
+      />
     </section>
   );
 }

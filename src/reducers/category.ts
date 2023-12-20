@@ -80,7 +80,7 @@ export const CategoryReducer = (
   state = initialState,
   action: CategoryAction
 ): CategoryState => {
-  console.log(action);
+  //console.log(action);
   switch (action.type) {
     case CategoryActionTypes.FETCH_CATEGORIES:
       return { loading: true, error: null, categories: [] };

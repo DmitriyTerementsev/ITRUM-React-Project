@@ -1,18 +1,18 @@
 import styles from '../Popup/Popup.module.scss';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
   handleDeleteItem: (id: number) => void;
-  item: any;
+  selectedBrand: any;
 }
 
 function PopupDeleteItem({
   isOpen,
   onClose,
   handleDeleteItem,
-  item,
+  selectedBrand,
 }: PopupProps) {
   const rootEl: React.MutableRefObject<null> = useRef(null);
   const popup: React.MutableRefObject<null> = useRef(null);
@@ -25,8 +25,6 @@ function PopupDeleteItem({
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
   }, [onClose]);
-
-  console.log(item)
 
   return (
     <div
@@ -42,13 +40,13 @@ function PopupDeleteItem({
         <p className={styles.popup__title}>
           Вы действительно хотите удалить бренд
         </p>
-        <p className={styles.popup__brand}>{item.name}</p>
+        <p className={styles.popup__brand}>{selectedBrand.name}</p>
         <div
           className={`${styles.popup__buttons} ${styles.popup__buttons_delete}`}
         >
           <button
             className={`${styles.popup__button} ${styles.popup__button_confirm}`}
-            onClick={() => handleDeleteItem(item.id)}
+            onClick={() => handleDeleteItem(selectedBrand.id)}
           >
             Удалить
           </button>
