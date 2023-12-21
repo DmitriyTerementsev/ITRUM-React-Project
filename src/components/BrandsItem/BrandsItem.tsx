@@ -25,11 +25,8 @@ interface BrandsItemProps {
 function BrandsItem({
   brandName,
   logo,
-  handleDeleteItem,
   openPopup,
   checkUpload,
-  isOpen,
-  onClose,
   item,
   inputLogoTextValue,
 }: BrandsItemProps) {

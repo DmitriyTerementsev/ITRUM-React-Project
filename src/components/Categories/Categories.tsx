@@ -70,12 +70,10 @@ function Categories() {
 
   // Обработчик удаления задачи
   const handleDeleteItem = (id: number) => {
-    console.log(id);
     dispatch(deleteCategory(id));
   };
 
   const handleDeleteSubItem = (id: number) => {
-    console.log(id);
     dispatch(deleteSubCategory(id));
   };
 
