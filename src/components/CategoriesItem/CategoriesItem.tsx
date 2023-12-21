@@ -7,7 +7,7 @@ import { editCategoryName } from '../../redux/actions/categoryActions.ts';
 import { editSubCategoryName } from '../../redux/actions/subCategoryActions.ts';
 interface CategoriesItemProps {
   item: any;
-  handleDeleteItem: (id: number) => void;
+  handleDeleteItem: (id: number, position: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
   name: string;
   categoriesItems: any[];
@@ -27,7 +27,7 @@ function CategoriesItem({
   const [text, setText] = useState(name);
 
   const handleDeleteClick = () => {
-    handleDeleteItem(item.id);
+    handleDeleteItem(item.id, item.position);
   };
 
   const handleEditClick = () => {

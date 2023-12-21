@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, deleteCategory } from '../../redux/actions/categoryActions.ts';
+import {
+  addCategory,
+  deleteCategory,
+} from '../../redux/actions/categoryActions.ts';
 import {
   addSubCategory,
   deleteSubCategory,
@@ -21,6 +24,7 @@ function Categories() {
   const [inputValueCat, setInputValueCat] = useState('');
   const [inputValueSubCat, setInputValueSubCat] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
+  //const [selectedId, setSelectedId] = useState('')
   const [categoriesItems, setCategoriesItems] = useState(categories);
   const [isClicked, setIsClicked] = useState(false);
   const [subCategoriesItems, setSubCategoriesItems] = useState(subCategories);
@@ -33,7 +37,6 @@ function Categories() {
     setInputValueSubCat(e.target.value);
   };
 
-  // Обработчик добавления новой задачи
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValueCat.trim() !== '') {
@@ -68,9 +71,14 @@ function Categories() {
     setInputValueSubCat('');
   };
 
-  // Обработчик удаления задачи
-  const handleDeleteItem = (id: number) => {
-    dispatch(deleteCategory(id));
+  const handleDeleteItem = (id: number, position: number) => {
+    console.log(selectedCategory, position);
+    if (selectedCategory === position) {
+      dispatch(deleteCategory(id));
+      setIsClicked(false);
+    } else {
+      dispatch(deleteCategory(id));
+    }
   };
 
   const handleDeleteSubItem = (id: number) => {
@@ -115,6 +123,12 @@ function Categories() {
     );
   }, [categoriesItems, selectedCategory, subCategories, isClicked]);
 
+  useEffect(() => {
+    if (categoriesItems.length === 0) {
+      setIsClicked(false);
+    }
+  }, [categoriesItems]);
+
   return (
     <section className={styles.categories}>
       <div className={styles.categories__elements}>
@@ -148,7 +162,7 @@ function Categories() {
                 item={item}
                 key={item.id}
                 name={item.name}
-                handleDeleteItem={() => handleDeleteItem(item.id)}
+                handleDeleteItem={() => handleDeleteItem(item.id, item.position)}
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
                 }
