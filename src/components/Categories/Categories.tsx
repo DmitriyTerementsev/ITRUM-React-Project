@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import CategoriesItem from '../CategoriesItem/CategoriesItem.tsx';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, deleteCategory } from '../../types/categoryTypes.ts';
+import { addCategory, deleteCategory } from '../../redux/actions/categoryActions.ts';
 import {
   addSubCategory,
   deleteSubCategory,
-} from '../../types/subCategoryTypes.ts';
+} from '../../redux/actions/subCategoryActions.ts';
 
 function Categories() {
   const data: any = useSelector((item) => {

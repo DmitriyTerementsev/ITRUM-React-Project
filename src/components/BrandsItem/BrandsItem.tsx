@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import {
   editBrandLogo,
   editBrandName,
-} from '../../types/brandTypes.ts';
+} from '../../redux/actions/brandActions.ts';
 
 
 interface BrandsItemProps {

@@ -5,7 +5,7 @@ import { ReactComponent as Upload } from '../../assets/icons/upload.svg';
 import BrandsItem from '../BrandsItem/BrandsItem.tsx';
 import fakeLogo from '../../assets/icons/fakeLogo.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBrand, deleteBrand } from '../../types/brandTypes.ts';
+import { addBrand, deleteBrand } from '../../redux/actions/brandActions.ts';
 import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
 
 function Brands() {

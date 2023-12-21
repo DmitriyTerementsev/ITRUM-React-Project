@@ -1,4 +1,8 @@
-import { BrandState, BrandActionTypes, BrandAction } from '../types/brandTypes.ts';
+import {
+  BrandState,
+  BrandActionTypes,
+  BrandAction,
+} from '../types/brandTypes.ts';
 
 const initialState: BrandState = {
   brands: [],

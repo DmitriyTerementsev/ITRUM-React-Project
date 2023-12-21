@@ -3,8 +3,8 @@ import { ReactComponent as EditButton } from '../../assets/icons/editButton.svg'
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 import styles from '../Categories/Categories.module.scss';
 import { useDispatch } from 'react-redux';
-import { editCategoryName } from '../../types/categoryTypes.ts';
-import { editSubCategoryName } from '../../types/subCategoryTypes.ts';
+import { editCategoryName } from '../../redux/actions/categoryActions.ts';
+import { editSubCategoryName } from '../../redux/actions/subCategoryActions.ts';
 interface CategoriesItemProps {
   item: any;
   handleDeleteItem: (id: number) => void;
