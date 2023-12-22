@@ -6,9 +6,11 @@ import { ReactComponent as DeleteIcon } from '../../assets/icons/en-cancel-fill.
 interface TableSearchProps {
   inputValue: (e: any) => void;
   handleInputClear: () => void;
+  placeholder: string
+  value: string
 }
 
-function TableSearch({ inputValue, handleInputClear }: TableSearchProps) {
+function TableSearch({ inputValue, handleInputClear, placeholder, value }: TableSearchProps) {
   return (
     <section className={styles.search}>
       <SearchIcon
@@ -17,7 +19,8 @@ function TableSearch({ inputValue, handleInputClear }: TableSearchProps) {
       <input
         type='text'
         className={styles.search__input}
-        placeholder='Поиск'
+        value={value}
+        placeholder={placeholder}
         onChange={inputValue}
       />
       <DeleteIcon

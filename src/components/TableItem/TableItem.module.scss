@@ -1,0 +1,26 @@
+.item {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  border-bottom: 1px solid #ebecef;
+
+  &__text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: #434652;
+    padding-left: 8px;
+    &_order {
+      width: calc(177px - 8px);
+    }
+
+    &_date {
+      width: calc(167px - 8px);
+    }
+
+    &_sum {
+      width: calc(130px - 8px);
+    }
+  }
+}

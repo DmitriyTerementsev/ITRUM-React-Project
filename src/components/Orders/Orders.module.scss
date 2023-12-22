@@ -1,0 +1,9 @@
+.orders {
+  
+  &__items{
+    height: 680px;
+    overflow: scroll;
+    overflow-x: hidden;
+    display: flex;
+  }
+}

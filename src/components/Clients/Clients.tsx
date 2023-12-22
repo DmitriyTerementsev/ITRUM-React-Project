@@ -71,6 +71,7 @@ function Clients() {
             <TableSearch
               inputValue={(e: any) => setInputValue(e.target.value)}
               handleInputClear={() => handleInputClear()}
+              placeholder='Поиск'
             />
             <TableNavigation
               currentPage={currentPage}
