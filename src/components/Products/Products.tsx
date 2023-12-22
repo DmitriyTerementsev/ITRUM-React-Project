@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Actions from '../Actions/Actions.tsx';
 import Popup from '../Popup/Popup.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
@@ -68,6 +68,8 @@ function Products() {
       products.push(newObject);
     }
   }
+
+  useCallback(onClose, [isOpen]);
 
   //----------Click On Next/Prev Button
 
@@ -139,17 +141,17 @@ function Products() {
     return () => {
       document.removeEventListener('keydown', keyHandler);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   useEffect(() => {
     setAllPages(Math.ceil(products.length / showPages));
-  }, [products.length, showPages]);
+  }, [showPages]);
 
   useEffect(() => {
     if (currentPage === allPages) {
       setCurrentPage(allPages - 1);
     }
-  }, [allPages]);
+  }, [allPages, currentPage]);
 
   return (
     <ItemsDescription.Provider value={description}>

@@ -162,7 +162,9 @@ function Categories() {
                 item={item}
                 key={item.id}
                 name={item.name}
-                handleDeleteItem={() => handleDeleteItem(item.id, item.position)}
+                handleDeleteItem={() =>
+                  handleDeleteItem(item.id, item.position)
+                }
                 handleCompleteStatusUpdate={() =>
                   handleCompleteStatusUpdate(item)
                 }

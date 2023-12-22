@@ -1,5 +1,5 @@
 import styles from '../Popup/Popup.module.scss';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 interface PopupProps {
   isOpen: boolean;
