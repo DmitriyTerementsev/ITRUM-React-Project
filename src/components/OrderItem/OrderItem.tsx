@@ -17,12 +17,8 @@ function OrderItem() {
       <p className={`${styles.item__text} ${styles.item__text_date}`}>
         01.08.2022
       </p>
-      <p className={`${styles.item__text} ${styles.item__text_sum}`}>
-        8 242 Р
-      </p>
-      <p className={`${styles.item__text} ${styles.item__text_sum}`}>
-        Нет
-      </p>
+      <p className={`${styles.item__text} ${styles.item__text_sum}`}>8 242 Р</p>
+      <p className={`${styles.item__text} ${styles.item__text_sum}`}>Нет</p>
     </TableItem>
   );
 }
