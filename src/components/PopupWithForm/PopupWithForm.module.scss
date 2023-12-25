@@ -48,6 +48,10 @@
     font-weight: 500;
     line-height: 24px;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     &_submit {
       background-color: #c06ecc;
       border: 1px solid #bd68ca;
@@ -69,6 +73,10 @@
   flex-direction: column;
   overflow: scroll;
   overflow-x: hidden;
+
+  option:first-of-type {
+    display: none;
+  }
 
   &__container {
     width: 88%;

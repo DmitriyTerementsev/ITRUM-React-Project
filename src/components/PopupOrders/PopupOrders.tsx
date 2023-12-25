@@ -1,19 +1,56 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm.tsx';
 import styles from '../PopupWithForm/PopupWithForm.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedOrder: any;
 }
 
-function PopupOrders({ isOpen, onClose }: PopupProps) {
-  const [isSelect, setIsSelect] = useState('');
+function PopupOrders({ isOpen, onClose, selectedOrder }: PopupProps) {
+  const [isSelect, setIsSelect] = useState(selectedOrder.delivery_type);
+  const [userName, setUserName] = useState('');
+  const [userOrder, setUserOrder] = useState('');
+  const [userDate, setUserDate] = useState('');
+
+  useEffect(() => {
+    if (selectedOrder.user === undefined) {
+      setUserName('');
+      setUserOrder('');
+      setUserDate('');
+    } else {
+      setUserName(selectedOrder.user.name + ' ' + selectedOrder.user.lastName);
+      setUserOrder(selectedOrder.order_number);
+      setUserDate(selectedOrder.date);
+    }
+  }, [selectedOrder]);
+
+  useEffect(() => {
+    selectedOrder.delivery_type === 'PICKUP'
+      ? setIsSelect('Самовывоз')
+      : setIsSelect('Доставка');
+  }, [selectedOrder]);
+
   const pickUpValue = 'Самовывоз';
   const deliveryValue = 'Доставка';
+  const cashValue = 'Наличными курьеру';
+  const terminalValue = 'Онлайн';
 
   const handleOptionValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIsSelect(e.target.value);
+  };
+
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
+
+  const handleChangeOrder = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserOrder(e.target.value);
+  };
+
+  const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserDate(e.target.value);
   };
 
   return (
@@ -21,7 +58,11 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
       <div className={styles.popup__container}>
         <form className={styles.form}>
           <div className={styles.popup__buttons}>
-            <button type='button' className={styles.popup__button}>
+            <button
+              type='button'
+              className={styles.popup__button}
+              onClick={onClose}
+            >
               Закрыть
             </button>
             <button
@@ -37,25 +78,44 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
               type='text'
               className={styles.form__input}
               placeholder='Заказчик'
+              value={userName}
+              onChange={handleChangeName}
+              required
             />
             <p className={styles.form__label}>Номер заказа</p>
             <input
               type='text'
               className={styles.form__input}
               placeholder='Номер заказа'
+              value={userOrder}
+              onChange={handleChangeOrder}
+              required
             />
             <p className={styles.form__label}>Дата оформления</p>
             <input
               type='text'
               className={styles.form__input}
               placeholder='Дата оформления'
+              value={userDate}
+              onChange={handleChangeDate}
+              required
             />
 
             <p className={styles.form__label}>Способ оплаты</p>
-            <select className={styles.form__select} placeholder=''>
-              <option value=''>Выберите способ оплаты</option>
-              <option value='Наличными курьеру'>Наличными курьеру</option>
-              <option value='Онлайн'>Онлайн</option>
+            <select
+              className={styles.form__select}
+              placeholder=''
+              onChange={(e) => {
+                console.log(e);
+              }}
+            >
+              <option value=''>
+                {selectedOrder.order_type === 'COURIER_CASH'
+                  ? cashValue
+                  : terminalValue}
+              </option>
+              <option value={cashValue}>Наличными курьеру</option>
+              <option value={terminalValue}>Онлайн</option>
             </select>
 
             <p className={styles.form__label}>Способ получения</p>
@@ -65,8 +125,13 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
               onChange={(e) => {
                 handleOptionValue(e);
               }}
+              required
             >
-              <option value=''>Выберите способ получения</option>
+              <option value=''>
+                {selectedOrder.delivery_type === 'PICKUP'
+                  ? pickUpValue
+                  : deliveryValue}
+              </option>
               <option value={pickUpValue}>Самовывоз</option>
               <option value={deliveryValue}>Доставка</option>
             </select>
@@ -77,6 +142,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                   type='text'
                   className={styles.form__input}
                   placeholder='Пункт самовывоза'
+                  required
                 />
               </>
             ) : isSelect === 'Доставка' ? (
@@ -88,6 +154,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                       type='text'
                       className={`${styles.form__input} ${styles.form__input_delivery}`}
                       placeholder='Город'
+                      required
                     />
                   </div>
                   <div className={styles.form__element}>
@@ -96,6 +163,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                       type='text'
                       className={`${styles.form__input} ${styles.form__input_delivery}`}
                       placeholder='Улица'
+                      required
                     />
                   </div>
                 </div>
@@ -106,6 +174,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                       type='text'
                       className={`${styles.form__input} ${styles.form__input_delivery}`}
                       placeholder='Дом'
+                      required
                     />
                   </div>
                   <div className={styles.form__element}>
@@ -114,6 +183,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                       type='text'
                       className={`${styles.form__input} ${styles.form__input_delivery}`}
                       placeholder='Квартира'
+                      required
                     />
                   </div>
                 </div>
@@ -181,6 +251,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
               </div>
             </div>
             <button
+              type='button'
               className={`${styles.popup__button} ${styles.popup__button_edit}`}
             >
               Изменить
@@ -208,7 +279,7 @@ function PopupOrders({ isOpen, onClose }: PopupProps) {
                 </div>
                 <div className={styles.order__text}>
                   <p className={styles.order__name}>Итого</p>
-                  <p className={styles.order__name}>8 242 ₽</p>
+                  <p className={styles.order__name}>{selectedOrder.total} ₽</p>
                 </div>
               </div>
             </div>

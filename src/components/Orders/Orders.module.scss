@@ -4,6 +4,11 @@
     overflow: scroll;
     overflow-x: hidden;
     display: flex;
+    flex-direction: column;
+
+    div:hover {
+      cursor: pointer;
+    }
   }
 
   &__null {

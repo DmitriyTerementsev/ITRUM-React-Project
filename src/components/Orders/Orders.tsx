@@ -4,23 +4,33 @@ import TableSearch from '../TableSearch/TableSearch.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import OrderDescription from '../OrderDescription/OrderDescription.tsx';
 import OrderItem from '../OrderItem/OrderItem.tsx';
-import PopupWithForm from '../PopupWithForm/PopupWithForm.tsx';
 import PopupOrders from '../PopupOrders/PopupOrders.tsx';
+import { order } from '../../constants/orders.ts';
 
 function Orders() {
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [allPages, setAllPages] = useState(1);
   const [showPages, setShowPages] = useState(10);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(order);
   const [activeOrders, setActiveOrders] = useState(false);
+  const [isOpen, setOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState({});
+
+  const openPopup = (item: any) => {
+    if (isOpen === false) {
+      setOpen(true);
+      setSelectedOrder(item);
+    } else {
+      setOpen(false);
+    }
+  };
 
   useEffect(() => {
     orders.length === 0 ? setActiveOrders(true) : setActiveOrders(false);
-  }, [orders]);
+  }, [inputValue]);
 
   const handleInputClear = () => {
-    console.log(inputValue);
     setInputValue('');
   };
 
@@ -28,12 +38,31 @@ function Orders() {
     setOrders(
       orders.slice(currentPage * showPages, currentPage * showPages + showPages)
     );
-  }, [orders, showPages, currentPage]);
+  }, [currentPage, showPages]);
 
-  const [isOpen, setOpen] = useState(true);
   const onClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    setOrders(
+      order
+        .filter(
+          (item) =>
+            (item.user.name !== null &&
+              item.user.name
+                .toLowerCase()
+                .includes(inputValue.toLowerCase())) ||
+            (item.user.lastName !== null &&
+              item.user.lastName
+                .toLowerCase()
+                .includes(inputValue.toLowerCase()))
+        )
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+        .map((item) => item)
+    );
+    setAllPages(Math.ceil(orders.length / showPages));
+  }, [order, inputValue, showPages, currentPage]);
 
   return (
     <section className={styles.orders}>
@@ -66,10 +95,24 @@ function Orders() {
       </p>
       <ul className={styles.orders__items}>
         {orders?.map((item: any) => (
-          <OrderItem key={item.id} />
+          <OrderItem
+            openPopup={openPopup}
+            key={item.id}
+            name={item.user.name + ' ' + item.user.lastName}
+            order={item.order_number}
+            delivery={item.delivery_type}
+            date={item.date}
+            summa={item.total + ' ₽'}
+            isPay={item.isPayed}
+            item={item}
+          />
         ))}
       </ul>
-      <PopupOrders isOpen={isOpen} onClose={onClose}/>
+      <PopupOrders
+        isOpen={isOpen}
+        onClose={onClose}
+        selectedOrder={selectedOrder}
+      />
     </section>
   );
 }

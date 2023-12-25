@@ -1,4 +1,4 @@
-export const orders = [
+export const order = [
   {
     id: '5102fc00-66f0-4183-a1d1-e210245e838d',
     order_type: 'OFFICE_CASH',
@@ -169,6 +169,26 @@ export const orders = [
     },
     warehouse: { city: 'Пятигорск' },
     date: '16.03.23',
+  },
+  {
+    id: '56353ec0-be09-43c5-acf3-9c5d7ddde129',
+    order_type: 'ONLINE',
+    total: 5840,
+    isViewedByAdmin: true,
+    order_number: '5479686512-0',
+    delivery_type: 'DELIVERY',
+    isPayed: true,
+    user: {
+      id: '57ac671f-2a60-4fe4-9621-e3ad5572ab13',
+      name: 'Джанкезова Земфира Хасановна ЧП',
+      lastName: null,
+      secondName: null,
+      firmName: null,
+      role: 'SPECIALIST',
+    },
+    warehouse: { city: 'Пятигорск' },
+    date: '16.03.23',
+    count: 392,
   },
   {
     id: '56353ec0-be09-43c5-acf3-9c5d7ddde129',
