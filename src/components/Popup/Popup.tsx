@@ -18,7 +18,6 @@ function Popup({
   brandSelect,
   cashbackSelect,
 }: PopupProps) {
-  const rootEl: React.MutableRefObject<null> = useRef(null);
   const popup: React.MutableRefObject<null> = useRef(null);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function Popup({
       }
       ref={popup}
     >
-      <div className={styles.popup__container} ref={rootEl}>
+      <div className={styles.popup__container}>
         <div className={styles.popup__buttons}>
           <button
             className={`${styles.popup__button} ${styles.popup__button_delete}`}
