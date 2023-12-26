@@ -8,6 +8,7 @@ export enum OrderActionTypes {
   FETCH_ORDERS = 'FETCH_ORDERS',
   FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS',
   FETCH_ORDERS_ERROR = 'FETCH_ORDERS_ERROR',
+  INIT_ORDERS = 'INIT_ORDERS',
 }
 
 interface FetchOrdersAction {
@@ -24,7 +25,13 @@ interface FetchOrdersErrorAction {
   payload: string;
 }
 
+interface InitOrdersAction {
+  type: OrderActionTypes.INIT_ORDERS;
+  payload: any[];
+}
+
 export type OrderAction =
   | FetchOrdersAction
   | FetchOrdersSuccessAction
-  | FetchOrdersErrorAction;
+  | FetchOrdersErrorAction
+  | InitOrdersAction;

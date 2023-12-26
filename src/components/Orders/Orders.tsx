@@ -1,21 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './Orders.module.scss';
 import TableSearch from '../TableSearch/TableSearch.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import OrderDescription from '../OrderDescription/OrderDescription.tsx';
 import OrderItem from '../OrderItem/OrderItem.tsx';
 import PopupOrders from '../PopupOrders/PopupOrders.tsx';
-import { order } from '../../constants/orders.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrders } from '../../redux/thunks/orderThunk.ts';
 
 function Orders() {
+  const dispatch = useDispatch();
+  const data: any = useSelector((item) => {
+    return item;
+  });
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [allPages, setAllPages] = useState(1);
   const [showPages, setShowPages] = useState(10);
-  const [orders, setOrders] = useState(order);
+  const [orders, setOrders] = useState<any[]>([]);
   const [activeOrders, setActiveOrders] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState({});
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
+  const allOrders = data.order.orders;
+
+  useEffect(() => {
+    setOrders(allOrders);
+  }, [allOrders]);
 
   const openPopup = (item: any) => {
     if (isOpen === false) {
@@ -28,7 +43,7 @@ function Orders() {
 
   useEffect(() => {
     orders.length === 0 ? setActiveOrders(true) : setActiveOrders(false);
-  }, [inputValue]);
+  }, [inputValue, orders]);
 
   const handleInputClear = () => {
     setInputValue('');
@@ -36,17 +51,24 @@ function Orders() {
 
   useEffect(() => {
     setOrders(
-      orders.slice(currentPage * showPages, currentPage * showPages + showPages)
+      allOrders.slice(
+        currentPage * showPages,
+        currentPage * showPages + showPages
+      )
     );
-  }, [currentPage, showPages]);
+  }, [currentPage, showPages, allOrders]);
 
   const onClose = () => {
     setOpen(false);
   };
 
   useEffect(() => {
+    setAllPages(Math.ceil(allOrders.length / showPages));
+  }, [allOrders, showPages]);
+
+  useEffect(() => {
     setOrders(
-      order
+      allOrders
         .filter(
           (item) =>
             (item.user.name !== null &&
@@ -59,10 +81,22 @@ function Orders() {
                 .includes(inputValue.toLowerCase()))
         )
         .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item)
     );
-    setAllPages(Math.ceil(orders.length / showPages));
-  }, [order, inputValue, showPages, currentPage]);
+  }, [inputValue, showPages, currentPage, allOrders]);
+
+  useEffect(() => {
+    function keyHandler(evt: any) {
+      if (evt.key === 'Escape') {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', keyHandler);
+    }
+    return () => {
+      document.removeEventListener('keydown', keyHandler);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <section className={styles.orders}>

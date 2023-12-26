@@ -4,8 +4,6 @@ import {
   OrderAction,
 } from '../types/orderTypes.ts';
 
-import { order } from '../../constants/orders.ts';
-
 const initialState: OrderState = {
   orders: [],
   loading: false,
@@ -16,7 +14,10 @@ export const OrderReducer = (
   state = initialState,
   action: OrderAction
 ): OrderState => {
+  console.log(action)
   switch (action.type) {
+    case OrderActionTypes.INIT_ORDERS:
+      return { loading: true, error: null, orders: action.payload };
     case OrderActionTypes.FETCH_ORDERS:
       return { loading: true, error: null, orders: [] };
     case OrderActionTypes.FETCH_ORDERS_SUCCESS:
