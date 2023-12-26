@@ -1,3 +1,5 @@
+import { OrderActionTypes } from '../types/orderTypes.ts';
+
 export const getAllOrders = () => {
   return new Promise<any[]>((res) => {
     setTimeout(() => {
@@ -197,3 +199,20 @@ export const getAllOrders = () => {
     }, 500);
   });
 };
+
+export const editOrderName = (name: string, lastName: string, id: number) => ({
+  type: OrderActionTypes.EDIT_ORDER,
+  payload: {
+    name: name,
+    lastName: lastName,
+  },
+  id: id,
+});
+
+export const editOrderNumber = (order: string, id: number) => ({
+  type: OrderActionTypes.EDIT_ORDER_NUMBER,
+  payload: order,
+  id: id,
+});
+
+

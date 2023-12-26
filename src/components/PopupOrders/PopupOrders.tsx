@@ -6,9 +6,15 @@ interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
   selectedOrder: any;
+  handleEditOrder: (e: React.FormEvent<HTMLFormElement>, item: any) => void;
 }
 
-function PopupOrders({ isOpen, onClose, selectedOrder }: PopupProps) {
+function PopupOrders({
+  isOpen,
+  onClose,
+  selectedOrder,
+  handleEditOrder,
+}: PopupProps) {
   const [isSelect, setIsSelect] = useState(selectedOrder.delivery_type);
   const [userName, setUserName] = useState('');
   const [userOrder, setUserOrder] = useState('');
@@ -32,10 +38,10 @@ function PopupOrders({ isOpen, onClose, selectedOrder }: PopupProps) {
       : setIsSelect('Доставка');
   }, [selectedOrder]);
 
-  const pickUpValue = 'Самовывоз';
-  const deliveryValue = 'Доставка';
-  const cashValue = 'Наличными курьеру';
-  const terminalValue = 'Онлайн';
+  const pickUpValue: string = 'Самовывоз';
+  const deliveryValue: string = 'Доставка';
+  const cashValue: string = 'Наличными курьеру';
+  const terminalValue: string = 'Онлайн';
 
   const handleOptionValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIsSelect(e.target.value);
@@ -56,7 +62,12 @@ function PopupOrders({ isOpen, onClose, selectedOrder }: PopupProps) {
   return (
     <PopupWithForm isOpen={isOpen} onClose={onClose}>
       <div className={styles.popup__container}>
-        <form className={styles.form}>
+        <form
+          className={styles.form}
+          onSubmit={(e) =>
+            handleEditOrder(e, { userName, selectedOrder, userOrder, userDate })
+          }
+        >
           <div className={styles.popup__buttons}>
             <button
               type='button'

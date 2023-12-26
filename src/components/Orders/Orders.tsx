@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Orders.module.scss';
 import TableSearch from '../TableSearch/TableSearch.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
@@ -7,6 +7,10 @@ import OrderItem from '../OrderItem/OrderItem.tsx';
 import PopupOrders from '../PopupOrders/PopupOrders.tsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '../../redux/thunks/orderThunk.ts';
+import {
+  editOrderName,
+  editOrderNumber,
+} from '../../redux/actions/orderActions.ts';
 
 function Orders() {
   const dispatch = useDispatch();
@@ -98,6 +102,15 @@ function Orders() {
     };
   }, [isOpen, onClose]);
 
+  const handleEditOrder = (e, { userName, selectedOrder, userOrder }) => {
+    const name = userName.split(' ')[0];
+    const lastName = userName.split(' ')[1];
+    e.preventDefault();
+    dispatch(editOrderName(name, lastName, selectedOrder.id));
+    dispatch(editOrderNumber(userOrder, selectedOrder.id));
+    onClose();
+  };
+
   return (
     <section className={styles.orders}>
       <TableSearch
@@ -146,6 +159,7 @@ function Orders() {
         isOpen={isOpen}
         onClose={onClose}
         selectedOrder={selectedOrder}
+        handleEditOrder={handleEditOrder}
       />
     </section>
   );
