@@ -4,8 +4,6 @@ import CitiesDescription from '../CitiesDescription/CitiesDescription.tsx';
 import CitiesItem from '../CitiesItem/CitiesItem.tsx';
 import { AppDispatch, RootState } from '../../redux/store/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCities } from '../../redux/thunks/cityThunk.ts';
-import { addCity, deleteCity } from '../../redux/actions/cityActions.ts';
 
 function Cities() {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,36 +11,22 @@ function Cities() {
     return item;
   });
 
-  useEffect(() => {
-    dispatch(getCities());
-  }, [dispatch]);
   const allCities: any[] = data.city.cities;
   const [cities, setCities] = useState(allCities);
   const [inputCityValue, setInputCityValue] = useState('');
   const [inputAddressValue, setInputAddressValue] = useState('');
 
-  useEffect(() => {
-    setCities(allCities);
-  }, [allCities]);
-
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputCityValue.trim() && inputAddressValue.trim() !== '') {
       let id: string = String(Math.floor(Math.random() * 10000) + 1);
-      dispatch(
-        addCity({
-          name: inputCityValue,
-          id: id,
-          address: inputAddressValue,
-        })
-      );
       setInputCityValue('');
       setInputAddressValue('');
     }
   };
 
   const handleDeleteItem = (id: string) => {
-    dispatch(deleteCity(id));
+    // dispatch(deleteCity(id));
   };
 
   return (
