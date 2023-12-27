@@ -11,14 +11,15 @@ import {
   addSubCategory,
   deleteSubCategory,
 } from '../../redux/actions/subCategoryActions.ts';
+import { AppDispatch, RootState } from '../../redux/store/store.ts';
 
 function Categories() {
-  const data: any = useSelector((item) => {
+  const data: any = useSelector<RootState>((item) => {
     return item;
   });
   const categories: any[] = data.category.categories;
   const subCategories: any[] = data.subCategory.subCategories;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [isActiveCat, setIsActiveCat] = useState(false);
   const [isActiveSubCat, setIsActiveSubCat] = useState(false);
   const [inputValueCat, setInputValueCat] = useState('');

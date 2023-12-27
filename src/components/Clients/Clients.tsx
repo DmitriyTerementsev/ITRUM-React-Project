@@ -77,7 +77,9 @@ function Clients() {
         <ProductList.Provider value={list}>
           <section className={`${styles.actions} ${styles.actions_clients}`}>
             <TableSearch
-              inputValue={(e: any) => setInputValue(e.target.value)}
+              inputValue={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputValue(e.target.value)
+              }
               handleInputClear={() => handleInputClear()}
               placeholder='Поиск'
               value={inputValue}
@@ -93,7 +95,9 @@ function Clients() {
               handleClickPrev={() =>
                 currentPage > 0 ? setCurrentPage(currentPage - 1) : null
               }
-              showPages={(e: any) => setShowPages(e.target.value)}
+              showPages={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                setShowPages(Number(e.target.value))
+              }
             />
             <ClientsDescription description={description} />
             <ul

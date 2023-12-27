@@ -4,7 +4,7 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/en-searsh.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/en-cancel-fill.svg';
 
 interface TableSearchProps {
-  inputValue: (e: any) => void;
+  inputValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputClear: () => void;
   placeholder: string
   value: string

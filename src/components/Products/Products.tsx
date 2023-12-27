@@ -3,7 +3,6 @@ import React, {
   useState,
   useRef,
   useCallback,
-  KeyboardEvent,
 } from 'react';
 import Actions from '../Actions/Actions.tsx';
 import Popup from '../Popup/Popup.tsx';
@@ -13,7 +12,7 @@ import {
   ShowItemsValue,
   ProductList,
   ItemsDescription,
-} from '../../contexts/ShowItemsValue';
+} from '../../contexts/ShowItemsValue.jsx';
 import styles from '../Table/Table.module.scss';
 
 function Products() {
@@ -89,40 +88,17 @@ function Products() {
 
   //----------Click on checkbox - select All
 
-  function handleClickAllSelect(e: any) {
-    if (e.target.checked === true) {
-      setCounter(showProducts.length);
-      list.current!.childNodes.forEach((item: any) => {
-        console.log(item);
-        //console.log(item.querySelector(`.${styles.actions__checkbox}`))
-        //item.querySelector(styles.actions__checkbox).checked = true;
-      });
-    } else {
-      setCounter(0);
-      list.current!.childNodes.forEach((item: any) => {
-        item.querySelector(styles.actions__checkbox).checked = false;
-      });
-    }
+  function handleClickAllSelect(
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>
+  ) {
+    setCounter(showProducts.length);
   }
 
   //----------Click on delete items
 
   function handleDeleteItem() {
-    console.log(description.current);
-    const listItems = list.current!.childNodes;
-    for (let i: number = 0; i < listItems.length; i++) {
-      for (let j: number = 0; j < products.length; j++) {
-        if (
-          listItems[i].id == products[j].id &&
-          listItems[i].querySelector(styles.actions__checkbox).checked === true
-        ) {
-          products.splice(j, 1);
-        }
-      }
-    }
     setActive(false);
     setCounter(0);
-    description.checked = false;
   }
 
   //----------Effects
@@ -134,20 +110,6 @@ function Products() {
       setActive(false);
     }
   }, [counter]);
-
-  useEffect(() => {
-    function keyHandler(evt: KeyboardEvent) {
-      if (evt.key === 'Escape') {
-        onClose();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener('keydown', keyHandler);
-    }
-    return () => {
-      document.removeEventListener('keydown', keyHandler);
-    };
-  }, [isOpen, onClose]);
 
   useEffect(() => {
     setAllPages(Math.ceil(products.length / showPages));
@@ -174,7 +136,9 @@ function Products() {
             handleClickPrev={() =>
               currentPage > 0 ? setCurrentPage(currentPage - 1) : null
             }
-            showPages={(e: any) => setShowPages(e.target.value)}
+            showPages={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setShowPages(Number(e.target.value))
+            }
           />
           <button onClick={openPopup} className={styles.table__button}>
             Добавить акцию
@@ -182,8 +146,12 @@ function Products() {
           <Actions
             list={list}
             handleDeleteItem={() => handleDeleteItem()}
-            handleClickAllSelect={(e: any) => handleClickAllSelect(e)}
-            handleClickItem={(e: any) => handleClickItem(e)}
+            handleClickAllSelect={(
+              e: React.MouseEvent<HTMLInputElement, MouseEvent>
+            ) => handleClickAllSelect(e)}
+            handleClickItem={(
+              e: React.MouseEvent<HTMLInputElement, MouseEvent>
+            ) => handleClickItem(e)}
             counter={counter}
             closePopup={closePopup}
             isActive={isActive}

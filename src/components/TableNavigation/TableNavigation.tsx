@@ -8,7 +8,7 @@ interface TableNavigationProps {
   allPages: number;
   handleClickNext: () => void;
   handleClickPrev: () => void;
-  showPages: (e: any) => void;
+  showPages: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function TableNavigation({

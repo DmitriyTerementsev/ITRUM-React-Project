@@ -7,13 +7,14 @@ import fakeLogo from '../../assets/icons/fakeLogo.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBrand, deleteBrand } from '../../redux/actions/brandActions.ts';
 import PopupDeleteItem from '../PopupDeleteItem/PopupDeleteItem.tsx';
+import { AppDispatch, RootState } from '../../redux/store/store.ts';
 
 function Brands() {
-  const data: any = useSelector((item) => {
+  const data: any = useSelector<RootState>((item) => {
     return item;
   });
   console.log(data.brand.brands);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedBrand, setSelectedBrand] = useState({});
   const [brandsItems, setBrandsItems] = useState([]);
   const [activeBrands, setActiveBrands] = useState(true);

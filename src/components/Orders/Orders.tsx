@@ -11,10 +11,11 @@ import {
   editOrderName,
   editOrderNumber,
 } from '../../redux/actions/orderActions.ts';
+import { AppDispatch, RootState } from '../../redux/store/store.ts';
 
 function Orders() {
-  const dispatch = useDispatch();
-  const data: any = useSelector((item) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const data: any = useSelector<RootState>((item) => {
     return item;
   });
   const [inputValue, setInputValue] = useState('');
@@ -150,7 +151,9 @@ function Orders() {
         handleClickPrev={() =>
           currentPage > 0 ? setCurrentPage(currentPage - 1) : null
         }
-        showPages={(e: any) => setShowPages(e.target.value)}
+        showPages={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          setShowPages(Number(e.target.value))
+        }
       />
       <OrderDescription />
       <p
