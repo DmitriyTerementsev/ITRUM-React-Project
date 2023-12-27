@@ -6,11 +6,18 @@ import OrderDescription from '../OrderDescription/OrderDescription.tsx';
 import OrderItem from '../OrderItem/OrderItem.tsx';
 import PopupOrders from '../PopupOrders/PopupOrders.tsx';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { getOrders } from '../../redux/thunks/orderThunk.ts';
+import {
+  editOrderName,
+  editOrderNumber,
+} from '../../redux/actions/orderActions.ts';
 import { AppDispatch, RootState } from '../../redux/store/store.ts';
 
 function Orders() {
-
+  const dispatch = useDispatch<AppDispatch>();
+  const data: any = useSelector<RootState>((item) => {
+    return item;
+  });
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const [allPages, setAllPages] = useState(1);
@@ -19,6 +26,16 @@ function Orders() {
   const [activeOrders, setActiveOrders] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState({});
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
+  const allOrders: any[] = data.order.orders;
+
+  useEffect(() => {
+    setOrders(allOrders);
+  }, [allOrders]);
 
   const openPopup = (item: {
     id: string;
@@ -45,45 +62,45 @@ function Orders() {
     setInputValue('');
   };
 
-  // useEffect(() => {
-  //   setOrders(
-  //     allOrders.slice(
-  //       currentPage * showPages,
-  //       currentPage * showPages + showPages
-  //     )
-  //   );
-  // }, [currentPage, showPages, allOrders]);
+  useEffect(() => {
+    setOrders(
+      allOrders.slice(
+        currentPage * showPages,
+        currentPage * showPages + showPages
+      )
+    );
+  }, [currentPage, showPages, allOrders]);
 
   const onClose = () => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   setAllPages(Math.ceil(allOrders.length / showPages));
-  // }, [allOrders, showPages]);
+  useEffect(() => {
+    setAllPages(Math.ceil(allOrders.length / showPages));
+  }, [allOrders, showPages]);
 
-  // useEffect(() => {
-  //   setOrders(
-  //     allOrders
-  //       .filter(
-  //         (item: { user: { name: string; lastName: string } }) =>
-  //           (item.user.name !== null &&
-  //             item.user.name
-  //               .toLowerCase()
-  //               .includes(inputValue.toLowerCase().trim())) ||
-  //           (item.user.lastName !== null &&
-  //             item.user.lastName
-  //               .toLowerCase()
-  //               .includes(inputValue.toLowerCase().trim())) ||
-  //           (item.user.name !== null &&
-  //             item.user.lastName !== null &&
-  //             (item.user.name + ' ' + item.user.lastName)
-  //               .toLowerCase()
-  //               .includes(inputValue.toLowerCase().trim()))
-  //       )
-  //       .slice(currentPage * showPages, currentPage * showPages + showPages)
-  //   );
-  // }, [inputValue, showPages, currentPage, allOrders]);
+  useEffect(() => {
+    setOrders(
+      allOrders
+        .filter(
+          (item: { user: { name: string; lastName: string } }) =>
+            (item.user.name !== null &&
+              item.user.name
+                .toLowerCase()
+                .includes(inputValue.toLowerCase().trim())) ||
+            (item.user.lastName !== null &&
+              item.user.lastName
+                .toLowerCase()
+                .includes(inputValue.toLowerCase().trim())) ||
+            (item.user.name !== null &&
+              item.user.lastName !== null &&
+              (item.user.name + ' ' + item.user.lastName)
+                .toLowerCase()
+                .includes(inputValue.toLowerCase().trim()))
+        )
+        .slice(currentPage * showPages, currentPage * showPages + showPages)
+    );
+  }, [inputValue, showPages, currentPage, allOrders]);
 
   useEffect(() => {
     function keyHandler(evt: KeyboardEvent) {
@@ -112,8 +129,8 @@ function Orders() {
       lastName = ' ';
     }
     e.preventDefault();
-    // dispatch(editOrderName(name, lastName, selectedOrder.id));
-    // dispatch(editOrderNumber(userOrder, selectedOrder.id));
+    dispatch(editOrderName(name, lastName, selectedOrder.id));
+    dispatch(editOrderNumber(userOrder, selectedOrder.id));
     onClose();
   };
 
@@ -134,9 +151,7 @@ function Orders() {
         handleClickPrev={() =>
           currentPage > 0 ? setCurrentPage(currentPage - 1) : null
         }
-        showPages={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          setShowPages(Number(e.target.value))
-        }
+        showPages={(e: React.ChangeEvent<HTMLSelectElement>) => setShowPages(Number(e.target.value))}
       />
       <OrderDescription />
       <p
