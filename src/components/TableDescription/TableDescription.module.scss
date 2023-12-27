@@ -4,7 +4,6 @@
   align-items: center;
   background-color: #f8f8fa;
   border-bottom: 1px solid #ebecef;
-  justify-content: space-between;
   margin-top: 24px;
 
   &__item {
@@ -29,6 +28,11 @@
     &_sum {
       width: 130px;
     }
+
+    &_city {
+      width: 440px;
+    }
+
   }
 }
 

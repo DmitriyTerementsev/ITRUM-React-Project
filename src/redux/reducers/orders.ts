@@ -14,7 +14,7 @@ export const OrderReducer = (
   state = initialState,
   action: OrderAction
 ): OrderState => {
-  console.log(action);
+  //console.log(action);
   switch (action.type) {
     case OrderActionTypes.INIT_ORDERS:
       return { loading: true, error: null, orders: action.payload };

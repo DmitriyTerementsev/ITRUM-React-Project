@@ -10,7 +10,7 @@
     line-height: 20px;
     color: #434652;
     padding-left: 8px;
-    max-width: 177px;
+    width: 177px;
     text-overflow: ellipsis;
     &_order {
       width: calc(180px - 8px);
@@ -22,6 +22,10 @@
 
     &_sum {
       width: calc(110px - 8px);
+    }
+
+    &_city {
+      width: 440px;
     }
   }
 }

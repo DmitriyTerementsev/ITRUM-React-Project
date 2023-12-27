@@ -6,6 +6,7 @@ import Clients from '../Clients/Clients.tsx';
 import Categories from '../Categories/Categories.tsx';
 import Brands from '../Brands/Brands.tsx';
 import Orders from '../Orders/Orders.tsx';
+import Cities from '../Cities/Cities.tsx';
 
 function Table() {
   return (
@@ -21,6 +22,8 @@ function Table() {
           <Route path='/brands' element={<Brands />} />
 
           <Route path='/orders' element={<Orders />} />
+
+          <Route path='/cities' element={<Cities />} />
         </Routes>
       </div>
     </div>
