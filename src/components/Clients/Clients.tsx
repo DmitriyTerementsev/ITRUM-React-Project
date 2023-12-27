@@ -39,20 +39,28 @@ function Clients() {
   }, [clientsClone.length]);
 
   useEffect(() => {
+    const validateClients = clients.filter(
+      ({ name, lastName, email, phone }) => {
+        const validateName =
+          name !== null &&
+          name.toLowerCase().includes(inputValue.toLowerCase());
+        const validateLastName =
+          lastName !== null &&
+          lastName.toLowerCase().includes(inputValue.toLowerCase());
+        const validateEmail =
+          email !== null &&
+          email.toLowerCase().includes(inputValue.toLowerCase());
+        const validatePhone = phone !== null && phone.includes(inputValue);
+        return (
+          validateEmail || validateLastName || validateName || validatePhone
+        );
+      }
+    );
     setShowClients(
-      clients
-        .filter(
-          (item) =>
-            (item.name !== null &&
-              item.name.toLowerCase().includes(inputValue.toLowerCase())) ||
-            (item.lastName !== null &&
-              item.lastName.toLowerCase().includes(inputValue.toLowerCase())) ||
-            (item.email !== null &&
-              item.email.toLowerCase().includes(inputValue.toLowerCase())) ||
-            (item.phone !== null && item.phone.includes(inputValue))
-        )
-        .slice(currentPage * showPages, currentPage * showPages + showPages)
-        .map((item) => item)
+      validateClients.slice(
+        currentPage * showPages,
+        currentPage * showPages + showPages
+      )
     );
   }, [inputValue, showPages, currentPage]);
 
@@ -72,6 +80,7 @@ function Clients() {
               inputValue={(e: any) => setInputValue(e.target.value)}
               handleInputClear={() => handleInputClear()}
               placeholder='Поиск'
+              value={inputValue}
             />
             <TableNavigation
               currentPage={currentPage}

@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  KeyboardEvent,
+} from 'react';
 import Actions from '../Actions/Actions.tsx';
 import Popup from '../Popup/Popup.tsx';
 import TableNavigation from '../TableNavigation/TableNavigation.tsx';
@@ -23,8 +29,8 @@ function Products() {
   const [subcategoriesSelect, setSubcategories] = useState('');
   const [brandSelect, setBrand] = useState('');
   const [cashbackSelect, setCashback] = useState('');
-  const list: any = useRef(null);
-  const description: any = useRef<HTMLElement>(null);
+  const list = useRef(null);
+  const description = useRef(null);
 
   let showProducts = products
     .slice(currentPage * showPages, currentPage * showPages + showPages)
@@ -130,7 +136,7 @@ function Products() {
   }, [counter]);
 
   useEffect(() => {
-    function keyHandler(evt: any) {
+    function keyHandler(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }

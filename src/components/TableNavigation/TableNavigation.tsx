@@ -18,11 +18,14 @@ function TableNavigation({
   handleClickPrev,
   showPages,
 }: TableNavigationProps) {
-  const tableRoute = useLocation().pathname === '/products';
+  const { pathname } = useLocation();
+  const tableRoute = pathname === '/products';
   return (
     <div
       className={
-        tableRoute ? `${styles.table}` : `${styles.table} ${styles.table_clients}`
+        tableRoute
+          ? `${styles.table}`
+          : `${styles.table} ${styles.table_clients}`
       }
     >
       <p className={styles.table__text}>Показывать</p>

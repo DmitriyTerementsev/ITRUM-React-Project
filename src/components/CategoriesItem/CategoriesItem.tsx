@@ -6,7 +6,19 @@ import { useDispatch } from 'react-redux';
 import { editCategoryName } from '../../redux/actions/categoryActions.ts';
 import { editSubCategoryName } from '../../redux/actions/subCategoryActions.ts';
 interface CategoriesItemProps {
-  item: any;
+  item:
+    | {
+        catalog_product: { id: string };
+        id: number;
+        name: string;
+        position: number;
+      }
+    | {
+        id: number;
+        name: string;
+        position: number;
+        catalog_product: undefined;
+      };
   handleDeleteItem: (id: number, position: number) => void;
   handleCompleteStatusUpdate: (item: any) => void;
   name: string;
@@ -19,7 +31,6 @@ function CategoriesItem({
   handleDeleteItem,
   name,
   handleCompleteStatusUpdate,
-  categoriesItems,
   selectedCategory,
 }: CategoriesItemProps) {
   const dispatch = useDispatch();
@@ -40,7 +51,7 @@ function CategoriesItem({
     }
   };
 
-  const handleEditText = (e: any) => {
+  const handleEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
@@ -59,9 +70,7 @@ function CategoriesItem({
       <div
         className={styles.div}
         onClick={() =>
-          item.catalog_product === undefined
-            ? handleCheckBox()
-            : console.log('no')
+          item.catalog_product === undefined ? handleCheckBox() : null
         }
       >
         {!isEdited ? (

@@ -48,7 +48,7 @@ function PopupOrders({
   };
 
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+    setUserName(e.target.value.trim());
   };
 
   const handleChangeOrder = (e: React.ChangeEvent<HTMLInputElement>) => {

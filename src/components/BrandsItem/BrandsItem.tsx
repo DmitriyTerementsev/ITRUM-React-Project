@@ -9,17 +9,16 @@ import {
   editBrandName,
 } from '../../redux/actions/brandActions.ts';
 
-
 interface BrandsItemProps {
   brandName: string;
   logo: string;
   handleDeleteItem: () => void;
-  item: any;
+  item: { name: string; logo: string; id: number };
   checkUpload: () => void;
   isOpen: boolean;
   onClose: () => void;
   inputLogoTextValue: string;
-  openPopup: (item) => void;
+  openPopup: (item: { name: string; logo: string; id: number }) => void;
 }
 
 function BrandsItem({
@@ -35,7 +34,7 @@ function BrandsItem({
   const [isEdited, setIsEdited] = useState(false);
   const [text, setText] = useState(brandName);
 
-  const handleEditText = (e: any) => {
+  const handleEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
@@ -54,7 +53,7 @@ function BrandsItem({
   };
 
   const handleDeleteClick = () => {
-    openPopup(item)
+    openPopup(item);
   };
 
   return (

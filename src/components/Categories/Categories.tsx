@@ -16,15 +16,14 @@ function Categories() {
   const data: any = useSelector((item) => {
     return item;
   });
-  const categories = data.category.categories;
-  const subCategories = data.subCategory.subCategories;
+  const categories: any[] = data.category.categories;
+  const subCategories: any[] = data.subCategory.subCategories;
   const dispatch = useDispatch();
   const [isActiveCat, setIsActiveCat] = useState(false);
   const [isActiveSubCat, setIsActiveSubCat] = useState(false);
   const [inputValueCat, setInputValueCat] = useState('');
   const [inputValueSubCat, setInputValueSubCat] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<null | number>(null);
-  //const [selectedId, setSelectedId] = useState('')
   const [categoriesItems, setCategoriesItems] = useState(categories);
   const [isClicked, setIsClicked] = useState(false);
   const [subCategoriesItems, setSubCategoriesItems] = useState(subCategories);
@@ -117,9 +116,14 @@ function Categories() {
 
   useEffect(() => {
     setSubCategoriesItems(
-      subCategories
-        .filter((item: any) => item.position === selectedCategory)
-        .map((item: any) => item)
+      subCategories.filter(
+        (item: {
+          catalog_product: { id: string };
+          id: string;
+          name: string;
+          position: number;
+        }) => item.position === selectedCategory
+      )
     );
   }, [categoriesItems, selectedCategory, subCategories, isClicked]);
 
@@ -156,21 +160,28 @@ function Categories() {
             >
               Здесь пока нет категорий
             </p>
-            {categoriesItems?.map((item: any) => (
-              <CategoriesItem
-                categoriesItems={categoriesItems}
-                item={item}
-                key={item.id}
-                name={item.name}
-                handleDeleteItem={() =>
-                  handleDeleteItem(item.id, item.position)
-                }
-                handleCompleteStatusUpdate={() =>
-                  handleCompleteStatusUpdate(item)
-                }
-                selectedCategory={selectedCategory}
-              />
-            ))}
+            {categoriesItems?.map(
+              (item: {
+                id: number;
+                name: string;
+                position: number;
+                catalog_product: undefined;
+              }) => (
+                <CategoriesItem
+                  categoriesItems={categoriesItems}
+                  item={item}
+                  key={item.id}
+                  name={item.name}
+                  handleDeleteItem={() =>
+                    handleDeleteItem(item.id, item.position)
+                  }
+                  handleCompleteStatusUpdate={() =>
+                    handleCompleteStatusUpdate(item)
+                  }
+                  selectedCategory={selectedCategory}
+                />
+              )
+            )}
           </ul>
         </div>
         <Arrows className={styles.arrows} />
@@ -215,19 +226,26 @@ function Categories() {
             >
               Здесь пока нет подкатегорий
             </p>
-            {subCategoriesItems?.map((item: any) => (
-              <CategoriesItem
-                key={item.id}
-                categoriesItems={categoriesItems}
-                item={item}
-                name={item.name}
-                handleDeleteItem={() => handleDeleteSubItem(item.id)}
-                handleCompleteStatusUpdate={() =>
-                  handleCompleteStatusUpdate(item)
-                }
-                selectedCategory={selectedCategory}
-              />
-            ))}
+            {subCategoriesItems?.map(
+              (item: {
+                catalog_product: { id: string };
+                id: number;
+                name: string;
+                position: number;
+              }) => (
+                <CategoriesItem
+                  key={item.id}
+                  categoriesItems={categoriesItems}
+                  item={item}
+                  name={item.name}
+                  handleDeleteItem={() => handleDeleteSubItem(item.id)}
+                  handleCompleteStatusUpdate={() =>
+                    handleCompleteStatusUpdate(item)
+                  }
+                  selectedCategory={selectedCategory}
+                />
+              )
+            )}
           </ul>
         </div>
       </div>

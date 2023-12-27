@@ -12,8 +12,9 @@ function Brands() {
   const data: any = useSelector((item) => {
     return item;
   });
+  console.log(data.brand.brands);
   const dispatch = useDispatch();
-  const [selectedBrand, setSelectedBrand] = useState({})
+  const [selectedBrand, setSelectedBrand] = useState({});
   const [brandsItems, setBrandsItems] = useState([]);
   const [activeBrands, setActiveBrands] = useState(true);
   const [inputValue, setInputValue] = useState('');
@@ -22,6 +23,7 @@ function Brands() {
     'Загрузить логотип бренда'
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   useEffect(() => {
     setBrandsItems(data.brand.brands);
   }, [data]);
@@ -65,10 +67,10 @@ function Brands() {
       : setInputTextValue(inputLogoValue);
   }, [inputLogoValue]);
 
-  const openPopup = (item) => {
+  const openPopup = (item: { name: string; logo: string; id: number }) => {
     if (isOpen === false) {
       setIsOpen(true);
-      setSelectedBrand(item)
+      setSelectedBrand(item);
     } else {
       setIsOpen(false);
     }
@@ -79,7 +81,7 @@ function Brands() {
   };
 
   useEffect(() => {
-    function keyHandler(evt: any) {
+    function keyHandler(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }
@@ -92,7 +94,6 @@ function Brands() {
     };
   }, [isOpen]);
 
-  const [isUpload, setIsUpload] = useState(false);
   const checkUpload = () => {
     if (isUpload === false) {
       setIsUpload(true);
@@ -142,20 +143,22 @@ function Brands() {
         {activeBrands ? (
           <p className={styles.brands__null}>Здесь пока нет брендов</p>
         ) : (
-          brandsItems?.map((item: any) => (
-            <BrandsItem
-              key={item.id}
-              item={item}
-              brandName={item.name}
-              logo={item.logo}
-              handleDeleteItem={() => handleDeleteItem(item.id)}
-              openPopup={openPopup}
-              checkUpload={checkUpload}
-              isOpen={isOpen}
-              onClose={onClose}
-              inputLogoTextValue={inputLogoTextValue}
-            />
-          ))
+          brandsItems?.map(
+            (item: { name: string; logo: string; id: number }) => (
+              <BrandsItem
+                key={item.id}
+                item={item}
+                brandName={item.name}
+                logo={item.logo}
+                handleDeleteItem={() => handleDeleteItem(item.id)}
+                openPopup={openPopup}
+                checkUpload={checkUpload}
+                isOpen={isOpen}
+                onClose={onClose}
+                inputLogoTextValue={inputLogoTextValue}
+              />
+            )
+          )
         )}
       </ul>
 

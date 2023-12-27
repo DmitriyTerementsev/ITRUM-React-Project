@@ -30,13 +30,21 @@ function Orders() {
     dispatch(getOrders());
   }, [dispatch]);
 
-  const allOrders = data.order.orders;
+  const allOrders: any[] = data.order.orders;
 
   useEffect(() => {
     setOrders(allOrders);
   }, [allOrders]);
 
-  const openPopup = (item: any) => {
+  const openPopup = (item: {
+    id: string;
+    delivery_type: string;
+    total: string;
+    isPayed: boolean;
+    order_number: string;
+    date: string;
+    user: { name: string; lastName: string };
+  }) => {
     if (isOpen === false) {
       setOpen(true);
       setSelectedOrder(item);
@@ -74,22 +82,27 @@ function Orders() {
     setOrders(
       allOrders
         .filter(
-          (item) =>
+          (item: { user: { name: string; lastName: string } }) =>
             (item.user.name !== null &&
               item.user.name
                 .toLowerCase()
-                .includes(inputValue.toLowerCase())) ||
+                .includes(inputValue.toLowerCase().trim())) ||
             (item.user.lastName !== null &&
               item.user.lastName
                 .toLowerCase()
-                .includes(inputValue.toLowerCase()))
+                .includes(inputValue.toLowerCase().trim())) ||
+            (item.user.name !== null &&
+              item.user.lastName !== null &&
+              (item.user.name + ' ' + item.user.lastName)
+                .toLowerCase()
+                .includes(inputValue.toLowerCase().trim()))
         )
         .slice(currentPage * showPages, currentPage * showPages + showPages)
     );
   }, [inputValue, showPages, currentPage, allOrders]);
 
   useEffect(() => {
-    function keyHandler(evt: any) {
+    function keyHandler(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }
@@ -102,9 +115,18 @@ function Orders() {
     };
   }, [isOpen, onClose]);
 
-  const handleEditOrder = (e, { userName, selectedOrder, userOrder }) => {
-    const name = userName.split(' ')[0];
-    const lastName = userName.split(' ')[1];
+  const handleEditOrder = (
+    e: React.FormEvent<HTMLFormElement>,
+    { userName, selectedOrder, userOrder }
+  ) => {
+    let name: string = userName.split(' ')[0];
+    let lastName: string = userName.split(' ')[1];
+    if (name === undefined) {
+      name = ' ';
+    }
+    if (lastName === undefined) {
+      lastName = ' ';
+    }
     e.preventDefault();
     dispatch(editOrderName(name, lastName, selectedOrder.id));
     dispatch(editOrderNumber(userOrder, selectedOrder.id));
@@ -141,19 +163,29 @@ function Orders() {
         Здесь пока нет заказов
       </p>
       <ul className={styles.orders__items}>
-        {orders?.map((item: any) => (
-          <OrderItem
-            openPopup={openPopup}
-            key={item.id}
-            name={item.user.name + ' ' + item.user.lastName}
-            order={item.order_number}
-            delivery={item.delivery_type}
-            date={item.date}
-            summa={item.total + ' ₽'}
-            isPay={item.isPayed}
-            item={item}
-          />
-        ))}
+        {orders?.map(
+          (item: {
+            id: string;
+            delivery_type: string;
+            total: string;
+            isPayed: boolean;
+            order_number: string;
+            date: string;
+            user: { name: string; lastName: string };
+          }) => (
+            <OrderItem
+              openPopup={openPopup}
+              key={item.id}
+              name={item.user.name + ' ' + item.user.lastName}
+              order={item.order_number}
+              delivery={item.delivery_type}
+              date={item.date}
+              summa={item.total + ' ₽'}
+              isPay={item.isPayed}
+              item={item}
+            />
+          )
+        )}
       </ul>
       <PopupOrders
         isOpen={isOpen}
