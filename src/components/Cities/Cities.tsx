@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styles from './Cities.module.scss';
 import CitiesDescription from '../CitiesDescription/CitiesDescription.tsx';
 import CitiesItem from '../CitiesItem/CitiesItem.tsx';
-import { AppDispatch, RootState } from '../../redux/store/store.ts';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   getCities,
   addCity,
   deleteCity,
 } from '../../redux/thunks/cityThunk.ts';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks.ts';
 
 function Cities() {
-  const dispatch = useDispatch<AppDispatch>();
-  const data: any = useSelector<RootState>((item) => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((item) => {
     return item.city.cities;
   });
 
@@ -20,7 +19,7 @@ function Cities() {
     dispatch(getCities());
   }, [dispatch]);
 
-  const allCities: any[] = data;
+  const allCities = data;
 
   useEffect(() => {
     setCities(allCities);

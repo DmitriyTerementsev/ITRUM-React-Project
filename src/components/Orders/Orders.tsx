@@ -5,34 +5,32 @@ import TableNavigation from '../TableNavigation/TableNavigation.tsx';
 import OrderDescription from '../OrderDescription/OrderDescription.tsx';
 import OrderItem from '../OrderItem/OrderItem.tsx';
 import PopupOrders from '../PopupOrders/PopupOrders.tsx';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   getOrders,
   editOrderName,
   editOrderNumber,
 } from '../../redux/thunks/orderThunk.ts';
-import { AppDispatch, RootState } from '../../redux/store/store.ts';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks.ts';
 
 function Orders() {
-  const dispatch = useDispatch<AppDispatch>();
-  const data: any = useSelector<RootState>((item) => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((item) => {
     return item.order.orders;
   });
-  const [inputValue, setInputValue] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const [allPages, setAllPages] = useState(1);
-  const [showPages, setShowPages] = useState(10);
-  const [orders, setOrders] = useState<any[]>([]);
-  const [activeOrders, setActiveOrders] = useState(false);
-  const [isOpen, setOpen] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState({});
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
-  const allOrders: any[] = data;
-  console.log(allOrders);
+  const allOrders = data;
+  const [inputValue, setInputValue] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [allPages, setAllPages] = useState(1);
+  const [showPages, setShowPages] = useState(10);
+  const [orders, setOrders] = useState(allOrders);
+  const [activeOrders, setActiveOrders] = useState(false);
+  const [isOpen, setOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState({});
 
   const openPopup = (item: {
     id: string;
@@ -178,7 +176,6 @@ function Orders() {
             <OrderItem
               openPopup={openPopup}
               key={item.id}
-              name={item.user.name + ' ' + item.user.lastName}
               order={item.order_number}
               delivery={item.delivery_type}
               date={item.date}

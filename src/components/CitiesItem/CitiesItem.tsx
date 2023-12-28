@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from '../TableItem/TableItem.module.scss';
 import style from '../Cities/Cities.module.scss';
 import TableItem from '../TableItem/TableItem.tsx';

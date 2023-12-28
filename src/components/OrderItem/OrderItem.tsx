@@ -2,7 +2,35 @@ import React, { useEffect, useState } from 'react';
 import styles from '../TableItem/TableItem.module.scss';
 import TableItem from '../TableItem/TableItem.tsx';
 
-function OrderItem({ name, order, delivery, date, summa, isPay, openPopup, item }) {
+interface Item {
+  id: string;
+  delivery_type: string;
+  total: string;
+  isPayed: boolean;
+  order_number: string;
+  date: string;
+  user: { name: string; lastName: string };
+}
+
+interface OrderItemProps {
+  delivery: string;
+  summa: string;
+  isPay: boolean;
+  order: string;
+  date: string;
+  item: Item;
+  openPopup: (item: Item) => void;
+}
+
+function OrderItem({
+  order,
+  delivery,
+  date,
+  summa,
+  isPay,
+  openPopup,
+  item,
+}: OrderItemProps) {
   const [deliveryType, setDeliveryType] = useState('');
   const [isPayed, setIsPayed] = useState('');
 
@@ -26,7 +54,7 @@ function OrderItem({ name, order, delivery, date, summa, isPay, openPopup, item 
     >
       <TableItem>
         <p className={`${styles.item__text} ${styles.item__text_order}`}>
-          {name}
+          {item.user !== undefined && item.user.name + ' ' + item.user.lastName}
         </p>
         <p className={`${styles.item__text} ${styles.item__text_order}`}>
           {order}
