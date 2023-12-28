@@ -7,34 +7,37 @@ export const getCities = createAsyncThunk('city/get', async () => {
     setTimeout(() => {
       res([
         {
-          id: 'defad517-2fc8-43a4-ae01-aa0ef0d2f264',
-          name: 'Сочи',
-          address: 'ул. Роз 117, офис 403',
+          id: 'b9e8f64c-e362-4279-917b-59e213506aec',
+          name: 'Только в приложении!',
+          description: 'Скидка -12% на Kosmoteros',
+          image:
+            'https://drive.google.com/uc?export=view&id=1Yk2nKhbrdz78jvDrXq1K31_flOrXJhSf',
+          availableFor: 'SPECIALIST',
         },
         {
-          id: '0af9c6f3-cc21-444c-94ec-2d86e654867d',
-          name: 'Пятигорск',
-          address: 'ул. Университетская 28',
+          id: '0d69ad17-3995-46ea-b1d2-de2c9c1fbf60',
+          name: 'Промоцена на филлеры MiraLine',
+          description: '1500 рублей только в приложении',
+          image:
+            'https://drive.google.com/uc?export=view&id=1f_sEJXACkrbRf3gQ2mf3DEi1fL8Qsk16',
+          availableFor: 'SPECIALIST',
         },
         {
-          id: 'aa858457-43fd-4c42-82a6-8b6cee759fd9',
-          name: 'Владикавказ',
-          address: 'ул. Весенняя 15Г, офис 317',
+          id: 'a5091321-0453-40cc-83fc-51ba5224583c',
+          name: 'Скидка 10% на всю продукцию Vec cosmetic',
+          description:
+            'Только в мобильном приложении скидки на профессиональную пептидную косметику, пептидные комплексы и нутрицевтическую продукцию',
+          image:
+            'https://drive.google.com/uc?export=view&id=1xuG4aI6WB07AhGlpYd6h9Mhrkm1imccT',
+          availableFor: 'SPECIALIST',
         },
         {
-          id: 'f197c4cb-0d12-49f7-b758-04cb11c6da07',
-          name: 'Волгоград',
-          address: 'ул. Академическая 22, офис 313',
-        },
-        {
-          id: 'a483f910-8300-427e-aae8-7abc8e7b3b74',
-          name: 'Ростов-на-Дону',
-          address: 'пр-т М.Нагибина, 14а, офис 645',
-        },
-        {
-          id: '9cabdf58-ca4c-4276-b81a-8b9dbb9f33f3',
-          name: 'Краснодар',
-          address: 'ул. Красная 180, офис 112',
+          id: '70327936-64a2-4452-a9bb-f70357a41ddc',
+          name: 'Филлеры QT FILL N со скидкой 10%',
+          description: 'Акция доступна только в приложении',
+          image:
+            'https://drive.google.com/uc?export=view&id=1Tb_-QgoyHoy85x9LLP7WujkI_F5qYQK6',
+          availableFor: 'SPECIALIST',
         },
       ]);
     }, 500);

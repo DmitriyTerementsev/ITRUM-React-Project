@@ -1,6 +1,7 @@
 .item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 68px;
   border-bottom: 1px solid #ebecef;
 
@@ -27,5 +28,11 @@
     &_city {
       width: 440px;
     }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 16px;
+    margin-right: 12px;
   }
 }
