@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
-  children: any;
+  children: React.JSX.Element;
 }
 
 function PopupWithForm({ isOpen, onClose, children }: PopupProps) {

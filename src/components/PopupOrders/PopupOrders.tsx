@@ -22,9 +22,9 @@ function PopupOrders({
 
   useEffect(() => {
     if (selectedOrder.user === undefined) {
-      setUserName('');
-      setUserOrder('');
-      setUserDate('');
+      setUserName(' ');
+      setUserOrder(' ');
+      setUserDate(' ');
     } else {
       setUserName(selectedOrder.user.name + ' ' + selectedOrder.user.lastName);
       setUserOrder(selectedOrder.order_number);

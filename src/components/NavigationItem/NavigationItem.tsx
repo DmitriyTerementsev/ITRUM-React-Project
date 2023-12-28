@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../Navigation/Navigation.module.scss';
 interface NavigationItemProps {
-  children: any;
+  children: React.JSX.Element;
   name: string;
 }
 
