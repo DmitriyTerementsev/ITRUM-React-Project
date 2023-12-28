@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-import { OrderReducer } from './orders.ts';
-import { CityReducer } from './cities.ts';
 import citySlice from '../slices/citySlice.ts';
+import orderSlice from '../slices/orderSlice.ts'
 
-export const rootReducer: any = combineReducers({
-  order: OrderReducer,
-  city: CityReducer,
+export const rootReducer = combineReducers({
+  order: orderSlice,
+  city: citySlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

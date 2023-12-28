@@ -1,74 +1,76 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchTodoList, addTodo, deleteTodo } from "../thunks/cityThunk";
+import { SerializedError, createSlice } from '@reduxjs/toolkit';
+import {
+  getCities,
+  fetchCities,
+  addCity,
+  deleteCity,
+} from '../thunks/cityThunk.ts';
 
+interface CityState {
+  cities: any[];
+  isLoading: boolean;
+  isError: null | SerializedError;
+}
 
-let initialState = {
+let initialState: CityState = {
   isLoading: false,
   isError: null,
-  data: [],
+  cities: [],
 };
 
-const todoSlice = createSlice({
-  name: "todo",
+const citySlice = createSlice({
+  name: 'city',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchTodoList.pending, (state, action) => {
+    builder.addCase(getCities.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchTodoList.fulfilled, (state, action) => {
+    builder.addCase(getCities.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      state.cities = action.payload;
     });
-    builder.addCase(fetchTodoList.rejected, (state, action) => {
+    builder.addCase(getCities.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.error;
     });
 
-    builder.addCase(addTodo.pending, (state, action) => {
+    builder.addCase(fetchCities.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(addTodo.fulfilled, (state, action) => {
+    builder.addCase(fetchCities.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data.push(action.payload);
+      state.cities = action.payload;
     });
-    builder.addCase(addTodo.rejected, (state, action) => {
+    builder.addCase(fetchCities.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.error;
     });
 
-    builder.addCase(deleteTodo.pending, (state, action) => {
+    builder.addCase(addCity.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(deleteTodo.fulfilled, (state, action) => {
+    builder.addCase(addCity.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = state.data.filter(ele => ele.id !== action.payload.id);
+      state.cities.push(action.payload);
     });
-    builder.addCase(deleteTodo.rejected, (state, action) => {
+    builder.addCase(addCity.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.error;
     });
 
-    builder.addCase(editTodo.pending, (state, action) => {
+    builder.addCase(deleteCity.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(editTodo.fulfilled, (state, action) => {
+    builder.addCase(deleteCity.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = state.data.map(ele => {
-        if (ele.id === action.payload.id) {
-          return {
-            ...ele,
-            ...action.payload
-          }
-        }
-        return ele;
-      })
+      state.cities = state.cities.filter((ele) => ele.id !== action.payload);
     });
-    builder.addCase(editTodo.rejected, (state, action) => {
+    builder.addCase(deleteCity.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = action.error;
     });
   },
 });
 
-export default todoSlice.reducer;
+export default citySlice.reducer;

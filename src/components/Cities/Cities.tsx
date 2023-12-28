@@ -4,26 +4,31 @@ import CitiesDescription from '../CitiesDescription/CitiesDescription.tsx';
 import CitiesItem from '../CitiesItem/CitiesItem.tsx';
 import { AppDispatch, RootState } from '../../redux/store/store.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCities } from '../../redux/thunks/cityThunk.ts';
-import { addCity, deleteCity } from '../../redux/actions/cityActions.ts';
+import {
+  getCities,
+  addCity,
+  deleteCity,
+} from '../../redux/thunks/cityThunk.ts';
 
 function Cities() {
   const dispatch = useDispatch<AppDispatch>();
   const data: any = useSelector<RootState>((item) => {
-    return item;
+    return item.city.cities;
   });
 
   useEffect(() => {
     dispatch(getCities());
   }, [dispatch]);
-  const allCities: any[] = data.city.cities;
-  const [cities, setCities] = useState(allCities);
-  const [inputCityValue, setInputCityValue] = useState('');
-  const [inputAddressValue, setInputAddressValue] = useState('');
+
+  const allCities: any[] = data;
 
   useEffect(() => {
     setCities(allCities);
   }, [allCities]);
+
+  const [cities, setCities] = useState(allCities);
+  const [inputCityValue, setInputCityValue] = useState('');
+  const [inputAddressValue, setInputAddressValue] = useState('');
 
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
