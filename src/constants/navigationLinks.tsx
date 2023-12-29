@@ -1,4 +1,5 @@
 import styles from '../components/Navigation/Navigation.module.scss';
+import React from 'react';
 import { ReactComponent as Protocols } from '../assets/icons/protocols.svg';
 import { ReactComponent as Users } from '../assets/icons/users.svg';
 import { ReactComponent as Categories } from '../assets/icons/categories.svg';
@@ -10,9 +11,13 @@ import { ReactComponent as Seminars } from '../assets/icons/seminares.svg';
 import { ReactComponent as Promocode } from '../assets/icons/promocodes.svg';
 import { ReactComponent as Products } from '../assets/icons/products.svg';
 
+export interface Link {
+  path: string;
+  name: string;
+  svg: React.JSX.Element;
+}
 
-
-export const navigationLinks = [
+export const navigationLinks: Link[] = [
   {
     path: '/products',
     name: 'Продукты',

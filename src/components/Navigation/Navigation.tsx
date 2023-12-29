@@ -3,11 +3,12 @@ import styles from './Navigation.module.scss';
 import NavigationItem from '../NavigationItem/NavigationItem.tsx';
 import { NavLink } from 'react-router-dom';
 import { navigationLinks } from '../../constants/navigationLinks.js';
+import { Link } from '../../constants/navigationLinks.tsx';
 
 function Navigation() {
   return (
     <nav className={styles.navigation}>
-      {navigationLinks?.map((item: any) => (
+      {navigationLinks?.map((item: Link) => (
         <NavLink
           key={item.path}
           to={item.path}
