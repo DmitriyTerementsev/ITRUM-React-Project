@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { City } from '../../interfaces/City';
 
 //-------имитируем запрос на получение данных с сервера
 export const getCities = createAsyncThunk('city/get', async () => {
-  const response = await new Promise<any[]>((res) => {
+  const response = await new Promise<City[]>((res) => {
     setTimeout(() => {
       res([
         {

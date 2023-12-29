@@ -6,8 +6,10 @@ import {
   editOrderNumber,
 } from '../thunks/orderThunk.ts';
 
+import { Order } from '../../interfaces/Order.ts';
+
 interface OrderState {
-  orders: any[];
+  orders: Order[];
   isLoading: boolean;
   isError: null | SerializedError;
 }

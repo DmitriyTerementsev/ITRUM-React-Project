@@ -5,9 +5,10 @@ import {
   addCity,
   deleteCity,
 } from '../thunks/cityThunk.ts';
+import { City } from '../../interfaces/City.ts';
 
 interface CityState {
-  cities: any[];
+  cities: City[];
   isLoading: boolean;
   isError: null | SerializedError;
 }

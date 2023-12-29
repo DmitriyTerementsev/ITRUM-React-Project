@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../TableItem/TableItem.module.scss';
 import style from '../Cities/Cities.module.scss';
-import TableItem from '../TableItem/TableItem.tsx';
+import TableItem from '../../Table/TableItem/TableItem';
 import { ReactComponent as TrashButton } from '../../assets/icons/trashButton.svg';
 
 interface CitiesItemProps {

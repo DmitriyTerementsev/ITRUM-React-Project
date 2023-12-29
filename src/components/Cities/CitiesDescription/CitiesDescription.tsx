@@ -1,5 +1,5 @@
 import React from 'react';
-import TableDescription from '../TableDescription/TableDescription.tsx';
+import TableDescription from '../../Table/TableDescription/TableDescription';
 import styles from '../TableDescription/TableDescription.module.scss';
 
 function CitiesDescription() {

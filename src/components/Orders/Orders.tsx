@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Orders.module.scss';
-import TableSearch from '../TableSearch/TableSearch.tsx';
-import TableNavigation from '../TableNavigation/TableNavigation.tsx';
-import OrderDescription from '../OrderDescription/OrderDescription.tsx';
-import OrderItem from '../OrderItem/OrderItem.tsx';
-import PopupOrders from '../PopupOrders/PopupOrders.tsx';
 import {
   getOrders,
   editOrderName,
   editOrderNumber,
 } from '../../redux/thunks/orderThunk.ts';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks.ts';
+import { Order } from '../../interfaces/Order.ts';
+import TableSearch from '../Table/TableSearch/TableSearch.tsx'
+import TableNavigation from '../Table/TableNavigation/TableNavigation.tsx'
+import OrderDescription from '../Orders/OrderDescription/OrderDescription.tsx'
+import OrderItem from '../Orders/OrderItem/OrderItem.tsx'
+import PopupOrders from '../PopupWithForm/PopupOrders/PopupOrders.tsx'
 
 function Orders() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((item) => {
     return item.order.orders;
   });
-
-  useEffect(() => {
-    dispatch(getOrders());
-  }, [dispatch]);
-
   const allOrders = data;
   const [inputValue, setInputValue] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,15 +28,7 @@ function Orders() {
   const [isOpen, setOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState({});
 
-  const openPopup = (item: {
-    id: string;
-    delivery_type: string;
-    total: string;
-    isPayed: boolean;
-    order_number: string;
-    date: string;
-    user: { name: string; lastName: string };
-  }) => {
+  const openPopup = (item: Order) => {
     if (isOpen === false) {
       setOpen(true);
       setSelectedOrder(item);
@@ -48,10 +36,6 @@ function Orders() {
       setOpen(false);
     }
   };
-
-  useEffect(() => {
-    orders.length === 0 ? setActiveOrders(true) : setActiveOrders(false);
-  }, [inputValue, orders]);
 
   const handleInputClear = () => {
     setInputValue('');
@@ -61,9 +45,31 @@ function Orders() {
     setOpen(false);
   };
 
+  const handleEditOrder = (
+    e: React.FormEvent<HTMLFormElement>,
+    { userName, selectedOrder, userOrder }
+  ) => {
+    let name: string = userName.split(' ')[0];
+    let lastName: string = userName.split(' ')[1];
+    if (name === undefined) {
+      name = ' ';
+    }
+    if (lastName === undefined) {
+      lastName = ' ';
+    }
+    e.preventDefault();
+    dispatch(editOrderName({ name, lastName, id: selectedOrder.id }));
+    dispatch(editOrderNumber({ order: userOrder, id: selectedOrder.id }));
+    onClose();
+  };
+
   useEffect(() => {
     setAllPages(Math.ceil(allOrders.length / showPages));
   }, [allOrders, showPages]);
+
+  useEffect(() => {
+    orders.length === 0 ? setActiveOrders(true) : setActiveOrders(false);
+  }, [inputValue, orders]);
 
   useEffect(() => {
     if (inputValue.trim() === '') {
@@ -75,7 +81,7 @@ function Orders() {
       );
     } else {
       const filteredOrders = allOrders.filter(
-        (item: { user: { name: string; lastName: string } }) =>
+        (item: Order) =>
           (item.user.name !== null &&
             item.user.name
               .toLowerCase()
@@ -113,23 +119,9 @@ function Orders() {
     };
   }, [isOpen, onClose]);
 
-  const handleEditOrder = (
-    e: React.FormEvent<HTMLFormElement>,
-    { userName, selectedOrder, userOrder }
-  ) => {
-    let name: string = userName.split(' ')[0];
-    let lastName: string = userName.split(' ')[1];
-    if (name === undefined) {
-      name = ' ';
-    }
-    if (lastName === undefined) {
-      lastName = ' ';
-    }
-    e.preventDefault();
-    dispatch(editOrderName({ name, lastName, id: selectedOrder.id }));
-    dispatch(editOrderNumber({ order: userOrder, id: selectedOrder.id }));
-    onClose();
-  };
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
 
   return (
     <section className={styles.orders}>
@@ -143,10 +135,10 @@ function Orders() {
         currentPage={currentPage}
         allPages={allPages}
         handleClickNext={() =>
-          currentPage === allPages - 1 ? null : setCurrentPage(currentPage + 1)
+          currentPage !== allPages - 1 && setCurrentPage(currentPage + 1)
         }
         handleClickPrev={() =>
-          currentPage > 0 ? setCurrentPage(currentPage - 1) : null
+          currentPage > 0 &&   setCurrentPage(currentPage - 1)
         }
         showPages={(e: React.ChangeEvent<HTMLSelectElement>) =>
           setShowPages(Number(e.target.value))
@@ -163,28 +155,18 @@ function Orders() {
         Здесь пока нет заказов
       </p>
       <ul className={styles.orders__items}>
-        {orders?.map(
-          (item: {
-            id: string;
-            delivery_type: string;
-            total: string;
-            isPayed: boolean;
-            order_number: string;
-            date: string;
-            user: { name: string; lastName: string };
-          }) => (
-            <OrderItem
-              openPopup={openPopup}
-              key={item.id}
-              order={item.order_number}
-              delivery={item.delivery_type}
-              date={item.date}
-              summa={item.total + ' ₽'}
-              isPay={item.isPayed}
-              item={item}
-            />
-          )
-        )}
+        {orders?.map((item: Order) => (
+          <OrderItem
+            openPopup={openPopup}
+            key={item.id}
+            order={item.order_number}
+            delivery={item.delivery_type}
+            date={item.date}
+            summa={item.total + ' ₽'}
+            isPay={item.isPayed}
+            item={item}
+          />
+        ))}
       </ul>
       <PopupOrders
         isOpen={isOpen}

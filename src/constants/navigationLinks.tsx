@@ -10,6 +10,8 @@ import { ReactComponent as Seminars } from '../assets/icons/seminares.svg';
 import { ReactComponent as Promocode } from '../assets/icons/promocodes.svg';
 import { ReactComponent as Products } from '../assets/icons/products.svg';
 
+
+
 export const navigationLinks = [
   {
     path: '/products',

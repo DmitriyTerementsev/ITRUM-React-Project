@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../TableItem/TableItem.module.scss';
-import TableItem from '../TableItem/TableItem.tsx';
-
-interface Item {
-  id: string;
-  delivery_type: string;
-  total: string;
-  isPayed: boolean;
-  order_number: string;
-  date: string;
-  user: { name: string; lastName: string };
-}
+import TableItem from '../../Table/TableItem/TableItem.tsx';
+import { Order } from '../../../interfaces/Order.ts';
 
 interface OrderItemProps {
   delivery: string;
@@ -18,8 +9,8 @@ interface OrderItemProps {
   isPay: boolean;
   order: string;
   date: string;
-  item: Item;
-  openPopup: (item: Item) => void;
+  item: Order;
+  openPopup: (item: Order) => void;
 }
 
 function OrderItem({

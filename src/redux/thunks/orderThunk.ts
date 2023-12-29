@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Order } from '../../interfaces/Order';
 
 //-------имитируем запрос на получение данных с сервера
 export const getOrders = createAsyncThunk('city/get', async () => {
-  const response = await new Promise<any[]>((res) => {
+  const response = await new Promise<Order[]>((res) => {
     setTimeout(() => {
       res([
         {
@@ -195,7 +196,6 @@ export const getOrders = createAsyncThunk('city/get', async () => {
           },
           warehouse: { city: 'Пятигорск' },
           date: '16.03.23',
-          count: 392,
         },
       ]);
     }, 500);
@@ -227,10 +227,10 @@ export const editOrderName = createAsyncThunk(
 
 export const editOrderNumber = createAsyncThunk(
   'todo/editNumber',
-  async (data: { order: string; id: number }) => {
+  async (data: { order: string; id: string }) => {
     const response = await new Promise<{
       order: string;
-      id: number;
+      id: string;
     }>((res) => {
       setTimeout(() => {
         res(data);

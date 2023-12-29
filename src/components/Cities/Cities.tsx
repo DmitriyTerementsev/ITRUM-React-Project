@@ -8,23 +8,14 @@ import {
   deleteCity,
 } from '../../redux/thunks/cityThunk.ts';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks.ts';
+import { City } from '../../interfaces/City.ts';
 
 function Cities() {
   const dispatch = useAppDispatch();
   const data = useAppSelector((item) => {
     return item.city.cities;
   });
-
-  useEffect(() => {
-    dispatch(getCities());
-  }, [dispatch]);
-
   const allCities = data;
-
-  useEffect(() => {
-    setCities(allCities);
-  }, [allCities]);
-
   const [cities, setCities] = useState(allCities);
   const [inputCityValue, setInputCityValue] = useState('');
   const [inputAddressValue, setInputAddressValue] = useState('');
@@ -32,7 +23,7 @@ function Cities() {
   const handleAddItem = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputCityValue.trim() && inputAddressValue.trim() !== '') {
-      let id: string = String(Math.floor(Math.random() * 10000) + 1);
+      let id = String(Math.floor(Math.random() * 10000) + 1);
       dispatch(
         addCity({
           name: inputCityValue,
@@ -48,6 +39,14 @@ function Cities() {
   const handleDeleteItem = (id: string) => {
     dispatch(deleteCity(id));
   };
+
+  useEffect(() => {
+    dispatch(getCities());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setCities(allCities);
+  }, [allCities]);
 
   return (
     <section className={styles.cities}>
@@ -75,7 +74,7 @@ function Cities() {
       <ul className={styles.cities__items}>
         <ul className={styles.orders__items}>
           {cities?.map(
-            (item: { id: string; name: string; address: string }) => (
+            (item: City) => (
               <CitiesItem
                 key={item.id}
                 city={item.name}

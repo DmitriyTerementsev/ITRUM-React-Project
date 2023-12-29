@@ -1,12 +1,21 @@
-import PopupWithForm from '../PopupWithForm/PopupWithForm.tsx';
+import PopupWithForm from '../PopupWithForm.tsx';
 import styles from '../PopupWithForm/PopupWithForm.module.scss';
 import React, { useEffect, useState } from 'react';
+import { Order } from '../../../interfaces/Order.ts';
 
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedOrder: any;
-  handleEditOrder: (e: React.FormEvent<HTMLFormElement>, item: any) => void;
+  selectedOrder: Order;
+  handleEditOrder: (
+    e: React.FormEvent<HTMLFormElement>,
+    item: {
+      userName: string;
+      selectedOrder: Order;
+      userOrder: string;
+      userDate: string;
+    }
+  ) => void;
 }
 
 function PopupOrders({
@@ -38,10 +47,10 @@ function PopupOrders({
       : setIsSelect('Доставка');
   }, [selectedOrder]);
 
-  const pickUpValue: string = 'Самовывоз';
-  const deliveryValue: string = 'Доставка';
-  const cashValue: string = 'Наличными курьеру';
-  const terminalValue: string = 'Онлайн';
+  const pickUpValue = 'Самовывоз';
+  const deliveryValue = 'Доставка';
+  const cashValue = 'Наличными курьеру';
+  const terminalValue = 'Онлайн';
 
   const handleOptionValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIsSelect(e.target.value);
