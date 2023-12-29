@@ -10,14 +10,25 @@ interface BannersItemProps {
   address: string;
   handleDeleteItem: () => void;
   openPopup: () => void;
+  handleSetItem: (item) => void;
+  item: any;
 }
 
-function BannersItem({ city, handleDeleteItem, openPopup }: BannersItemProps) {
+function BannersItem({
+  city,
+  handleDeleteItem,
+  openPopup,
+  handleSetItem,
+  item,
+}: BannersItemProps) {
   return (
     <TableItem>
       <p className={`${styles.item__text} ${styles.item__text_city}`}>{city}</p>
       <div className={styles.item__buttons}>
-        <EditButton className={style.cities__delete} onClick={openPopup} />
+        <EditButton
+          className={style.cities__delete}
+          onClick={() => handleSetItem(item)}
+        />
         <TrashButton
           className={style.cities__delete}
           onClick={handleDeleteItem}

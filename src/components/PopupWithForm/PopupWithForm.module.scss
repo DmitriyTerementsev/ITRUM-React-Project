@@ -62,7 +62,7 @@
       appearance: none;
       border: 0;
       color: #c06ecc;
-      width: 78px;
+      width: 200px;
       margin-top: 18px;
     }
   }
@@ -123,28 +123,14 @@
       width: 240px;
     }
 
-    &[type='file'] {
-      appearance: none;
-      opacity: 0;
-      filter: alpha(opacity=0);
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 600px;
-      z-index: 2;
-      cursor: pointer;
+    &_upload {
+      position: relative;
     }
 
-    &[type='email'] {
-      border: 0;
-      appearance: none;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      white-space: nowrap;
+    &_text {
+      width: 530px;
+      overflow: hidden;
       text-overflow: ellipsis;
-      color: #737680;
-      -o-text-overflow: ellipsis;
     }
   }
 
@@ -162,6 +148,25 @@
   &__option {
     width: 200px;
     height: 56px;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 42px;
+    right: 0;
+  }
+
+  &__text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #737680;
+    margin-top: 8px;
+  }
+
+  &__delete {
+    align-self: center;
+    margin-right: 8px;
   }
 }
 
